@@ -6,7 +6,7 @@ export function Cat({ onClick }) {
   const { nodes, materials } = useGLTF('/textures/cat.glb');
   
   return (
-    <group ref={group} onClick={onClick} dispose={null} scale={0.5} rotation={[-Math.PI/2, 0, -Math.PI/4]}>
+    <group ref={group} onClick={onClick} dispose={null} scale={0.5} rotation={[-Math.PI/2, 0, Math.PI]}>
       {/* Render all the cat object parts */}
       {Object.keys(nodes).filter(key => key.startsWith('Object_')).map((nodeKey) => {
         const node = nodes[nodeKey];
