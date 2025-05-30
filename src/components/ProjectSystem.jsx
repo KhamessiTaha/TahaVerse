@@ -6,48 +6,56 @@ import {
   Text,
   Sparkles,
   Environment,
+  useHelper,
 } from "@react-three/drei";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { gsap } from "gsap";
 
-// Realistic planet data with actual characteristics
+// Enhanced planet data with better visual characteristics
 const PLANET_DATA = {
   mercury: {
     baseColor: "#8c7853",
     emissive: "#8c7853",
     roughness: 0.9,
     metalness: 0.1,
+    
   },
   venus: {
     baseColor: "#ffc649",
     emissive: "#ffc649",
     roughness: 0.8,
     metalness: 0.2,
+    
   },
   earth: {
     baseColor: "#6b93d6",
     emissive: "#4f7942",
     roughness: 0.6,
     metalness: 0.3,
+    
   },
   mars: {
     baseColor: "#cd5c5c",
     emissive: "#8b0000",
     roughness: 0.8,
     metalness: 0.1,
+  
   },
   jupiter: {
     baseColor: "#d8ca9d",
     emissive: "#d2691e",
     roughness: 0.7,
     metalness: 0.2,
+ 
   },
   saturn: {
     baseColor: "#fab27b",
     emissive: "#daa520",
     roughness: 0.6,
     metalness: 0.3,
+   
   },
 };
 
@@ -61,6 +69,7 @@ const Planet = ({
   onClick,
   hasRings = false,
   hasMoons = false,
+  selected = false,
 }) => {
   const ref = useRef();
   const moonRef = useRef();
@@ -69,10 +78,13 @@ const Planet = ({
   const moonAngleRef = useRef(0);
   const [hovered, setHover] = useState(false);
   const [glowIntensity, setGlowIntensity] = useState(0.3);
+  const labelRef = useRef();
 
   const planetData = PLANET_DATA[planetType] || PLANET_DATA.earth;
 
   useFrame((state) => {
+    if (selected) return; // Pause animation when selected
+
     const time = state.clock.getElapsedTime();
 
     // Planet orbit
@@ -105,15 +117,30 @@ const Planet = ({
     setGlowIntensity(0.3 + Math.sin(time * 2) * 0.1);
   });
 
+  // Hide label when selected
+  useEffect(() => {
+    if (labelRef.current) {
+      labelRef.current.style.visibility = selected ? "hidden" : "visible";
+    }
+  }, [selected]);
+
   return (
     <group>
       {/* Main Planet */}
       <mesh
         ref={ref}
-        onClick={onClick}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-        scale={hovered ? [1.2, 1.2, 1.2] : [1, 1, 1]}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          if (!selected) setHover(true);
+        }}
+        onPointerOut={() => {
+          if (!selected) setHover(false);
+        }}
+        scale={hovered && !selected ? [1.2, 1.2, 1.2] : [1, 1, 1]}
         castShadow
         receiveShadow
       >
@@ -121,29 +148,32 @@ const Planet = ({
         <meshStandardMaterial
           color={planetData.baseColor}
           emissive={planetData.emissive}
-          emissiveIntensity={glowIntensity}
+          emissiveIntensity={selected ? 0.8 : glowIntensity}
           roughness={planetData.roughness}
           metalness={planetData.metalness}
-          transparent
-          opacity={hovered ? 0.95 : 1}
         />
 
         {/* Planet Atmosphere Glow */}
         <mesh scale={[1.1, 1.1, 1.1]}>
           <sphereGeometry args={[size, 32, 32]} />
           <meshBasicMaterial
-            color={planetData.emissive}
+            color={planetData.atmosphere}
             transparent
-            opacity={hovered ? 0.15 : 0.08}
+            opacity={hovered && !selected ? 0.15 : 0.08}
             side={THREE.BackSide}
           />
         </mesh>
 
         {/* Planet Label */}
         <Html
+          ref={labelRef}
           distanceFactor={12}
           center
-          style={{ pointerEvents: "none" }}
+          style={{
+            pointerEvents: "none",
+            transition: "all 0.3s ease",
+            opacity: hovered && !selected ? 1 : 0.8,
+          }}
           occlude={false}
           transform={false}
           sprite={false}
@@ -151,7 +181,7 @@ const Planet = ({
           <div
             className={`text-sm font-bold text-center px-3 py-2 rounded-full transition-all duration-200 text-white shadow-lg border pointer-events-none
             ${
-              hovered
+              hovered && !selected
                 ? "bg-gradient-to-r from-cyan-500/40 to-purple-500/40 backdrop-blur-md scale-105 border-cyan-400/60"
                 : "bg-black/50 backdrop-blur-sm border-white/30"
             }`}
@@ -160,7 +190,7 @@ const Planet = ({
           </div>
         </Html>
 
-        {hovered && (
+        {hovered && !selected && (
           <>
             <Text
               position={[0, size + 1.2, 0]}
@@ -289,11 +319,11 @@ const Sun = () => {
   );
 };
 
-const AsteroidBelt = () => {
+const AsteroidBelt = ({ visible = true }) => {
   const groupRef = useRef();
 
   useFrame(() => {
-    if (groupRef.current) {
+    if (groupRef.current && visible) {
       groupRef.current.rotation.y += 0.001;
     }
   });
@@ -309,7 +339,7 @@ const AsteroidBelt = () => {
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} visible={visible}>
       {asteroids.map((asteroid, i) => (
         <mesh
           key={i}
@@ -328,6 +358,8 @@ const ProjectSystem = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [cameraTarget, setCameraTarget] = useState([0, 0, 0]);
   const controlsRef = useRef();
+  const modalRef = useRef();
+  const canvasRef = useRef();
 
   const projects = [
     {
@@ -481,13 +513,63 @@ const ProjectSystem = () => {
   ];
 
   const handlePlanetClick = (project) => {
-    setSelectedProject(project);
     // Calculate planet position for camera focus
     const angle = project.initialAngle;
     const x = Math.cos(angle) * project.orbitRadius;
     const z = Math.sin(angle) * project.orbitRadius;
     setCameraTarget([x, 0, z]);
+
+    // Smooth camera transition
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = false;
+      controlsRef.current.target.set(x, 0, z);
+    }
+
+    // Animate modal entrance
+    setSelectedProject(project);
+    if (modalRef.current) {
+      gsap.from(modalRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 0.5,
+        ease: "power3.out",
+      });
+    }
   };
+
+  const closeModal = () => {
+    // Animate modal exit
+    if (modalRef.current) {
+      gsap.to(modalRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => {
+          setSelectedProject(null);
+          if (controlsRef.current) {
+            controlsRef.current.autoRotate = true;
+          }
+        },
+      });
+    } else {
+      setSelectedProject(null);
+      if (controlsRef.current) {
+        controlsRef.current.autoRotate = true;
+      }
+    }
+  };
+
+  // Close modal on ESC key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && selectedProject) {
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject]);
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
@@ -495,6 +577,7 @@ const ProjectSystem = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black"></div>
 
       <Canvas
+        ref={canvasRef}
         camera={{ position: [0, 20, 45], fov: 65 }}
         shadows
         gl={{
@@ -576,7 +659,7 @@ const ProjectSystem = () => {
           </mesh>
 
           <Sun />
-          <AsteroidBelt />
+          <AsteroidBelt visible={!selectedProject} />
 
           {/* Enhanced Orbit Paths */}
           {projects.map((project, index) => (
@@ -620,6 +703,7 @@ const ProjectSystem = () => {
               key={index}
               {...project}
               onClick={() => handlePlanetClick(project)}
+              selected={selectedProject?.name === project.name}
             />
           ))}
 
@@ -645,10 +729,16 @@ const ProjectSystem = () => {
 
       {/* Enhanced Project Modal */}
       {selectedProject && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-10 backdrop-blur-md">
+        <div
+          ref={modalRef}
+          className="absolute inset-0 flex items-center justify-center bg-black/90 z-10 backdrop-blur-md"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeModal();
+          }}
+        >
           <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/30 to-gray-900/95 border border-cyan-500/50 rounded-2xl p-8 max-w-4xl w-[90%] relative backdrop-blur-xl shadow-2xl">
             <button
-              onClick={() => setSelectedProject(null)}
+              onClick={closeModal}
               className="absolute top-6 right-6 text-gray-400 hover:text-white transition-all text-3xl hover:rotate-90 duration-300"
             >
               ×
@@ -698,29 +788,63 @@ const ProjectSystem = () => {
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <a
-                href={selectedProject.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                <span className="font-semibold">Launch Project</span>
+            <div className="flex flex-wrap gap-4">
+              {selectedProject.link !== "#" && (
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  <span className="font-semibold">Launch Project</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 ml-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                  </svg>
+                </a>
+              )}
+              {selectedProject.ghLink && (
+                <a
+                  href={selectedProject.ghLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-3 border-2 border-cyan-400/50 text-cyan-400 rounded-xl hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 font-semibold"
+                >
+                  <span>View Source Code</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 ml-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              )}
+              <button className="inline-flex items-center px-6 py-3 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 transition-all duration-300 transform hover:scale-105 font-semibold">
+                <span>Case Study</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 ml-2"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                  <path
+                    fillRule="evenodd"
+                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
-              </a>
-              <button className="px-8 py-4 border-2 border-cyan-400/50 text-cyan-400 rounded-xl hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 font-semibold">
-                View Source Code
-              </button>
-              <button className="px-8 py-4 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 transition-all duration-300 transform hover:scale-105 font-semibold">
-                Case Study
               </button>
             </div>
           </div>
@@ -729,7 +853,7 @@ const ProjectSystem = () => {
 
       {/* UI Overlay */}
       <div className="absolute top-6 left-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Space Portfolio
           </h1>
@@ -740,9 +864,9 @@ const ProjectSystem = () => {
       </div>
 
       <div className="absolute bottom-6 right-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-3 text-xs text-gray-400">
+        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
           <div>🖱️ Drag to rotate • 🔍 Scroll to zoom</div>
-          <div>🪐 Click planets to explore</div>
+          <div>🪐 Click planets to explore • ESC to close</div>
         </div>
       </div>
     </div>
