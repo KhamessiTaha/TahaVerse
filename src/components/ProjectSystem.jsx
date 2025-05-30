@@ -72,6 +72,7 @@ const Planet = ({
   hasMoons = false,
   selected = false,
   showLabels = true,
+  featured = false,
 }) => {
   const ref = useRef();
   const moonRef = useRef();
@@ -129,6 +130,16 @@ const Planet = ({
   return (
     <group>
       {/* Main Planet */}
+      {featured && (
+        <Sparkles
+          count={30}
+          scale={size * 3}
+          size={3}
+          speed={0.5}
+          color="#ffffff"
+          opacity={1}
+        />
+      )}
       <mesh
         ref={ref}
         onClick={(e) => {
@@ -154,7 +165,17 @@ const Planet = ({
           roughness={planetData.roughness}
           metalness={planetData.metalness}
         />
-
+        {featured && (
+          <mesh scale={[1.3, 1.3, 1.3]}>
+            <sphereGeometry args={[size, 32, 32]} />
+            <meshBasicMaterial
+              color="#00ffff"
+              transparent
+              opacity={0.1}
+              side={THREE.BackSide}
+            />
+          </mesh>
+        )}
         {/* Planet Atmosphere Glow */}
         <mesh scale={[1.1, 1.1, 1.1]}>
           <sphereGeometry args={[size, 32, 32]} />
@@ -364,6 +385,7 @@ const ProjectSystem = () => {
       initialAngle: 0,
       planetType: "earth",
       hasMoons: true,
+      featured: true,
       description:
         "An immersive project that brings the cosmos to your screen. This interactive web application creates a stunning visualization of our solar system and tracks Near-Earth Objects in real-time, featuring accurate astronomical data and mesmerizing 3D renders of celestial bodies. Recognized as a Global Finalist for the 2024 NASA International Space Apps Challenge.",
       link: "https://cosmicvue.netlify.app/",
@@ -379,6 +401,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI / 2,
       planetType: "saturn",
       hasRings: true,
+      featured: true,
       description:
         "A scientifically grounded space simulation game where players explore a procedurally generated universe, stabilize cosmic anomalies, and influence the fate of entire galaxies. Built with Phaser.js and inspired by real astrophysics, EternaVerse challenges players to maintain universal balance in an ever-evolving cosmos.",
       link: "https://eternaverse.demo.com",
@@ -392,6 +415,7 @@ const ProjectSystem = () => {
       size: 1.4,
       initialAngle: Math.PI,
       planetType: "mars",
+      featured: true,
       description:
         "A cutting-edge AI solution that transforms automotive analysis. This deep learning system combines computer vision and machine learning to instantly classify vehicles and predict market values from images, powered by TensorFlow and delivered through a sleek Flutter mobile app with Node.js backend.",
       link: "#",
@@ -410,6 +434,7 @@ const ProjectSystem = () => {
       orbitRadius: 20,
       speed: 0.006,
       size: 1.3,
+      featured: true,
       initialAngle: Math.PI * 1.5,
       planetType: "venus",
       description:
@@ -508,6 +533,7 @@ const ProjectSystem = () => {
 
   const handlePlanetClick = (project) => {
     // Calculate planet position for camera focus
+    
     const angle = project.initialAngle;
     const x = Math.cos(angle) * project.orbitRadius;
     const z = Math.sin(angle) * project.orbitRadius;
@@ -757,125 +783,237 @@ const ProjectSystem = () => {
             minPolarAngle={0}
           />
           {!selectedProject && (
-  <group position={[50, -10, -100]} rotation={[0, Math.PI/4, 0]}>
-    <Cat 
-      onClick={() => {
-        // Epic Quantum Cat Easter Egg
-        const canvas = canvasRef.current;
-        const body = document.body;
-        
-        // Store original values
-        const originalBodyBg = body.style.backgroundColor;
-        
-        // Phase 1: Reality Glitch
-        gsap.timeline()
-          .to(canvas, {
-            duration: 0.1,
-            scale: 1.2,
-            ease: "power2.out"
-          })
-          .to(body, {
-            duration: 0.1,
-            backgroundColor: '#ff00ff',
-            ease: "none"
-          }, 0)
-          
-          // Phase 2: Matrix Effect
-          .to(canvas, {
-            duration: 0.2,
-            rotationY: 360,
-            ease: "power1.inOut"
-          })
-          .to(body, {
-            duration: 0.05,
-            backgroundColor: '#00ff00',
-            repeat: 3,
-            yoyo: true,
-            ease: "none"
-          }, 0.1)
-          
-          // Phase 3: Cosmic Flash
-          .to(body, {
-            duration: 0.3,
-            backgroundColor: 'white',
-            ease: "power2.out"
-          })
-          .to(canvas, {
-            duration: 0.3,
-            scale: 0.8,
-            ease: "elastic.out(1, 0.5)"
-          }, "<")
-          
-          // Phase 4: Quantum Chaos
-          .add(() => {
-            // Randomly teleport all planets with chaos
-            projects.forEach((project, i) => {
-              const randomAngle = Math.random() * Math.PI * 2;
-              const randomRadius = 20 + Math.random() * 30;
-              
-              // Chaotic movement
-              gsap.to(project, {
-                duration: 0.5 + Math.random() * 0.5,
-                initialAngle: randomAngle,
-                ease: "back.out(2)",
-                delay: Math.random() * 0.3
-              });
-              
-              // Temporary color flash for each planet
-              if (project.ref?.current) {
-                gsap.to(project.ref.current.material, {
-                  duration: 0.2,
-                  emissive: new THREE.Color(Math.random(), Math.random(), Math.random()),
-                  emissiveIntensity: 0.5,
-                  yoyo: true,
-                  repeat: 1,
-                  delay: i * 0.1
-                });
-              }
-            });
-          })
-          
-          // Phase 5: Reality Restoration
-          .to(body, {
-            duration: 0.5,
-            backgroundColor: originalBodyBg || 'black',
-            ease: "power2.inOut",
-            delay: 0.5
-          })
-          .to(canvas, {
-            duration: 0.5,
-            scale: 1,
-            rotationY: 0,
-            ease: "elastic.out(1, 0.3)"
-          }, "<")
-          
-          // Phase 6: Cat Celebration
-          .add(() => {
-            // Make the cat do a little victory dance
-            const catGroup = canvas.querySelector('[data-cat="true"]');
-            if (catGroup) {
-              gsap.timeline()
-                .to(catGroup.position, {
-                  duration: 0.3,
-                  y: catGroup.position.y + 5,
-                  ease: "power2.out"
-                })
-                .to(catGroup.rotation, {
-                  duration: 0.3,
-                  y: catGroup.rotation.y + Math.PI * 2,
-                  ease: "power1.inOut"
-                }, 0)
-                .to(catGroup.position, {
-                  duration: 0.3,
-                  y: catGroup.position.y,
-                  ease: "bounce.out"
-                });
-            }
-            
-            // Particle explosion effect
-            for (let i = 0; i < 50; i++) {
-              const particle = document.createElement('div');
-              particle.style.cssText = `
+            <group position={[50, -10, -100]} rotation={[0, Math.PI / 4, 0]}>
+              <Cat
+                onClick={() => {
+                  // Epic Quantum Cat Easter Egg
+                  const canvas = canvasRef.current;
+                  const body = document.body;
+
+                  // Store original values
+                  const originalBodyBg = body.style.backgroundColor;
+
+                  // Phase 1: Reality Glitch
+                  gsap
+                    .timeline()
+                    .to(canvas, {
+                      duration: 0.1,
+                      scale: 1.2,
+                      ease: "power2.out",
+                    })
+                    .to(
+                      body,
+                      {
+                        duration: 0.1,
+                        backgroundColor: "#ff00ff",
+                        ease: "none",
+                      },
+                      0
+                    )
+
+                    // Phase 2: Matrix Effect
+                    .to(canvas, {
+                      duration: 0.2,
+                      rotationY: 360,
+                      ease: "power1.inOut",
+                    })
+                    .to(
+                      body,
+                      {
+                        duration: 0.05,
+                        backgroundColor: "#00ff00",
+                        repeat: 3,
+                        yoyo: true,
+                        ease: "none",
+                      },
+                      0.1
+                    )
+
+                    // Phase 3: Cosmic Flash
+                    .to(body, {
+                      duration: 0.3,
+                      backgroundColor: "white",
+                      ease: "power2.out",
+                    })
+                    .to(
+                      canvas,
+                      {
+                        duration: 0.3,
+                        scale: 0.8,
+                        ease: "elastic.out(1, 0.5)",
+                      },
+                      "<"
+                    )
+
+                    // Phase 4: Quantum Chaos
+                    .add(() => {
+                      // Randomly teleport all planets with chaos
+                      projects.forEach((project, i) => {
+                        const randomAngle = Math.random() * Math.PI * 2;
+                        const randomRadius = 20 + Math.random() * 30;
+
+                        // Chaotic movement
+                        gsap.to(project, {
+                          duration: 0.5 + Math.random() * 0.5,
+                          initialAngle: randomAngle,
+                          ease: "back.out(2)",
+                          delay: Math.random() * 0.3,
+                        });
+
+                        // Temporary color flash for each planet
+                        if (project.ref?.current) {
+                          gsap.to(project.ref.current.material, {
+                            duration: 0.2,
+                            emissive: new THREE.Color(
+                              Math.random(),
+                              Math.random(),
+                              Math.random()
+                            ),
+                            emissiveIntensity: 0.5,
+                            yoyo: true,
+                            repeat: 1,
+                            delay: i * 0.1,
+                          });
+                        }
+                      });
+                    })
+
+                    // Phase 5: Reality Restoration
+                    .to(body, {
+                      duration: 0.5,
+                      backgroundColor: originalBodyBg || "black",
+                      ease: "power2.inOut",
+                      delay: 0.5,
+                    })
+                    .to(
+                      canvas,
+                      {
+                        duration: 0.5,
+                        scale: 1,
+                        rotationY: 0,
+                        ease: "elastic.out(1, 0.3)",
+                      },
+                      "<"
+                    )
+
+                    // Phase 6: Cat Celebration + Epic Text
+                    .add(() => {
+                      // Make the cat do a little victory dance
+                      const catGroup =
+                        canvas.querySelector('[data-cat="true"]');
+                      if (catGroup) {
+                        gsap
+                          .timeline()
+                          .to(catGroup.position, {
+                            duration: 0.3,
+                            y: catGroup.position.y + 5,
+                            ease: "power2.out",
+                          })
+                          .to(
+                            catGroup.rotation,
+                            {
+                              duration: 0.3,
+                              y: catGroup.rotation.y + Math.PI * 2,
+                              ease: "power1.inOut",
+                            },
+                            0
+                          )
+                          .to(catGroup.position, {
+                            duration: 0.3,
+                            y: catGroup.position.y,
+                            ease: "bounce.out",
+                          });
+                      }
+
+                      // Epic Quantum Text Overlay
+                      const quantumTexts = [
+                        "🐱 SCHRÖDINGER'S CAT ACTIVATED",
+                        "⚛️ QUANTUM SUPERPOSITION ACHIEVED",
+                        "🌌 REALITY.EXE HAS STOPPED WORKING",
+                        "🎭 MULTIVERSE COLLISION DETECTED",
+                        "🔮 PROBABILITY WAVES COLLAPSED",
+                        "🌟 EASTER EGG SINGULARITY BREACH",
+                      ];
+
+                      const randomText =
+                        quantumTexts[
+                          Math.floor(Math.random() * quantumTexts.length)
+                        ];
+
+                      const textOverlay = document.createElement("div");
+                      textOverlay.style.cssText = `
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-family: 'Courier New', monospace;
+              font-size: clamp(24px, 4vw, 48px);
+              font-weight: bold;
+              color: #ffffff;
+              text-shadow: 
+                0 0 10px #00d4ff,
+                0 0 20px #00d4ff,
+                0 0 30px #0088ff;
+              background: rgba(0, 0, 0, 0.9);
+              padding: 20px 40px;
+              border: 2px solid #00d4ff;
+              border-radius: 10px;
+              backdrop-filter: blur(10px);
+              z-index: 10000;
+              pointer-events: none;
+              white-space: nowrap;
+              letter-spacing: 2px;
+              text-align: center;
+              box-shadow: 
+                0 0 20px rgba(0, 212, 255, 0.4),
+                inset 0 0 20px rgba(0, 212, 255, 0.1);
+            `;
+                      textOverlay.textContent = randomText;
+                      document.body.appendChild(textOverlay);
+
+                      // Text animation
+                      gsap.fromTo(
+                        textOverlay,
+                        {
+                          scale: 0,
+                          rotation: -10,
+                          opacity: 0,
+                        },
+                        {
+                          duration: 0.5,
+                          scale: 1,
+                          rotation: 0,
+                          opacity: 1,
+                          ease: "back.out(2)",
+                        }
+                      );
+
+                      // Glitch effect on text (reduced intensity)
+                      const glitchInterval = setInterval(() => {
+                        textOverlay.style.transform = `translate(-50%, -50%) translate(${
+                          Math.random() * 2 - 1
+                        }px, ${Math.random() * 2 - 1}px)`;
+                        textOverlay.style.color =
+                          Math.random() > 0.7 ? "#00d4ff" : "#ffffff";
+                      }, 150);
+
+                      // Remove text after 3 seconds
+                      setTimeout(() => {
+                        clearInterval(glitchInterval);
+                        gsap.to(textOverlay, {
+                          duration: 0.5,
+                          scale: 0,
+                          opacity: 0,
+                          y: -50,
+                          ease: "power2.in",
+                          onComplete: () => textOverlay.remove(),
+                        });
+                      }, 3000);
+
+                      // Particle explosion effect
+                      for (let i = 0; i < 50; i++) {
+                        const particle = document.createElement("div");
+                        particle.style.cssText = `
                 position: fixed;
                 width: 4px;
                 height: 4px;
@@ -886,23 +1024,23 @@ const ProjectSystem = () => {
                 left: 50%;
                 top: 50%;
               `;
-              document.body.appendChild(particle);
-              
-              gsap.to(particle, {
-                duration: 1,
-                x: (Math.random() - 0.5) * window.innerWidth,
-                y: (Math.random() - 0.5) * window.innerHeight,
-                opacity: 0,
-                scale: 0,
-                ease: "power2.out",
-                onComplete: () => particle.remove()
-              });
-            }
-          }, 0.8);
-      }}
-    />
-  </group>
-)}
+                        document.body.appendChild(particle);
+
+                        gsap.to(particle, {
+                          duration: 1,
+                          x: (Math.random() - 0.5) * window.innerWidth,
+                          y: (Math.random() - 0.5) * window.innerHeight,
+                          opacity: 0,
+                          scale: 0,
+                          ease: "power2.out",
+                          onComplete: () => particle.remove(),
+                        });
+                      }
+                    }, 0.8);
+                }}
+              />
+            </group>
+          )}
         </Suspense>
       </Canvas>
 
