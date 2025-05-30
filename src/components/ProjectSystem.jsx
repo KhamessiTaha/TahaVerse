@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber";
+import { Cat } from "./Cat";
 import {
   OrbitControls,
   Stars,
@@ -307,8 +308,7 @@ const Sun = () => {
         center
         style={{ pointerEvents: "none" }}
         occlude={false}
-      >
-      </Html>
+      ></Html>
     </group>
   );
 };
@@ -624,39 +624,39 @@ const ProjectSystem = () => {
           />
 
           <group>
-  {/* Main starfield */}
-  <Stars
-    radius={300}
-    depth={100}
-    count={8000}
-    factor={8}
-    saturation={0.8}
-    fade
-    speed={0.5}
-  />
-  
-  {/* Additional star layers for better coverage */}
-  <Stars
-    radius={200}
-    depth={50}
-    count={2000}
-    factor={4}
-    saturation={0}
-    fade
-    speed={0.2}
-    position={[0, 0, 100]}
-  />
-  <Stars
-    radius={400}
-    depth={150}
-    count={3000}
-    factor={6}
-    saturation={0.5}
-    fade
-    speed={0.8}
-    position={[0, 100, 0]}
-  />
-</group>
+            {/* Main starfield */}
+            <Stars
+              radius={300}
+              depth={100}
+              count={8000}
+              factor={8}
+              saturation={0.8}
+              fade
+              speed={0.5}
+            />
+
+            {/* Additional star layers for better coverage */}
+            <Stars
+              radius={200}
+              depth={50}
+              count={2000}
+              factor={4}
+              saturation={0}
+              fade
+              speed={0.2}
+              position={[0, 0, 100]}
+            />
+            <Stars
+              radius={400}
+              depth={150}
+              count={3000}
+              factor={6}
+              saturation={0.5}
+              fade
+              speed={0.8}
+              position={[0, 100, 0]}
+            />
+          </group>
 
           {/* Multiple Nebula Layers for better coverage */}
           <mesh>
@@ -756,6 +756,29 @@ const ProjectSystem = () => {
             maxPolarAngle={Math.PI}
             minPolarAngle={0}
           />
+          {!selectedProject && (
+            <group position={[50, -10, -100]} rotation={[0, Math.PI / 4, 0]}>
+              <Cat
+                onClick={() => {
+                  // Quantum superposition effect
+                  gsap.to(canvasRef.current, {
+                    duration: 1,
+                    onStart: () => {
+                      // Flash effect
+                      document.body.style.backgroundColor = "white";
+                    },
+                    onComplete: () => {
+                      document.body.style.backgroundColor = "black";
+                      // Randomly teleport all planets
+                      projects.forEach((project, i) => {
+                        project.initialAngle = Math.random() * Math.PI * 2;
+                      });
+                    },
+                  });
+                }}
+              />
+            </group>
+          )}
         </Suspense>
       </Canvas>
 
