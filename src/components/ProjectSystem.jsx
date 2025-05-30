@@ -20,42 +20,42 @@ const PLANET_DATA = {
     emissive: "#8c7853",
     roughness: 0.9,
     metalness: 0.1,
-    
+    atmosphere: "#8c7853",
   },
   venus: {
     baseColor: "#ffc649",
     emissive: "#ffc649",
     roughness: 0.8,
     metalness: 0.2,
-    
+    atmosphere: "#ffc649",
   },
   earth: {
     baseColor: "#6b93d6",
     emissive: "#4f7942",
     roughness: 0.6,
     metalness: 0.3,
-    
+    atmosphere: "#6b93d6",
   },
   mars: {
     baseColor: "#cd5c5c",
     emissive: "#8b0000",
     roughness: 0.8,
     metalness: 0.1,
-  
+    atmosphere: "#cd5c5c",
   },
   jupiter: {
     baseColor: "#d8ca9d",
     emissive: "#d2691e",
     roughness: 0.7,
     metalness: 0.2,
- 
+    atmosphere: "#d8ca9d",
   },
   saturn: {
     baseColor: "#fab27b",
     emissive: "#daa520",
     roughness: 0.6,
     metalness: 0.3,
-   
+    atmosphere: "#fab27b",
   },
 };
 
@@ -70,6 +70,7 @@ const Planet = ({
   hasRings = false,
   hasMoons = false,
   selected = false,
+  showLabels = true,
 }) => {
   const ref = useRef();
   const moonRef = useRef();
@@ -117,12 +118,12 @@ const Planet = ({
     setGlowIntensity(0.3 + Math.sin(time * 2) * 0.1);
   });
 
-  // Hide label when selected
+  // Hide label when selected or hovered
   useEffect(() => {
     if (labelRef.current) {
       labelRef.current.style.visibility = selected ? "hidden" : "visible";
     }
-  }, [selected]);
+  }, [selected, hovered]);
 
   return (
     <group>
@@ -165,30 +166,33 @@ const Planet = ({
         </mesh>
 
         {/* Planet Label */}
-        <Html
-          ref={labelRef}
-          distanceFactor={12}
-          center
-          style={{
-            pointerEvents: "none",
-            transition: "all 0.3s ease",
-            opacity: hovered && !selected ? 1 : 0.8,
-          }}
-          occlude={false}
-          transform={false}
-          sprite={false}
-        >
-          <div
-            className={`text-sm font-bold text-center px-3 py-2 rounded-full transition-all duration-200 text-white shadow-lg border pointer-events-none
-            ${
-              hovered && !selected
-                ? "bg-gradient-to-r from-cyan-500/40 to-purple-500/40 backdrop-blur-md scale-105 border-cyan-400/60"
-                : "bg-black/50 backdrop-blur-sm border-white/30"
-            }`}
+        {showLabels && !selected && (
+          <Html
+            ref={labelRef}
+            distanceFactor={12}
+            center
+            style={{
+              pointerEvents: "none",
+              transition: "all 0.3s ease",
+              opacity: hovered ? 1 : 0.8,
+              visibility: hovered ? "visible" : "visible",
+            }}
+            occlude={false}
+            transform={false}
+            sprite={false}
           >
-            {name}
-          </div>
-        </Html>
+            <div
+              className={`text-sm font-bold text-center px-3 py-2 rounded-full transition-all duration-200 text-white shadow-lg border pointer-events-none
+              ${
+                hovered
+                  ? "bg-gradient-to-r from-cyan-500/40 to-purple-500/40 backdrop-blur-md scale-105 border-cyan-400/60"
+                  : "bg-black/50 backdrop-blur-sm border-white/30"
+              }`}
+            >
+              {name}
+            </div>
+          </Html>
+        )}
 
         {hovered && !selected && (
           <>
@@ -299,21 +303,11 @@ const Sun = () => {
       />
 
       <Html
-        distanceFactor={25}
+        distanceFactor={20} // Reduced from 25 for better proportion
         center
         style={{ pointerEvents: "none" }}
         occlude={false}
       >
-        <div
-          className={`text-2xl font-bold text-center px-6 py-3 rounded-full transition-all duration-300 shadow-2xl pointer-events-none
-          ${
-            hovered
-              ? "bg-gradient-to-r from-orange-500/40 to-red-500/40 backdrop-blur-md text-orange-200 scale-105"
-              : "bg-black/50 backdrop-blur-sm text-yellow-200"
-          }`}
-        >
-          🌟 TahaVerse
-        </div>
       </Html>
     </group>
   );
@@ -522,7 +516,16 @@ const ProjectSystem = () => {
     // Smooth camera transition
     if (controlsRef.current) {
       controlsRef.current.autoRotate = false;
-      controlsRef.current.target.set(x, 0, z);
+      gsap.to(controlsRef.current.target, {
+        x,
+        y: 0,
+        z,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          controlsRef.current.update();
+        },
+      });
     }
 
     // Animate modal entrance
@@ -549,6 +552,8 @@ const ProjectSystem = () => {
           setSelectedProject(null);
           if (controlsRef.current) {
             controlsRef.current.autoRotate = true;
+            controlsRef.current.target.set(0, 0, 0);
+            controlsRef.current.update();
           }
         },
       });
@@ -556,6 +561,8 @@ const ProjectSystem = () => {
       setSelectedProject(null);
       if (controlsRef.current) {
         controlsRef.current.autoRotate = true;
+        controlsRef.current.target.set(0, 0, 0);
+        controlsRef.current.update();
       }
     }
   };
@@ -605,7 +612,7 @@ const ProjectSystem = () => {
             intensity={2}
             color="#ffffff"
             castShadow
-            shadow-mapSize={[4096, 4096]}
+            shadow-mapSize={[2048, 2048]} // Reduced from 4096 for performance
           />
           <spotLight
             position={[-30, 40, -30]}
@@ -620,7 +627,7 @@ const ProjectSystem = () => {
           <Stars
             radius={300}
             depth={200}
-            count={15000}
+            count={10000} // Reduced from 15000 for performance
             factor={6}
             saturation={0.8}
             fade={false}
@@ -704,6 +711,7 @@ const ProjectSystem = () => {
               {...project}
               onClick={() => handlePlanetClick(project)}
               selected={selectedProject?.name === project.name}
+              showLabels={!selectedProject}
             />
           ))}
 
@@ -731,29 +739,29 @@ const ProjectSystem = () => {
       {selectedProject && (
         <div
           ref={modalRef}
-          className="absolute inset-0 flex items-center justify-center bg-black/90 z-10 backdrop-blur-md"
+          className="absolute inset-0 flex items-center justify-center bg-black/90 z-30 backdrop-blur-md"
           onClick={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
-          <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/30 to-gray-900/95 border border-cyan-500/50 rounded-2xl p-8 max-w-4xl w-[90%] relative backdrop-blur-xl shadow-2xl">
+          <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/30 to-gray-900/95 border border-cyan-500/50 rounded-2xl p-6 md:p-8 max-w-4xl w-[90%] mx-4 relative backdrop-blur-xl shadow-2xl">
             <button
               onClick={closeModal}
-              className="absolute top-6 right-6 text-gray-400 hover:text-white transition-all text-3xl hover:rotate-90 duration-300"
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-white transition-all text-3xl hover:rotate-90 duration-300"
             >
               ×
             </button>
 
-            <div className="flex items-start gap-6 mb-6">
-              <div className="text-6xl">
+            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-4 md:mb-6">
+              <div className="text-4xl md:text-6xl">
                 {selectedProject.name.split(" ")[0]}
               </div>
               <div>
-                <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                <h3 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
                   {selectedProject.name.slice(2)}
                 </h3>
                 <div
-                  className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`inline-block px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium ${
                     selectedProject.status === "Live"
                       ? "bg-green-500/20 text-green-400 border border-green-500/50"
                       : selectedProject.status === "Beta"
@@ -768,19 +776,19 @@ const ProjectSystem = () => {
               </div>
             </div>
 
-            <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+            <p className="text-base md:text-xl text-gray-300 mb-4 md:mb-6 leading-relaxed">
               {selectedProject.description}
             </p>
 
-            <div className="mb-8">
-              <h4 className="text-lg font-semibold text-cyan-300 mb-3">
+            <div className="mb-6 md:mb-8">
+              <h4 className="text-base md:text-lg font-semibold text-cyan-300 mb-2 md:mb-3">
                 Technologies Used:
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 md:gap-2">
                 {selectedProject.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-gray-700/50 border border-gray-600/50 rounded-lg text-sm text-gray-300"
+                    className="px-2 py-1 md:px-3 md:py-1 bg-gray-700/50 border border-gray-600/50 rounded-lg text-xs md:text-sm text-gray-300"
                   >
                     {tech}
                   </span>
@@ -788,18 +796,18 @@ const ProjectSystem = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2 md:gap-4">
               {selectedProject.link !== "#" && (
                 <a
                   href={selectedProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg md:rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm md:text-base"
                 >
                   <span className="font-semibold">Launch Project</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 ml-2"
+                    className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -813,12 +821,12 @@ const ProjectSystem = () => {
                   href={selectedProject.ghLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 border-2 border-cyan-400/50 text-cyan-400 rounded-xl hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 font-semibold"
+                  className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border-2 border-cyan-400/50 text-cyan-400 rounded-lg md:rounded-xl hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 font-semibold text-sm md:text-base"
                 >
                   <span>View Source Code</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 ml-2"
+                    className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -830,11 +838,11 @@ const ProjectSystem = () => {
                   </svg>
                 </a>
               )}
-              <button className="inline-flex items-center px-6 py-3 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 transition-all duration-300 transform hover:scale-105 font-semibold">
+              <button className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border-2 border-purple-400/50 text-purple-400 rounded-lg md:rounded-xl hover:bg-purple-400/10 transition-all duration-300 transform hover:scale-105 font-semibold text-sm md:text-base">
                 <span>Case Study</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 ml-2"
+                  className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -852,19 +860,19 @@ const ProjectSystem = () => {
       )}
 
       {/* UI Overlay */}
-      <div className="absolute top-6 left-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+      <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
+          <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Space Portfolio
           </h1>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs md:text-sm text-gray-400 mt-1">
             Click on planets to explore projects
           </p>
         </div>
       </div>
 
-      <div className="absolute bottom-6 right-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-xl p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
+      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20">
+        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-2 md:p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
           <div>🖱️ Drag to rotate • 🔍 Scroll to zoom</div>
           <div>🪐 Click planets to explore • ESC to close</div>
         </div>
