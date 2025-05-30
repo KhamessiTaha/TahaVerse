@@ -757,28 +757,152 @@ const ProjectSystem = () => {
             minPolarAngle={0}
           />
           {!selectedProject && (
-            <group position={[50, -10, -100]} rotation={[0, Math.PI / 4, 0]}>
-              <Cat
-                onClick={() => {
-                  // Quantum superposition effect
-                  gsap.to(canvasRef.current, {
-                    duration: 1,
-                    onStart: () => {
-                      // Flash effect
-                      document.body.style.backgroundColor = "white";
-                    },
-                    onComplete: () => {
-                      document.body.style.backgroundColor = "black";
-                      // Randomly teleport all planets
-                      projects.forEach((project, i) => {
-                        project.initialAngle = Math.random() * Math.PI * 2;
-                      });
-                    },
-                  });
-                }}
-              />
-            </group>
-          )}
+  <group position={[50, -10, -100]} rotation={[0, Math.PI/4, 0]}>
+    <Cat 
+      onClick={() => {
+        // Epic Quantum Cat Easter Egg
+        const canvas = canvasRef.current;
+        const body = document.body;
+        
+        // Store original values
+        const originalBodyBg = body.style.backgroundColor;
+        
+        // Phase 1: Reality Glitch
+        gsap.timeline()
+          .to(canvas, {
+            duration: 0.1,
+            scale: 1.2,
+            ease: "power2.out"
+          })
+          .to(body, {
+            duration: 0.1,
+            backgroundColor: '#ff00ff',
+            ease: "none"
+          }, 0)
+          
+          // Phase 2: Matrix Effect
+          .to(canvas, {
+            duration: 0.2,
+            rotationY: 360,
+            ease: "power1.inOut"
+          })
+          .to(body, {
+            duration: 0.05,
+            backgroundColor: '#00ff00',
+            repeat: 3,
+            yoyo: true,
+            ease: "none"
+          }, 0.1)
+          
+          // Phase 3: Cosmic Flash
+          .to(body, {
+            duration: 0.3,
+            backgroundColor: 'white',
+            ease: "power2.out"
+          })
+          .to(canvas, {
+            duration: 0.3,
+            scale: 0.8,
+            ease: "elastic.out(1, 0.5)"
+          }, "<")
+          
+          // Phase 4: Quantum Chaos
+          .add(() => {
+            // Randomly teleport all planets with chaos
+            projects.forEach((project, i) => {
+              const randomAngle = Math.random() * Math.PI * 2;
+              const randomRadius = 20 + Math.random() * 30;
+              
+              // Chaotic movement
+              gsap.to(project, {
+                duration: 0.5 + Math.random() * 0.5,
+                initialAngle: randomAngle,
+                ease: "back.out(2)",
+                delay: Math.random() * 0.3
+              });
+              
+              // Temporary color flash for each planet
+              if (project.ref?.current) {
+                gsap.to(project.ref.current.material, {
+                  duration: 0.2,
+                  emissive: new THREE.Color(Math.random(), Math.random(), Math.random()),
+                  emissiveIntensity: 0.5,
+                  yoyo: true,
+                  repeat: 1,
+                  delay: i * 0.1
+                });
+              }
+            });
+          })
+          
+          // Phase 5: Reality Restoration
+          .to(body, {
+            duration: 0.5,
+            backgroundColor: originalBodyBg || 'black',
+            ease: "power2.inOut",
+            delay: 0.5
+          })
+          .to(canvas, {
+            duration: 0.5,
+            scale: 1,
+            rotationY: 0,
+            ease: "elastic.out(1, 0.3)"
+          }, "<")
+          
+          // Phase 6: Cat Celebration
+          .add(() => {
+            // Make the cat do a little victory dance
+            const catGroup = canvas.querySelector('[data-cat="true"]');
+            if (catGroup) {
+              gsap.timeline()
+                .to(catGroup.position, {
+                  duration: 0.3,
+                  y: catGroup.position.y + 5,
+                  ease: "power2.out"
+                })
+                .to(catGroup.rotation, {
+                  duration: 0.3,
+                  y: catGroup.rotation.y + Math.PI * 2,
+                  ease: "power1.inOut"
+                }, 0)
+                .to(catGroup.position, {
+                  duration: 0.3,
+                  y: catGroup.position.y,
+                  ease: "bounce.out"
+                });
+            }
+            
+            // Particle explosion effect
+            for (let i = 0; i < 50; i++) {
+              const particle = document.createElement('div');
+              particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: hsl(${Math.random() * 360}, 100%, 50%);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10000;
+                left: 50%;
+                top: 50%;
+              `;
+              document.body.appendChild(particle);
+              
+              gsap.to(particle, {
+                duration: 1,
+                x: (Math.random() - 0.5) * window.innerWidth,
+                y: (Math.random() - 0.5) * window.innerHeight,
+                opacity: 0,
+                scale: 0,
+                ease: "power2.out",
+                onComplete: () => particle.remove()
+              });
+            }
+          }, 0.8);
+      }}
+    />
+  </group>
+)}
         </Suspense>
       </Canvas>
 
