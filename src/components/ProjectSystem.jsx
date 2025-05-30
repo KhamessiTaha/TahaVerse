@@ -296,7 +296,7 @@ const Sun = () => {
       {/* Sun Flares */}
       <Sparkles
         count={100}
-        scale={[12, 12, 12]}
+        scale={[10, 10, 10]}
         size={4}
         speed={1.2}
         color="#ffaa00"
@@ -322,8 +322,8 @@ const AsteroidBelt = ({ visible = true }) => {
     }
   });
 
-  const asteroids = Array.from({ length: 200 }, (_, i) => {
-    const radius = 22 + Math.random() * 4;
+  const asteroids = Array.from({ length: 300 }, (_, i) => {
+    const radius = 20 + Math.random() * 4;
     const angle = (i / 200) * Math.PI * 2;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
@@ -623,16 +623,40 @@ const ProjectSystem = () => {
             castShadow
           />
 
-          {/* Enhanced Starfield - Always visible */}
-          <Stars
-            radius={300}
-            depth={200}
-            count={10000} // Reduced from 15000 for performance
-            factor={6}
-            saturation={0.8}
-            fade={false}
-            speed={0.2}
-          />
+          <group>
+  {/* Main starfield */}
+  <Stars
+    radius={300}
+    depth={100}
+    count={8000}
+    factor={8}
+    saturation={0.8}
+    fade
+    speed={0.5}
+  />
+  
+  {/* Additional star layers for better coverage */}
+  <Stars
+    radius={200}
+    depth={50}
+    count={2000}
+    factor={4}
+    saturation={0}
+    fade
+    speed={0.2}
+    position={[0, 0, 100]}
+  />
+  <Stars
+    radius={400}
+    depth={150}
+    count={3000}
+    factor={6}
+    saturation={0.5}
+    fade
+    speed={0.8}
+    position={[0, 100, 0]}
+  />
+</group>
 
           {/* Multiple Nebula Layers for better coverage */}
           <mesh>
