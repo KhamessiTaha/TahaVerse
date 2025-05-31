@@ -2,26 +2,24 @@ import { Canvas } from "@react-three/fiber";
 import { Cat } from "./Cat";
 import {
   OrbitControls,
-  Stars,
   Html,
   Text,
   Sparkles,
   Environment,
   useTexture,
-  useHelper,
 } from "@react-three/drei";
-import { Suspense, useRef, useState, useEffect } from "react";
+import { Suspense, useRef, useState, useEffect, memo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { gsap } from "gsap";
 
 const SKYBOX_TEXTURES = [
-  'skybox/px.png', // right
-  'skybox/nx.png', // left
-  'skybox/py.png', // top
-  'skybox/ny.png', // bottom
-  'skybox/pz.png', // front
-  'skybox/nz.png'  // back
+  "skybox/px.png", // right
+  "skybox/nx.png", // left
+  "skybox/py.png", // top
+  "skybox/ny.png", // bottom
+  "skybox/pz.png", // front
+  "skybox/nz.png", // back
 ];
 
 // Enhanced planet data with better visual characteristics
@@ -82,215 +80,217 @@ const Skybox = () => {
   return <scene ref={sceneRef} />;
 };
 
-const Planet = ({
-  orbitRadius = 10,
-  speed = 0.01,
-  size = 1,
-  name,
-  initialAngle = 0,
-  planetType = "earth",
-  onClick,
-  hasRings = false,
-  hasMoons = false,
-  selected = false,
-  showLabels = true,
-  featured = false,
-}) => {
-  const ref = useRef();
-  const moonRef = useRef();
-  const ringsRef = useRef();
-  const angleRef = useRef(initialAngle);
-  const moonAngleRef = useRef(0);
-  const [hovered, setHover] = useState(false);
-  const [glowIntensity, setGlowIntensity] = useState(0.3);
-  const labelRef = useRef();
+const Planet = memo(
+  ({
+    orbitRadius = 10,
+    speed = 0.01,
+    size = 1,
+    name,
+    initialAngle = 0,
+    planetType = "earth",
+    onClick,
+    hasRings = false,
+    hasMoons = false,
+    selected = false,
+    showLabels = true,
+    featured = false,
+  }) => {
+    const ref = useRef();
+    const moonRef = useRef();
+    const ringsRef = useRef();
+    const angleRef = useRef(initialAngle);
+    const moonAngleRef = useRef(0);
+    const [hovered, setHover] = useState(false);
+    const [glowIntensity, setGlowIntensity] = useState(0.3);
+    const labelRef = useRef();
 
-  const planetData = PLANET_DATA[planetType] || PLANET_DATA.earth;
+    const planetData = PLANET_DATA[planetType] || PLANET_DATA.earth;
 
-  useFrame((state) => {
-    if (selected) return; // Pause animation when selected
+    useFrame((state) => {
+      if (selected) return;
 
-    const time = state.clock.getElapsedTime();
+      const time = state.clock.getElapsedTime();
 
-    // Planet orbit
-    angleRef.current += speed;
-    const x = Math.cos(angleRef.current) * orbitRadius;
-    const z = Math.sin(angleRef.current) * orbitRadius;
-    if (ref.current) {
-      ref.current.position.set(x, 0, z);
-      ref.current.rotation.y += 0.008;
+      // Planet orbit
+      angleRef.current += speed;
+      const x = Math.cos(angleRef.current) * orbitRadius;
+      const z = Math.sin(angleRef.current) * orbitRadius;
 
-      // Subtle floating motion
-      ref.current.position.y = Math.sin(time * 0.5 + initialAngle) * 0.3;
-    }
+      if (ref.current) {
+        ref.current.position.set(x, 0, z);
+        ref.current.rotation.y += 0.008;
+        ref.current.position.y = Math.sin(time * 0.5 + initialAngle) * 0.3;
+      }
 
-    // Moon orbit
-    if (hasMoons && moonRef.current) {
-      moonAngleRef.current += speed * 3;
-      const moonX = x + Math.cos(moonAngleRef.current) * (size + 1.5);
-      const moonZ = z + Math.sin(moonAngleRef.current) * (size + 1.5);
-      moonRef.current.position.set(moonX, 0, moonZ);
-      moonRef.current.rotation.y += 0.02;
-    }
+      // Batch all other animations here instead of separate useFrame calls
+      if (hasMoons && moonRef.current) {
+        moonAngleRef.current += speed * 3;
+        const moonX = x + Math.cos(moonAngleRef.current) * (size + 1.5);
+        const moonZ = z + Math.sin(moonAngleRef.current) * (size + 1.5);
+        moonRef.current.position.set(moonX, 0, moonZ);
+        moonRef.current.rotation.y += 0.02;
+      }
 
-    // Ring rotation
-    if (hasRings && ringsRef.current) {
-      ringsRef.current.rotation.z += 0.005;
-    }
+      if (hasRings && ringsRef.current) {
+        ringsRef.current.rotation.z += 0.005;
+      }
 
-    // Dynamic glow effect
-    setGlowIntensity(0.3 + Math.sin(time * 2) * 0.1);
-  });
+      // Update glow intensity less frequently
+      if (Math.floor(time * 10) % 5 === 0) {
+        setGlowIntensity(0.3 + Math.sin(time * 2) * 0.1);
+      }
+    });
 
-  // Hide label when selected or hovered
-  useEffect(() => {
-    if (labelRef.current) {
-      labelRef.current.style.visibility = selected ? "hidden" : "visible";
-    }
-  }, [selected, hovered]);
+    // Hide label when selected or hovered
+    useEffect(() => {
+      if (labelRef.current) {
+        labelRef.current.style.visibility = selected ? "hidden" : "visible";
+      }
+    }, [selected, hovered]);
 
-  return (
-    <group>
-      {/* Main Planet */}
-      {featured && (
-        <Sparkles
-          count={30}
-          scale={size * 3}
-          size={3}
-          speed={0.5}
-          color="#ffffff"
-          opacity={1}
-        />
-      )}
-      <mesh
-        ref={ref}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          if (!selected) setHover(true);
-        }}
-        onPointerOut={() => {
-          if (!selected) setHover(false);
-        }}
-        scale={hovered && !selected ? [1.2, 1.2, 1.2] : [1, 1, 1]}
-        castShadow
-        receiveShadow
-      >
-        <sphereGeometry args={[size, 64, 64]} />
-        <meshStandardMaterial
-          color={planetData.baseColor}
-          emissive={planetData.emissive}
-          emissiveIntensity={selected ? 0.8 : glowIntensity}
-          roughness={planetData.roughness}
-          metalness={planetData.metalness}
-        />
+    return (
+      <group>
+        {/* Main Planet */}
         {featured && (
-          <mesh scale={[1.3, 1.3, 1.3]}>
-            <sphereGeometry args={[size, 32, 32]} />
+          <Sparkles
+            count={15}
+            scale={size * 3}
+            size={2}
+            speed={0.5}
+            color="#ffffff"
+            opacity={1}
+          />
+        )}
+        <mesh
+          ref={ref}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            if (!selected) setHover(true);
+          }}
+          onPointerOut={() => {
+            if (!selected) setHover(false);
+          }}
+          scale={hovered && !selected ? [1.2, 1.2, 1.2] : [1, 1, 1]}
+          castShadow
+          receiveShadow
+        >
+          <sphereGeometry args={[size, 32, 32]} />
+          <meshStandardMaterial
+            color={planetData.baseColor}
+            emissive={planetData.emissive}
+            emissiveIntensity={selected ? 0.8 : glowIntensity}
+            roughness={planetData.roughness}
+            metalness={planetData.metalness}
+          />
+          {featured && (
+            <mesh scale={[1.3, 1.3, 1.3]}>
+              <sphereGeometry args={[size, 16, 16]} />
+              <meshBasicMaterial
+                color="#00ffff"
+                transparent
+                opacity={0.1}
+                side={THREE.BackSide}
+              />
+            </mesh>
+          )}
+          {/* Planet Atmosphere Glow */}
+          <mesh scale={[1.1, 1.1, 1.1]}>
+            <sphereGeometry args={[size, 16, 16]} />
             <meshBasicMaterial
-              color="#00ffff"
+              color={planetData.atmosphere}
               transparent
-              opacity={0.1}
+              opacity={hovered && !selected ? 0.15 : 0.08}
               side={THREE.BackSide}
             />
           </mesh>
-        )}
-        {/* Planet Atmosphere Glow */}
-        <mesh scale={[1.1, 1.1, 1.1]}>
-          <sphereGeometry args={[size, 32, 32]} />
-          <meshBasicMaterial
-            color={planetData.atmosphere}
-            transparent
-            opacity={hovered && !selected ? 0.15 : 0.08}
-            side={THREE.BackSide}
-          />
-        </mesh>
 
-        {/* Planet Label */}
-        {showLabels && !selected && (
-          <Html
-            ref={labelRef}
-            distanceFactor={12}
-            center
-            style={{
-              pointerEvents: "none",
-              transition: "all 0.3s ease",
-              opacity: hovered ? 1 : 0.8,
-              visibility: hovered ? "visible" : "visible",
-            }}
-            occlude={false}
-            transform={false}
-            sprite={false}
-          >
-            <div
-              className={`text-sm font-bold text-center px-3 py-2 rounded-full transition-all duration-200 text-white shadow-lg border pointer-events-none
+          {/* Planet Label */}
+          {showLabels && !selected && (
+            <Html
+              ref={labelRef}
+              distanceFactor={12}
+              center
+              style={{
+                pointerEvents: "none",
+                transition: "all 0.3s ease",
+                opacity: hovered ? 1 : 0.8,
+                visibility: hovered ? "visible" : "visible",
+              }}
+              occlude={false}
+              transform={false}
+              sprite={false}
+            >
+              <div
+                className={`text-sm font-bold text-center px-3 py-2 rounded-full transition-all duration-200 text-white shadow-lg border pointer-events-none
               ${
                 hovered
                   ? "bg-gradient-to-r from-cyan-500/40 to-purple-500/40 backdrop-blur-md scale-105 border-cyan-400/60"
                   : "bg-black/50 backdrop-blur-sm border-white/30"
               }`}
-            >
-              {name}
-            </div>
-          </Html>
-        )}
+              >
+                {name}
+              </div>
+            </Html>
+          )}
 
-        {hovered && !selected && (
-          <>
-            <Text
-              position={[0, size + 1.2, 0]}
-              fontSize={0.4}
-              color="#00ffff"
-              anchorX="center"
-              anchorY="middle"
-            >
-              CLICK TO EXPLORE
-            </Text>
+          {hovered && !selected && (
+            <>
+              <Text
+                position={[0, size + 1.2, 0]}
+                fontSize={0.4}
+                color="#00ffff"
+                anchorX="center"
+                anchorY="middle"
+              >
+                CLICK TO EXPLORE
+              </Text>
 
-            {/* Reduced particle effect */}
-            <Sparkles
-              count={20}
-              scale={[size * 2, size * 2, size * 2]}
-              size={1}
-              speed={0.4}
-              color="#00ffff"
+              {/* Reduced particle effect */}
+              <Sparkles
+                count={10}
+                scale={[size * 2, size * 2, size * 2]}
+                size={1}
+                speed={0.4}
+                color="#00ffff"
+                opacity={0.6}
+              />
+            </>
+          )}
+        </mesh>
+
+        {/* Saturn-like Rings */}
+        {hasRings && (
+          <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[size * 1.3, size * 1.8, 64]} />
+            <meshBasicMaterial
+              color="#daa520"
+              side={THREE.DoubleSide}
+              transparent
               opacity={0.6}
             />
-          </>
+          </mesh>
         )}
-      </mesh>
 
-      {/* Saturn-like Rings */}
-      {hasRings && (
-        <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[size * 1.3, size * 1.8, 64]} />
-          <meshBasicMaterial
-            color="#daa520"
-            side={THREE.DoubleSide}
-            transparent
-            opacity={0.6}
-          />
-        </mesh>
-      )}
-
-      {/* Moon */}
-      {hasMoons && (
-        <mesh ref={moonRef} castShadow>
-          <sphereGeometry args={[size * 0.3, 16, 16]} />
-          <meshStandardMaterial
-            color="#c0c0c0"
-            emissive="#404040"
-            emissiveIntensity={0.1}
-            roughness={0.9}
-          />
-        </mesh>
-      )}
-    </group>
-  );
-};
+        {/* Moon */}
+        {hasMoons && (
+          <mesh ref={moonRef} castShadow>
+            <sphereGeometry args={[size * 0.3, 8, 8]} />
+            <meshStandardMaterial
+              color="#c0c0c0"
+              emissive="#404040"
+              emissiveIntensity={0.1}
+              roughness={0.9}
+            />
+          </mesh>
+        )}
+      </group>
+    );
+  }
+);
 
 const Sun = () => {
   const sunRef = useRef();
@@ -316,7 +316,7 @@ const Sun = () => {
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
       >
-        <sphereGeometry args={[4, 64, 64]} />
+        <sphereGeometry args={[4, 32, 32]} />
         <meshStandardMaterial
           emissive="#ff6b00"
           emissiveIntensity={hovered ? 3 : 2.5}
@@ -328,7 +328,7 @@ const Sun = () => {
 
       {/* Sun Corona */}
       <mesh ref={coronaRef} scale={[1.2, 1.2, 1.2]}>
-        <sphereGeometry args={[4, 32, 32]} />
+        <sphereGeometry args={[4, 16, 16]} />
         <meshBasicMaterial
           color="#ff4500"
           transparent
@@ -339,10 +339,10 @@ const Sun = () => {
 
       {/* Sun Flares */}
       <Sparkles
-        count={100}
+        count={50}
         scale={[10, 10, 10]}
-        size={4}
-        speed={1.2}
+        size={3}
+        speed={0.8}
         color="#ffaa00"
       />
 
@@ -356,19 +356,18 @@ const Sun = () => {
   );
 };
 
-const AsteroidBelt = ({ visible = true }) => {
+const AsteroidBelt = memo(({ visible = true }) => {
   const groupRef = useRef();
 
   useFrame(() => {
     if (groupRef.current && visible) {
       groupRef.current.rotation.y += 0.001;
-      
     }
   });
 
-  const asteroids = Array.from({ length: 300 }, (_, i) => {
+  const asteroids = Array.from({ length: 150 }, (_, i) => {
     const radius = 20 + Math.random() * 4;
-    const angle = (i / 200) * Math.PI * 2;
+    const angle = (i / 100) * Math.PI * 2;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     const y = (Math.random() - 0.5) * 0.8;
@@ -385,13 +384,32 @@ const AsteroidBelt = ({ visible = true }) => {
           scale={asteroid.scale}
         >
           <dodecahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial color="#8b7355" roughness={0.8} metalness={0.1} emissiveIntensity={0.5}  emissive={[0.1, 0.1, 0.1]} />
+          <meshStandardMaterial
+            color="#8b7355"
+            roughness={0.8}
+            metalness={0.1}
+            emissiveIntensity={0.5}
+            emissive={[0.1, 0.1, 0.1]}
+          />
         </mesh>
       ))}
     </group>
   );
-};
+});
+const useDistanceCheck = (position, camera, maxDistance = 100) => {
+  const [isVisible, setIsVisible] = useState(true);
 
+  useFrame(() => {
+    if (camera && position) {
+      const distance = camera.position.distanceTo(
+        new THREE.Vector3(...position)
+      );
+      setIsVisible(distance < maxDistance);
+    }
+  });
+
+  return isVisible;
+};
 const ProjectSystem = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [cameraTarget, setCameraTarget] = useState([0, 0, 0]);
@@ -556,7 +574,7 @@ const ProjectSystem = () => {
 
   const handlePlanetClick = (project) => {
     // Calculate planet position for camera focus
-    
+
     const angle = project.initialAngle;
     const x = Math.cos(angle) * project.orbitRadius;
     const z = Math.sin(angle) * project.orbitRadius;
@@ -637,13 +655,15 @@ const ProjectSystem = () => {
         camera={{ position: [0, 20, 45], fov: 65 }}
         shadows
         gl={{
-          antialias: true,
+          antialias: false,
           alpha: false,
           powerPreference: "high-performance",
           stencil: false,
           depth: true,
+          precision: "lowp",
         }}
-        dpr={[1, 2]}
+        dpr={[0.5, 1]}
+        frameloop="demand"
       >
         <Suspense fallback={null}>
           {/* Lighting Setup */}
@@ -661,7 +681,7 @@ const ProjectSystem = () => {
             intensity={2}
             color="#ffffff"
             castShadow
-            shadow-mapSize={[2048, 2048]} // Reduced from 4096 for performance
+            shadow-mapSize={[64, 64]} // Reduced from 4096 for performance
           />
           <spotLight
             position={[-30, 40, -30]}
@@ -674,46 +694,14 @@ const ProjectSystem = () => {
 
           {/* Skybox */}
           <Skybox />
-          
+
           {/* Environment lighting from skybox */}
-          <Environment 
-            files={SKYBOX_TEXTURES}
-            background
-          />
+          <Environment files={SKYBOX_TEXTURES} background />
 
           <ambientLight intensity={0.2} />
           <pointLight position={[0, 0, 0]} intensity={3} color="#ff6b00" />
 
-          {/* Multiple Nebula Layers for better coverage */}
-          <mesh>
-            <sphereGeometry args={[400, 32, 32]} />
-            <meshBasicMaterial
-              color="#1a202c"
-              transparent
-              opacity={0.15}
-              side={THREE.BackSide}
-            />
-          </mesh>
-
-          <mesh>
-            <sphereGeometry args={[350, 32, 32]} />
-            <meshBasicMaterial
-              color="#2d3748"
-              transparent
-              opacity={0.08}
-              side={THREE.BackSide}
-            />
-          </mesh>
-
-          <mesh>
-            <sphereGeometry args={[250, 32, 32]} />
-            <meshBasicMaterial
-              color="#553c9a"
-              transparent
-              opacity={0.05}
-              side={THREE.BackSide}
-            />
-          </mesh>
+          
 
           <Sun />
           <AsteroidBelt visible={!selectedProject} />
@@ -726,7 +714,7 @@ const ProjectSystem = () => {
                   args={[
                     project.orbitRadius - 0.05,
                     project.orbitRadius + 0.05,
-                    128,
+                    64,
                   ]}
                 />
                 <meshBasicMaterial
@@ -737,13 +725,13 @@ const ProjectSystem = () => {
                 />
               </mesh>
               {/* Orbit markers */}
-              {Array.from({ length: 8 }, (_, i) => {
+              {Array.from({ length: 4 }, (_, i) => {
                 const angle = (i / 8) * Math.PI * 2;
                 const x = Math.cos(angle) * project.orbitRadius;
                 const z = Math.sin(angle) * project.orbitRadius;
                 return (
                   <mesh key={i} position={[x, 0, z]}>
-                    <sphereGeometry args={[0.1, 8, 8]} />
+                    <sphereGeometry args={[0.1, 6, 6]} />
                     <meshBasicMaterial
                       color="#60a5fa"
                       transparent
