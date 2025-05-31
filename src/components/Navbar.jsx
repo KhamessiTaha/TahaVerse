@@ -1,51 +1,71 @@
 const navItems = [
-  { label: "Home", href: "#", emoji: "🌌", desc: "Mission Control" },
-  { label: "Projects", href: "#projects", emoji: "🚀", desc: "Launch Portfolio" },
-  { label: "Skills", href: "#skills", emoji: "🛰️", desc: "Technical Systems" },
-  { label: "About", href: "#about", emoji: "👨‍🚀", desc: "Astronaut Profile" },
-  { label: "Resume", href: "#resume", emoji: "📄", desc: "Mission Logs" },
-  { label: "Contact", href: "#contact", emoji: "📡", desc: "Transmission Hub" },
+  { label: "Home", href: "#" },
+  { label: "About", href: "about" },
+  { label: "Projects", href: "projects" },
+  { label: "Resume", href: "resume" },
+  { label: "Case Studies", href: "case-studies" },
+  { label: "Contact", href: "contact" },
 ];
 
 const Navbar = () => {
   return (
-    <nav className="fixed left-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 bg-gray-900/95 backdrop-blur-lg border border-gray-700 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
-      {navItems.map(({ label, href, emoji, desc }) => (
-        <a
-          key={label}
-          href={href}
-          className="relative flex items-center justify-center group"
-        >
-          {/* Ubuntu-style tooltip on right */}
-          <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 border border-gray-600 text-white text-xs font-medium py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl w-max max-w-xs text-center z-50 whitespace-nowrap">
-            <div className="font-bold text-gray-100">{label}</div>
-            <div className="text-gray-400 text-[0.7rem] mt-0.5">{desc}</div>
-            {/* Tooltip arrow pointing left */}
-            <div className="absolute right-full top-1/2 -translate-y-1/2 -translate-x-1 w-3 h-3 bg-gray-800 border-t border-r border-gray-600 rotate-45"></div>
-          </div>
-          
-          {/* Celestial indicator - now on right */}
-          <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_8px_1px_rgba(100,210,255,0.8)]"></div>
-          
-          {/* Space-themed nav item - Ubuntu-style scaling */}
-          <div className="relative flex items-center justify-center">
-            {/* Cosmic background glow */}
-            <div className="absolute -inset-2 rounded-full bg-blue-900/40 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500"></div>
-            
-            {/* Planetary body with Ubuntu bounce effect */}
-            <div className="relative w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center shadow-inner group-hover:shadow-[inset_0_0_16px_3px_rgba(100,210,255,0.4)] transition-all duration-300 group-hover:border-gray-500 group-hover:scale-125 origin-bottom">
-              {/* Crater details */}
-              <div className="absolute top-2 left-3 w-1.5 h-1.5 rounded-full bg-gray-700/70"></div>
-              <div className="absolute bottom-3 right-2 w-2 h-2 rounded-full bg-gray-700/50"></div>
-              
-              <span className="text-2xl transition-transform duration-500 group-hover:scale-110">
-                {emoji}
-              </span>
+    <>
+      {/* Desktop Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-gray-800/50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo/Brand */}
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-sm flex items-center justify-center">
+                <span className="text-white text-sm font-bold">T</span>
+              </div>
+              <span className="text-white font-light tracking-wide">TahaVerse</span>
             </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navItems.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-light tracking-wide relative group"
+                >
+                  {label}
+                  {/* Subtle underline effect */}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <button className="md:hidden text-gray-300 hover:text-white">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
-        </a>
-      ))}
-    </nav>
+        </div>
+      </nav>
+
+      {/* Side Navigation Indicator (Optional - for sections) */}
+      <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col space-y-3">
+        {navItems.slice(1).map(({ label, href }) => (
+          <a
+            key={label}
+            href={href}
+            className="group relative"
+            title={label}
+          >
+            <div className="w-2 h-2 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors duration-300"></div>
+            
+            {/* Tooltip */}
+            <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+              {label}
+            </div>
+          </a>
+        ))}
+      </nav>
+    </>
   );
 };
 

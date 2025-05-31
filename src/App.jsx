@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Starfield from './components/Starfield'
 import Projects from './pages/Projects'
-
+import About from './pages/About'
+import CaseStudies from './pages/CaseStudies'
 function App() {
   return (
     
@@ -10,6 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/case-studies" element={<CaseStudies />} />
       </Routes>
     </Router>
   )
