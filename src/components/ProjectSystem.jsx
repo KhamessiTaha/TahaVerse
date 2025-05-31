@@ -362,6 +362,7 @@ const AsteroidBelt = ({ visible = true }) => {
   useFrame(() => {
     if (groupRef.current && visible) {
       groupRef.current.rotation.y += 0.001;
+      
     }
   });
 
@@ -384,7 +385,7 @@ const AsteroidBelt = ({ visible = true }) => {
           scale={asteroid.scale}
         >
           <dodecahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial color="#8b7355" roughness={0.9} />
+          <meshStandardMaterial color="#8b7355" roughness={0.8} metalness={0.1} emissiveIntensity={0.5}  emissive={[0.1, 0.1, 0.1]} />
         </mesh>
       ))}
     </group>
