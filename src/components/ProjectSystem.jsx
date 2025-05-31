@@ -102,9 +102,16 @@ const Planet = memo(
     const moonAngleRef = useRef(0);
     const [hovered, setHover] = useState(false);
     const [glowIntensity, setGlowIntensity] = useState(0.3);
+    const [isPreloaded, setIsPreloaded] = useState(false);
     const labelRef = useRef();
 
     const planetData = PLANET_DATA[planetType] || PLANET_DATA.earth;
+      useEffect(() => {
+    const preloadTimer = setTimeout(() => {
+      setIsPreloaded(true);
+    }, 100);
+    return () => clearTimeout(preloadTimer);
+  }, []);
 
     useFrame((state) => {
       if (selected) return;
@@ -169,7 +176,7 @@ const Planet = memo(
           }}
           onPointerOver={(e) => {
             e.stopPropagation();
-            if (!selected) setHover(true);
+            if (!selected && isPreloaded) setHover(true);
           }}
           onPointerOut={() => {
             if (!selected) setHover(false);
@@ -237,7 +244,7 @@ const Planet = memo(
             </Html>
           )}
 
-          {hovered && !selected && (
+          {isPreloaded && (
             <>
               <Text
                 position={[0, size + 1.2, 0]}
@@ -245,13 +252,14 @@ const Planet = memo(
                 color="#00ffff"
                 anchorX="center"
                 anchorY="middle"
+                visible={hovered && !selected}
               >
                 CLICK TO EXPLORE
               </Text>
 
               {/* Reduced particle effect */}
               <Sparkles
-                count={10}
+                count={hovered && !selected ? 10 : 0}
                 scale={[size * 2, size * 2, size * 2]}
                 size={1}
                 speed={0.4}
@@ -432,7 +440,8 @@ const ProjectSystem = () => {
       link: "https://cosmicvue.netlify.app/",
       ghLink: "https://github.com/KhamessiTaha/CosmoArchitects",
       technologies: ["React", "Three.js", "NASA APIs", "JavaScript", "CSS3"],
-      status: "Live",
+      status: "Live" ,
+      
     },
     {
       name: "🪐 EternaVerse",
@@ -447,7 +456,7 @@ const ProjectSystem = () => {
         "A scientifically grounded space simulation game where players explore a procedurally generated universe, stabilize cosmic anomalies, and influence the fate of entire galaxies. Built with Phaser.js and inspired by real astrophysics, EternaVerse challenges players to maintain universal balance in an ever-evolving cosmos.",
       link: "https://eternaverse.demo.com",
       technologies: ["Phaser.js", "React", "Node.js", "MongoDB", "Canvas API"],
-      status: "Beta",
+      status: "Development",
     },
     {
       name: "🚗 CarVision",
