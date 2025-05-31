@@ -106,12 +106,12 @@ const Planet = memo(
     const labelRef = useRef();
 
     const planetData = PLANET_DATA[planetType] || PLANET_DATA.earth;
-      useEffect(() => {
-    const preloadTimer = setTimeout(() => {
-      setIsPreloaded(true);
-    }, 100);
-    return () => clearTimeout(preloadTimer);
-  }, []);
+    useEffect(() => {
+      const preloadTimer = setTimeout(() => {
+        setIsPreloaded(true);
+      }, 100);
+      return () => clearTimeout(preloadTimer);
+    }, []);
 
     useFrame((state) => {
       if (selected) return;
@@ -436,12 +436,18 @@ const ProjectSystem = () => {
       hasMoons: true,
       featured: true,
       description:
-        "An immersive project that brings the cosmos to your screen. This interactive web application creates a stunning visualization of our solar system and tracks Near-Earth Objects in real-time, featuring accurate astronomical data and mesmerizing 3D renders of celestial bodies. Recognized as a Global Finalist for the 2024 NASA International Space Apps Challenge.",
+        "An award-winning immersive web application that transforms astronomical data into stunning 3D visualizations. CosmicVue provides real-time tracking of Near-Earth Objects using NASA APIs, featuring scientifically accurate orbital mechanics and breathtaking celestial renders. This project showcases advanced Three.js techniques, responsive design principles, and seamless API integration. Recognized as a Global Finalist in the 2024 NASA International Space Apps Challenge, demonstrating excellence in space technology innovation.",
       link: "https://cosmicvue.netlify.app/",
       ghLink: "https://github.com/KhamessiTaha/CosmoArchitects",
-      technologies: ["React", "Three.js", "NASA APIs", "JavaScript", "CSS3"],
-      status: "Live" ,
-      
+      technologies: [
+        "React",
+        "Three.js",
+        "NASA APIs",
+        "JavaScript",
+        "CSS3",
+        "Responsive Design",
+      ],
+      status: ["Live", "Featured", "Award Winner"],
     },
     {
       name: "🪐 EternaVerse",
@@ -453,10 +459,17 @@ const ProjectSystem = () => {
       hasRings: true,
       featured: true,
       description:
-        "A scientifically grounded space simulation game where players explore a procedurally generated universe, stabilize cosmic anomalies, and influence the fate of entire galaxies. Built with Phaser.js and inspired by real astrophysics, EternaVerse challenges players to maintain universal balance in an ever-evolving cosmos.",
-      link: "https://eternaverse.demo.com",
-      technologies: ["Phaser.js", "React", "Node.js", "MongoDB", "Canvas API"],
-      status: "Development",
+        "A groundbreaking space simulation game that combines cutting-edge procedural generation with real astrophysics principles. Players navigate through dynamically generated galaxies, managing cosmic anomalies and influencing universal balance through strategic gameplay. Built with Phaser.js for optimal performance, the game features realistic gravitational mechanics, particle systems, and an adaptive difficulty system that responds to player choices. The backend architecture supports multiplayer interactions and persistent universe states.",
+      link: "#",
+      ghLink: "https://github.com/KhamessiTaha/EternaVerseApp",
+      technologies: [
+        "Phaser.js",
+        "Phaser3",
+        "React/Vite",
+        "Node.js/ExpressJs",
+        "MongoDB",
+      ],
+      status: ["Development", "Beta Testing"],
     },
     {
       name: "🚗 CarVision",
@@ -467,7 +480,7 @@ const ProjectSystem = () => {
       planetType: "mars",
       featured: true,
       description:
-        "A cutting-edge AI solution that transforms automotive analysis. This deep learning system combines computer vision and machine learning to instantly classify vehicles and predict market values from images, powered by TensorFlow and delivered through a sleek Flutter mobile app with Node.js backend.",
+        "An intelligent automotive analysis platform leveraging state-of-the-art computer vision and machine learning algorithms. CarVision processes vehicle images through custom-trained neural networks to provide instant classification and accurate market value predictions. The system integrates advanced preprocessing techniques, feature extraction algorithms, and ensemble learning methods. The Flutter mobile application offers real-time camera integration, offline processing capabilities, and comprehensive analytics dashboard, while the Node.js backend ensures scalable data processing and secure API management.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/CarVisionProject",
       technologies: [
@@ -475,9 +488,11 @@ const ProjectSystem = () => {
         "Flutter",
         "Node.js",
         "Computer Vision",
+        "Transfer Learning",
         "Machine Learning",
+        "REST APIs",
       ],
-      status: "Development",
+      status: ["Complete", "Alpha"],
     },
     {
       name: "💻 CCEditor",
@@ -488,7 +503,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI * 1.5,
       planetType: "venus",
       description:
-        "A real-time collaborative coding platform that allows users to create coding rooms, chat, and edit code together. Featuring support for multiple languages, custom themes, and live user activity logs, this app provides a seamless collaborative environment perfect for group coding sessions or learning.",
+        "A sophisticated real-time collaborative coding platform designed for seamless team development and educational purposes. CCEditor features multi-language syntax highlighting, intelligent code completion, and instant synchronization across multiple users. The platform includes advanced features like version control integration, customizable themes, live cursor tracking, and comprehensive chat functionality. Built on Firebase's real-time database with WebSocket optimization, it ensures minimal latency and maximum reliability for coding sessions, making it perfect for pair programming, code reviews, and interactive learning environments.",
       link: "https://cceditor-e1b05.web.app/",
       ghLink: "https://github.com/KhamessiTaha/CCE",
       technologies: [
@@ -497,8 +512,9 @@ const ProjectSystem = () => {
         "WebSocket",
         "CodeMirror",
         "Real-time Sync",
+        "PWA",
       ],
-      status: "Live",
+      status: ["Live", "Stable"],
     },
     {
       name: "⚡ ParticleSimulator",
@@ -508,7 +524,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI * 0.3,
       planetType: "mercury",
       description:
-        "An engaging physics sandbox that brings elements to life. This real-time simulation engine models complex particle interactions between powder, water, fire, and more, creating a fascinating playground for exploring physical phenomena through an intuitive interface.",
+        "An advanced real-time physics simulation engine that models complex particle interactions and fluid dynamics. This interactive sandbox allows users to experiment with various elements including powder, liquid, gas, and solid states, each with realistic physical properties. The simulation incorporates accurate collision detection, thermodynamics, chemical reactions, and pressure systems. Built with optimized JavaScript and Canvas API, it features customizable gravity, temperature controls, and interactive tools for creating complex particle scenarios. Perfect for educational demonstrations and creative experimentation.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/ParticleSimulator",
       technologies: [
@@ -516,8 +532,9 @@ const ProjectSystem = () => {
         "Canvas API",
         "Physics Engine",
         "Real-time Rendering",
+        "WebGL",
       ],
-      status: "Live",
+      status: ["Live", "Maintained"],
     },
     {
       name: "🌟 HTRU2 Pulsar Detection",
@@ -527,7 +544,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI * 0.7,
       planetType: "jupiter",
       description:
-        "Journey into deep space with this advanced machine learning project that detects pulsating neutron stars. Using sophisticated algorithms trained on the HTRU2 dataset, this system analyzes radio telescope data to identify these cosmic lighthouses with remarkable accuracy.",
+        "A sophisticated machine learning system designed to identify pulsating neutron stars from radio telescope data with exceptional accuracy. This project implements multiple classification algorithms including Random Forest, SVM, and Neural Networks, trained on the comprehensive HTRU2 dataset. The system features advanced data preprocessing, feature engineering, cross-validation techniques, and model ensemble methods. Includes detailed performance analysis, confusion matrices, and ROC curve evaluations. The implementation demonstrates expertise in scientific data analysis, statistical modeling, and astronomical signal processing.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/HRTU2-Pulsar-Detection",
       technologies: [
@@ -536,8 +553,9 @@ const ProjectSystem = () => {
         "Pandas",
         "NumPy",
         "Machine Learning",
+        "Data Visualization",
       ],
-      status: "Complete",
+      status: ["Complete", "Research"],
     },
     {
       name: "🔍 ALPR System",
@@ -547,7 +565,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI * 1.2,
       planetType: "mercury",
       description:
-        "A state-of-the-art Automatic License Plate Recognition system that pushes the boundaries of computer vision. Using advanced neural networks and image processing techniques, this solution achieves near real-time plate detection and character recognition with exceptional accuracy.",
+        "A comprehensive Automatic License Plate Recognition system utilizing advanced computer vision techniques and deep learning architectures. The system combines YOLO object detection for license plate localization with custom OCR models for character recognition. Features include image preprocessing with noise reduction, perspective correction, contrast enhancement, and multi-angle detection capabilities. The solution achieves high accuracy across various lighting conditions and plate formats, with real-time processing optimization and batch processing support for traffic monitoring applications.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/ALPR",
       technologies: [
@@ -556,8 +574,9 @@ const ProjectSystem = () => {
         "Python",
         "Computer Vision",
         "Neural Networks",
+        "YOLO",
       ],
-      status: "Complete",
+      status: ["Complete", "Optimized"],
     },
     {
       name: "🐾 PetMatch",
@@ -567,7 +586,7 @@ const ProjectSystem = () => {
       initialAngle: Math.PI * 1.8,
       planetType: "venus",
       description:
-        "A heartwarming full-stack application that connects people with their perfect pet companions. Built with Angular and powered by PHP/Node.js, this platform uses intelligent matching algorithms to consider personality, lifestyle, and preferences, creating lasting bonds between humans and pets.",
+        "A comprehensive pet adoption platform that revolutionizes the way people connect with their ideal companions. PetMatch employs sophisticated matching algorithms that analyze personality traits, lifestyle preferences, living situations, and care capabilities to create perfect human-pet partnerships. The full-stack application features user profile management, pet database with detailed characteristics, adoption workflow management, and integrated communication tools. Built with Angular's modern framework and powered by robust PHP/Node.js backend architecture, ensuring scalable performance and secure data handling for animal shelters and adoption agencies.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/MiniProjeWeb",
       technologies: [
@@ -576,8 +595,9 @@ const ProjectSystem = () => {
         "Node.js",
         "MySQL",
         "Matching Algorithms",
+        "REST APIs",
       ],
-      status: "Complete",
+      status: ["Complete", "Portfolio"],
     },
   ];
 
@@ -709,8 +729,6 @@ const ProjectSystem = () => {
 
           <ambientLight intensity={0.2} />
           <pointLight position={[0, 0, 0]} intensity={3} color="#ff6b00" />
-
-          
 
           <Sun />
           <AsteroidBelt visible={!selectedProject} />
@@ -1066,18 +1084,42 @@ const ProjectSystem = () => {
                 <h3 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
                   {selectedProject.name.slice(2)}
                 </h3>
-                <div
-                  className={`inline-block px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium ${
-                    selectedProject.status === "Live"
-                      ? "bg-green-500/20 text-green-400 border border-green-500/50"
-                      : selectedProject.status === "Beta"
-                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/50"
-                      : selectedProject.status === "Development"
-                      ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50"
-                      : "bg-purple-500/20 text-purple-400 border border-purple-500/50"
-                  }`}
-                >
-                  {selectedProject.status}
+                <div className="flex flex-wrap gap-2">
+                  {(Array.isArray(selectedProject.status)
+                    ? selectedProject.status
+                    : [selectedProject.status]
+                  ).map((statusItem, index) => (
+                    <div
+                      key={index}
+                      className={`inline-block px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium ${
+                        statusItem === "Live"
+                          ? "bg-green-500/20 text-green-400 border border-green-500/50"
+                          : statusItem === "Beta" ||
+                            statusItem === "Beta Testing"
+                          ? "bg-blue-500/20 text-blue-400 border border-blue-500/50"
+                          : statusItem === "Development"
+                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50"
+                          : statusItem === "Alpha"
+                          ? "bg-orange-500/20 text-orange-400 border border-orange-500/50"
+                          : statusItem === "Featured" ||
+                            statusItem === "Award Winner"
+                          ? "bg-purple-500/20 text-purple-400 border border-purple-500/50"
+                          : statusItem === "Complete"
+                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
+                          : statusItem === "Research" ||
+                            statusItem === "Portfolio"
+                          ? "bg-indigo-500/20 text-indigo-400 border border-indigo-500/50"
+                          : statusItem === "Maintained" ||
+                            statusItem === "Stable"
+                          ? "bg-teal-500/20 text-teal-400 border border-teal-500/50"
+                          : statusItem === "Optimized"
+                          ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                          : "bg-gray-500/20 text-gray-400 border border-gray-500/50"
+                      }`}
+                    >
+                      {statusItem}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
