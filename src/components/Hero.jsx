@@ -3,77 +3,66 @@ import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <section className="h-screen w-full text-white flex flex-col items-center justify-center text-center relative overflow-hidden bg-gradient-to-b from-gray-900 via-blue-900/30 to-gray-900">
-      {/* Animated starfield background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(60)].map((_, i) => (
+    <section className="h-screen w-full text-white flex flex-col items-center justify-center text-center relative">
+      {/* Subtle cosmic particles */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
+        {[...Array(30)].map((_, i) => (
           <div 
             key={i}
             className="absolute bg-white rounded-full animate-pulse"
             style={{
-              width: `${Math.random() * 0.2 + 0.1}rem`,
-              height: `${Math.random() * 0.2 + 0.1}rem`,
+              width: `${Math.random() * 0.15 + 0.05}rem`,
+              height: `${Math.random() * 0.15 + 0.05}rem`,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.8 + 0.2,
-              animationDuration: `${Math.random() * 5 + 3}s`,
-              animationDelay: `${Math.random() * 2}s`
+              opacity: Math.random() * 0.7 + 0.3,
+              animationDuration: `${Math.random() * 8 + 4}s`,
             }}
           />
         ))}
       </div>
 
-      {/* Astronaut with refined animation */}
-      <motion.img
-        src="/assets/astronaut.png"
-        alt="Astronaut"
-        className="w-48 md:w-64 opacity-90 absolute bottom-10 right-10"
-        initial={{ y: 20, rotate: -5 }}
-        animate={{ 
-          y: [20, 0, 20],
-          rotate: [-5, 0, -5]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Nebula overlay */}
-      <div className="absolute inset-0 bg-[url('/assets/nebula.png')] bg-cover bg-center mix-blend-soft-light opacity-20 pointer-events-none"></div>
-
-      {/* Main content */}
       <div className="relative z-10 px-4 max-w-4xl">
-        <motion.h1 
-          className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="mb-2"
         >
-          Welcome to TahaVerse
+          <span className="text-blue-400 font-mono tracking-widest text-sm">COSMIC DEVELOPER</span>
+        </motion.div>
+
+        <motion.h1 
+          className="text-5xl md:text-6xl font-bold mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+            Taha Khamessi
+          </span>
         </motion.h1>
 
         <motion.div 
-          className="text-xl md:text-3xl font-mono mb-8 h-10"
+          className="text-xl md:text-2xl font-medium mb-8 h-10 text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
         >
           <Typewriter
             options={{
               strings: [
-                'Full Stack Developer', 
-                'Cosmic Systems Architect', 
-                'Computer Science Specialist',
-                'Space-Inspired Technologist'
+                'Full Stack Engineer', 
+                'Cosmic Coder', 
+                'Systems Architect',
+                'Space-Inspired Developer'
               ],
               autoStart: true,
               loop: true,
               delay: 50,
               deleteSpeed: 30,
-              cursorClassName: 'text-cyan-400',
-              wrapperClassName: 'text-cyan-300 font-medium tracking-wider'
+              cursorClassName: 'text-blue-400',
+              wrapperClassName: 'font-medium'
             }}
           />
         </motion.div>
@@ -82,11 +71,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
+          className="flex gap-4 justify-center"
         >
-          <button className="mt-2 px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-black rounded-full text-lg font-semibold hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 relative overflow-hidden group">
-            <span className="relative z-10">Enter the Void</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="absolute -inset-1 bg-cyan-400 rounded-full blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-500"></span>
+          <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-md text-lg font-medium hover:from-blue-700 hover:to-blue-900 transition-all duration-300 shadow-lg hover:shadow-blue-500/20 flex items-center gap-2">
+            <span>Explore My Work</span>
+            <span>→</span>
+          </button>
+          <button className="px-6 py-3 border border-blue-900/50 text-blue-300 rounded-md text-lg font-medium hover:bg-blue-950/30 hover:text-white transition-all duration-300 flex items-center gap-2">
+            <span>Contact</span>
+            <span>✉️</span>
           </button>
         </motion.div>
       </div>
@@ -97,7 +90,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ 
           opacity: [0, 1, 0],
-          y: [0, 10, 20]
+          y: [0, 8, 16]
         }}
         transition={{
           duration: 2.5,
@@ -105,9 +98,9 @@ export default function Hero() {
           ease: "easeInOut"
         }}
       >
-        <div className="w-5 h-8 border-2 border-cyan-400 rounded-full flex justify-center">
+        <div className="w-5 h-8 border-2 border-blue-400/50 rounded-full flex justify-center">
           <motion.div
-            className="w-1 h-2 bg-cyan-400 rounded-full mt-1"
+            className="w-1 h-2 bg-blue-400 rounded-full mt-1"
             animate={{ y: [0, 4, 0] }}
             transition={{
               duration: 1.5,
@@ -116,7 +109,7 @@ export default function Hero() {
             }}
           />
         </div>
-        <span className="text-xs text-cyan-300 mt-2 tracking-widest">EXPLORE</span>
+        <span className="text-xs text-blue-300/70 mt-2 tracking-widest">ORBIT DOWN</span>
       </motion.div>
     </section>
   )

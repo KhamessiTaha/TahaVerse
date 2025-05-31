@@ -7,12 +7,22 @@ import {
   Text,
   Sparkles,
   Environment,
+  useTexture,
   useHelper,
 } from "@react-three/drei";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { gsap } from "gsap";
+
+const SKYBOX_TEXTURES = [
+  'skybox/px.png', // right
+  'skybox/nx.png', // left
+  'skybox/py.png', // top
+  'skybox/ny.png', // bottom
+  'skybox/pz.png', // front
+  'skybox/nz.png'  // back
+];
 
 // Enhanced planet data with better visual characteristics
 const PLANET_DATA = {
@@ -58,6 +68,18 @@ const PLANET_DATA = {
     metalness: 0.3,
     atmosphere: "#fab27b",
   },
+};
+
+const Skybox = () => {
+  const textures = useTexture(SKYBOX_TEXTURES);
+  const sceneRef = useRef();
+
+  useEffect(() => {
+    const cubeTexture = new THREE.CubeTextureLoader().load(SKYBOX_TEXTURES);
+    sceneRef.current.background = cubeTexture;
+  }, []);
+
+  return <scene ref={sceneRef} />;
 };
 
 const Planet = ({
@@ -649,40 +671,17 @@ const ProjectSystem = () => {
             castShadow
           />
 
-          <group>
-            {/* Main starfield */}
-            <Stars
-              radius={300}
-              depth={100}
-              count={8000}
-              factor={8}
-              saturation={0.8}
-              fade
-              speed={0.5}
-            />
+          {/* Skybox */}
+          <Skybox />
+          
+          {/* Environment lighting from skybox */}
+          <Environment 
+            files={SKYBOX_TEXTURES}
+            background
+          />
 
-            {/* Additional star layers for better coverage */}
-            <Stars
-              radius={200}
-              depth={50}
-              count={2000}
-              factor={4}
-              saturation={0}
-              fade
-              speed={0.2}
-              position={[0, 0, 100]}
-            />
-            <Stars
-              radius={400}
-              depth={150}
-              count={3000}
-              factor={6}
-              saturation={0.5}
-              fade
-              speed={0.8}
-              position={[0, 100, 0]}
-            />
-          </group>
+          <ambientLight intensity={0.2} />
+          <pointLight position={[0, 0, 0]} intensity={3} color="#ff6b00" />
 
           {/* Multiple Nebula Layers for better coverage */}
           <mesh>
