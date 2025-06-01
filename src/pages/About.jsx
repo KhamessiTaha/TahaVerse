@@ -68,7 +68,7 @@ const About = () => {
               <div className="mt-4 text-sm text-gray-500 italic">
                 "The universe is either perfectly random or randomly perfect, and both possibilities are equally beautiful and fascinating!"
                 <br />- Commander Taha
-              </div>
+              </div> 
             </div>
           </div>
         </div>
