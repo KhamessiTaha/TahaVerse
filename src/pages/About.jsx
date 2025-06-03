@@ -32,7 +32,7 @@ const About = () => {
                 focus on Full-Stack Development and Machine Learning. Through numerous personal projects, I've applied 
                 my knowledge in real-world scenarios to build end-to-end solutions.
               </p>
-            </div>
+            </div>  
 
             {/* Skills & Interests */}
             <div>
