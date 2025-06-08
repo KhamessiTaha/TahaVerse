@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Cat } from "./Cat";
+import ProjectList from "./ProjectList";
 import {
   OrbitControls,
   Html,
@@ -421,6 +422,8 @@ const useDistanceCheck = (position, camera, maxDistance = 100) => {
 const ProjectSystem = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [cameraTarget, setCameraTarget] = useState([0, 0, 0]);
+  const [showResetHint, setShowResetHint] = useState(true);
+  const [catClickCooldown, setCatClickCooldown] = useState(false);
   const controlsRef = useRef();
   const modalRef = useRef();
   const canvasRef = useRef();
@@ -673,6 +676,51 @@ const ProjectSystem = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedProject]);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && selectedProject) {
+        closeModal();
+      }
+      // Camera reset functionality
+      if (e.key.toLowerCase() === "f") {
+        if (controlsRef.current) {
+          // Reset camera to initial position
+          gsap.to(controlsRef.current.object.position, {
+            x: 0,
+            y: 20,
+            z: 45,
+            duration: 1.5,
+            ease: "power2.inOut",
+          });
+
+          // Reset target to center
+          gsap.to(controlsRef.current.target, {
+            x: 0,
+            y: 0,
+            z: 0,
+            duration: 1.5,
+            ease: "power2.inOut",
+            onUpdate: () => {
+              controlsRef.current.update();
+            },
+            onComplete: () => {
+              controlsRef.current.autoRotate = true;
+            },
+          });
+
+          // Close any open project
+          if (selectedProject) {
+            closeModal();
+          }
+
+          // Hide reset hint after first use
+          setShowResetHint(false);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject]);
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
@@ -801,6 +849,18 @@ const ProjectSystem = () => {
             <group position={[50, -10, -100]} rotation={[0, Math.PI / 4, 0]}>
               <Cat
                 onClick={() => {
+                  // Prevent multiple simultaneous activations
+                  if (catClickCooldown) return;
+
+                  // Set cooldown
+                  setCatClickCooldown(true);
+
+                  // Clear any existing quantum text overlays
+                  const existingOverlays = document.querySelectorAll(
+                    '[data-quantum-overlay="true"]'
+                  );
+                  existingOverlays.forEach((overlay) => overlay.remove());
+
                   // Epic Quantum Cat Easter Egg
                   const canvas = canvasRef.current;
                   const body = document.body;
@@ -810,7 +870,12 @@ const ProjectSystem = () => {
 
                   // Phase 1: Reality Glitch
                   gsap
-                    .timeline()
+                    .timeline({
+                      onComplete: () => {
+                        // Reset cooldown after animation completes
+                        setTimeout(() => setCatClickCooldown(false), 1000);
+                      },
+                    })
                     .to(canvas, {
                       duration: 0.1,
                       scale: 1.2,
@@ -940,7 +1005,7 @@ const ProjectSystem = () => {
                           });
                       }
 
-                      // Epic Quantum Text Overlay
+                      // Epic Quantum Text Overlay - IMPROVED VERSION
                       const quantumTexts = [
                         "🐱 SCHRÖDINGER'S CAT ACTIVATED",
                         "⚛️ QUANTUM SUPERPOSITION ACHIEVED",
@@ -956,33 +1021,34 @@ const ProjectSystem = () => {
                         ];
 
                       const textOverlay = document.createElement("div");
+                      textOverlay.setAttribute("data-quantum-overlay", "true"); // Add identifier
                       textOverlay.style.cssText = `
-              position: fixed;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              font-family: 'Courier New', monospace;
-              font-size: clamp(24px, 4vw, 48px);
-              font-weight: bold;
-              color: #ffffff;
-              text-shadow: 
-                0 0 10px #00d4ff,
-                0 0 20px #00d4ff,
-                0 0 30px #0088ff;
-              background: rgba(0, 0, 0, 0.9);
-              padding: 20px 40px;
-              border: 2px solid #00d4ff;
-              border-radius: 10px;
-              backdrop-filter: blur(10px);
-              z-index: 10000;
-              pointer-events: none;
-              white-space: nowrap;
-              letter-spacing: 2px;
-              text-align: center;
-              box-shadow: 
-                0 0 20px rgba(0, 212, 255, 0.4),
-                inset 0 0 20px rgba(0, 212, 255, 0.1);
-            `;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: 'Courier New', monospace;
+          font-size: clamp(24px, 4vw, 48px);
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 
+            0 0 10px #00d4ff,
+            0 0 20px #00d4ff,
+            0 0 30px #0088ff;
+          background: rgba(0, 0, 0, 0.9);
+          padding: 20px 40px;
+          border: 2px solid #00d4ff;
+          border-radius: 10px;
+          backdrop-filter: blur(10px);
+          z-index: 10000;
+          pointer-events: none;
+          white-space: nowrap;
+          letter-spacing: 2px;
+          text-align: center;
+          box-shadow: 
+            0 0 20px rgba(0, 212, 255, 0.4),
+            inset 0 0 20px rgba(0, 212, 255, 0.1);
+        `;
                       textOverlay.textContent = randomText;
                       document.body.appendChild(textOverlay);
 
@@ -1005,41 +1071,59 @@ const ProjectSystem = () => {
 
                       // Glitch effect on text (reduced intensity)
                       const glitchInterval = setInterval(() => {
-                        textOverlay.style.transform = `translate(-50%, -50%) translate(${
-                          Math.random() * 2 - 1
-                        }px, ${Math.random() * 2 - 1}px)`;
-                        textOverlay.style.color =
-                          Math.random() > 0.7 ? "#00d4ff" : "#ffffff";
+                        if (document.contains(textOverlay)) {
+                          textOverlay.style.transform = `translate(-50%, -50%) translate(${
+                            Math.random() * 2 - 1
+                          }px, ${Math.random() * 2 - 1}px)`;
+                          textOverlay.style.color =
+                            Math.random() > 0.7 ? "#00d4ff" : "#ffffff";
+                        } else {
+                          clearInterval(glitchInterval);
+                        }
                       }, 150);
 
                       // Remove text after 3 seconds
                       setTimeout(() => {
                         clearInterval(glitchInterval);
-                        gsap.to(textOverlay, {
-                          duration: 0.5,
-                          scale: 0,
-                          opacity: 0,
-                          y: -50,
-                          ease: "power2.in",
-                          onComplete: () => textOverlay.remove(),
-                        });
+                        if (document.contains(textOverlay)) {
+                          gsap.to(textOverlay, {
+                            duration: 0.5,
+                            scale: 0,
+                            opacity: 0,
+                            y: -50,
+                            ease: "power2.in",
+                            onComplete: () => {
+                              if (document.contains(textOverlay)) {
+                                textOverlay.remove();
+                              }
+                            },
+                          });
+                        }
                       }, 3000);
 
-                      // Particle explosion effect
-                      for (let i = 0; i < 50; i++) {
+                      // Particle explosion effect - IMPROVED VERSION
+                      const particleContainer = document.createElement("div");
+                      particleContainer.setAttribute(
+                        "data-quantum-overlay",
+                        "true"
+                      );
+                      document.body.appendChild(particleContainer);
+
+                      for (let i = 0; i < 30; i++) {
+                        // Reduced from 50 to 30 particles
                         const particle = document.createElement("div");
                         particle.style.cssText = `
-                position: fixed;
-                width: 4px;
-                height: 4px;
-                background: hsl(${Math.random() * 360}, 100%, 50%);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 10000;
-                left: 50%;
-                top: 50%;
-              `;
-                        document.body.appendChild(particle);
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: hsl(${Math.random() * 360}, 100%, 50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            left: 50%;
+            top: 50%;
+          `;
+                        particleContainer.appendChild(particle);
 
                         gsap.to(particle, {
                           duration: 1,
@@ -1048,9 +1132,20 @@ const ProjectSystem = () => {
                           opacity: 0,
                           scale: 0,
                           ease: "power2.out",
-                          onComplete: () => particle.remove(),
+                          onComplete: () => {
+                            if (document.contains(particle)) {
+                              particle.remove();
+                            }
+                          },
                         });
                       }
+
+                      // Clean up particle container
+                      setTimeout(() => {
+                        if (document.contains(particleContainer)) {
+                          particleContainer.remove();
+                        }
+                      }, 1500);
                     }, 0.8);
                 }}
               />
@@ -1058,6 +1153,25 @@ const ProjectSystem = () => {
           )}
         </Suspense>
       </Canvas>
+
+      {/* Add ProjectList component */}
+      <ProjectList
+        projects={projects}
+        onProjectSelect={handlePlanetClick}
+        selectedProject={selectedProject}
+      />
+      {showResetHint && (
+        <div className="absolute top-1/2 left-4 z-20 transform -translate-y-1/2">
+          <div className="bg-black/60 backdrop-blur-sm border border-yellow-400/50 rounded-lg p-3 text-yellow-400 animate-pulse">
+            <div className="flex items-center gap-2 text-sm">
+              <kbd className="px-2 py-1 bg-yellow-400/20 rounded border border-yellow-400/30 text-xs font-mono">
+                F
+              </kbd>
+              <span>Reset Camera</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Enhanced Project Modal */}
       {selectedProject && (
@@ -1221,7 +1335,7 @@ const ProjectSystem = () => {
 
       <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20">
         <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-2 md:p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
-          <div>🖱️ Drag to rotate • 🔍 Scroll to zoom</div>
+          <div>🖱️ Drag to rotate • 🔍 Scroll to zoom • F to reset</div>
           <div>🪐 Click planets to explore • ESC to close</div>
         </div>
       </div>
