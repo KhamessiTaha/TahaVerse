@@ -1,123 +1,209 @@
-import Typewriter from 'typewriter-effect';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
 
 export default function Hero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [displayText, setDisplayText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+  const heroRef = useRef();
+
+  const fullText = "Exploring the Cosmos of AI & Deep Learning";
+
+  // Typewriter effect
+  useEffect(() => {
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < fullText.length) {
+        setDisplayText(fullText.slice(0, index + 1));
+        index++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typeInterval);
+      }
+    }, 100);
+
+    return () => clearInterval(typeInterval);
+  }, []);
+
+  // Mouse tracking for interactive effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: ((e.clientX - rect.left) / rect.width) * 100,
+          y: ((e.clientY - rect.top) / rect.height) * 100,
+        });
+      }
+    };
+
+    const heroElement = heroRef.current;
+    if (heroElement) {
+      heroElement.addEventListener("mousemove", handleMouseMove);
+      return () =>
+        heroElement.removeEventListener("mousemove", handleMouseMove);
+    }
+  }, []);
+
+  const skills = [
+    { name: "Neural Networks", icon: "🧠", color: "from-cyan-400 to-blue-500" },
+    {
+      name: "Computer Vision",
+      icon: "👁️",
+      color: "from-blue-500 to-purple-500",
+    },
+    { name: "NLP", icon: "💬", color: "from-purple-500 to-pink-500" },
+    { name: "MLOps", icon: "⚙️", color: "from-pink-500 to-cyan-400" },
+  ];
+
+  const handleScrollToProjects = () => {
+    const element = document.getElementById("projects");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleScrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="h-screen w-full text-white flex flex-col items-center justify-center text-center relative overflow-hidden bg-gradient-to-b from-gray-900 via-blue-900/30 to-gray-900">
-      {/* Animated starfield background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(60)].map((_, i) => (
-          <div 
-            key={i}
-            className="absolute bg-white rounded-full animate-pulse"
-            style={{
-              width: `${Math.random() * 0.2 + 0.1}rem`,
-              height: `${Math.random() * 0.2 + 0.1}rem`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.8 + 0.2,
-              animationDuration: `${Math.random() * 5 + 3}s`,
-              animationDelay: `${Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+    <main
+      ref={heroRef}
+      className="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-center relative min-h-screen pt-20"
+    >
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Main title with enhanced effects */}
+        <div className="relative mb-6">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 relative">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent relative z-10">
+              Taha Khamessi
+            </span>
 
-      {/* Astronaut with refined animation */}
-      <motion.img
-        src="/assets/astronaut.png"
-        alt="Astronaut"
-        className="w-48 md:w-64 opacity-90 absolute bottom-10 right-10"
-        initial={{ y: 20, rotate: -5 }}
-        animate={{ 
-          y: [20, 0, 20],
-          rotate: [-5, 0, -5]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+            {/* Holographic background effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 blur-xl animate-pulse"></div>
 
-      {/* Nebula overlay */}
-      <div className="absolute inset-0 bg-[url('/assets/nebula.png')] bg-cover bg-center mix-blend-soft-light opacity-20 pointer-events-none"></div>
-
-      {/* Main content */}
-      <div className="relative z-10 px-4 max-w-4xl">
-        <motion.h1 
-          className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Welcome to TahaVerse
-        </motion.h1>
-
-        <motion.div 
-          className="text-xl md:text-3xl font-mono mb-8 h-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          <Typewriter
-            options={{
-              strings: [
-                'Full Stack Developer', 
-                'Cosmic Systems Architect', 
-                'Computer Science Specialist',
-                'Space-Inspired Technologist'
-              ],
-              autoStart: true,
-              loop: true,
-              delay: 50,
-              deleteSpeed: 30,
-              cursorClassName: 'text-cyan-400',
-              wrapperClassName: 'text-cyan-300 font-medium tracking-wider'
-            }}
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-        >
-          <button className="mt-2 px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-black rounded-full text-lg font-semibold hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 relative overflow-hidden group">
-            <span className="relative z-10">Enter the Void</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="absolute -inset-1 bg-cyan-400 rounded-full blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-500"></span>
-          </button>
-        </motion.div>
-      </div>
-
-      {/* Scrolling indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
-        initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: [0, 1, 0],
-          y: [0, 10, 20]
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <div className="w-5 h-8 border-2 border-cyan-400 rounded-full flex justify-center">
-          <motion.div
-            className="w-1 h-2 bg-cyan-400 rounded-full mt-1"
-            animate={{ y: [0, 4, 0] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
+            {/* Glitch effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent opacity-0 hover:opacity-20 transition-opacity duration-300 transform scale-105"></div>
+          </h1>
         </div>
-        <span className="text-xs text-cyan-300 mt-2 tracking-widest">EXPLORE</span>
-      </motion.div>
-    </section>
-  )
+
+        {/* Animated subtitle */}
+        <div className="mb-8 h-16 flex items-center justify-center">
+          <p className="text-2xl md:text-4xl text-white/90 font-light">
+            {displayText}
+            {isTyping && <span className="animate-pulse text-cyan-400">|</span>}
+          </p>
+        </div>
+
+        {/* Professional title */}
+        <div className="mb-8">
+          <p className="text-xl md:text-2xl text-cyan-300 font-medium mb-6">
+            AI Researcher & Deep Learning Engineer
+          </p>
+
+          {/* Enhanced skill tags */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {skills.map((skill, index) => (
+              <div
+                key={skill.name}
+                className={`group px-6 py-3 bg-gradient-to-r ${skill.color} bg-opacity-20 backdrop-blur-sm border border-white/20 rounded-full text-white text-sm font-medium hover:scale-110 hover:bg-opacity-30 transition-all duration-300 cursor-default relative overflow-hidden`}
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <span className="mr-2">{skill.icon}</span>
+                <span>{skill.name}</span>
+
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* Description with better formatting */}
+          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+            Pushing the boundaries of artificial intelligence through
+            cutting-edge research and practical applications.
+            <span className="text-cyan-300">
+              {" "}
+              Building the future, one neural network at a time.
+            </span>
+          </p>
+        </div>
+
+        {/* Enhanced call-to-action buttons */}
+        <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+          <button
+            onClick={handleScrollToProjects}
+            className="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-semibold text-white hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/30 overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <span>🚀</span>
+              Explore My Research
+            </span>
+
+            {/* Button shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/40 to-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+
+            {/* Button glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 scale-110"></div>
+          </button>
+
+          <button
+            onClick={handleScrollToContact}
+            className="group relative px-8 py-4 border-2 border-cyan-400/50 text-cyan-400 rounded-xl font-semibold hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <span>💫</span>
+              Let's Collaborate
+            </span>
+
+            {/* Button highlight effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-cyan-400/20 to-cyan-400/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+          </button>
+        </div>
+
+        {/* Scroll indicator with animation */}
+        <div className="animate-bounce">
+          <div className="flex flex-col items-center gap-2 text-white/40">
+            <span className="text-sm font-mono">scroll down</span>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+            <div className="w-px h-8 bg-gradient-to-b from-cyan-400/50 to-transparent"></div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+
+        .bg-gradient-radial {
+          background: radial-gradient(circle, var(--tw-gradient-stops));
+        }
+      `}</style>
+    </main>
+  );
 }

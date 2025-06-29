@@ -453,7 +453,7 @@ const ProjectSystem = () => {
       status: ["Live", "Featured", "Award Winner"],
     },
     {
-      name: "🪐 EternaVerse",
+      name: "🪐 EternaVerseApp",
       orbitRadius: 12,
       speed: 0.008,
       size: 1.8,
@@ -498,6 +498,29 @@ const ProjectSystem = () => {
       status: ["Complete", "Alpha"],
     },
     {
+      name: "🌠 DeepLearning Quantum Fluctuation",
+      orbitRadius: 36,
+      speed: 0.001,
+      size: 2,
+      initialAngle: Math.PI * 2.1,
+      planetType: "jupiter",
+      hasRings: true,
+      featured: true,
+      description:
+        "A deep learning framework for reconstructing primordial quantum fluctuations from CMB and large-scale structure data. Combines Physics-Informed Neural Networks, Vision Transformers, and Generative Models to decode early universe physics beyond traditional Boltzmann solvers. The hybrid approach embeds inflationary equations into neural architectures for inflationary model classification, primordial power spectrum reconstruction, and non-Gaussian anomaly detection. Three-phase methodology progresses from baseline CMB analysis through physics-informed learning to bispectrum analysis, targeting ΛCDM deviations.",
+      link: "#",
+      ghLink: "https://github.com/KhamessiTaha/PlanckDeep",
+      technologies: [
+        "PyTorch",
+        "TensorFlow",
+        "Physics-Informed NNs (PINNs)",
+        "Vision Transformers",
+        "Cosmological Analysis",
+        "Scientific Computing",
+      ],
+      status: ["Research", "Development", "Preprint"],
+    },
+    {
       name: "💻 CCEditor",
       orbitRadius: 20,
       speed: 0.006,
@@ -540,25 +563,30 @@ const ProjectSystem = () => {
       status: ["Live", "Maintained"],
     },
     {
-      name: "🌟 HTRU2 Pulsar Detection",
+      name: "🔭 HTRU2 Pulsar Detection – ML Research",
       orbitRadius: 28,
       speed: 0.003,
       size: 1.0,
       initialAngle: Math.PI * 0.7,
       planetType: "jupiter",
       description:
-        "A sophisticated machine learning system designed to identify pulsating neutron stars from radio telescope data with exceptional accuracy. This project implements multiple classification algorithms including Random Forest, SVM, and Neural Networks, trained on the comprehensive HTRU2 dataset. The system features advanced data preprocessing, feature engineering, cross-validation techniques, and model ensemble methods. Includes detailed performance analysis, confusion matrices, and ROC curve evaluations. The implementation demonstrates expertise in scientific data analysis, statistical modeling, and astronomical signal processing.",
+        "A comprehensive end-to-end machine learning pipeline for classifying pulsar candidates in the HTRU2 radio astronomy dataset. This research project benchmarks 10 ML algorithms, implements advanced class imbalance handling techniques, and leverages SHAP for explainable AI interpretability. Achieved state-of-the-art performance with an optimized SVM model (ROC AUC: 0.9708) and identified excess kurtosis as the most discriminative astrophysical feature. The system demonstrates operational viability with 90% reduction in manual review requirements and provides strong astrophysical interpretability for scientific validation. Complete with scientific documentation prepared for arXiv submission and full reproducible research pipeline.",
       link: "#",
       ghLink: "https://github.com/KhamessiTaha/HRTU2-Pulsar-Detection",
       technologies: [
         "Python",
         "Scikit-learn",
+        "SHAP",
         "Pandas",
         "NumPy",
-        "Machine Learning",
-        "Data Visualization",
+        "SVM Optimization",
+        "Class Imbalance Handling",
+        "Explainable AI",
+        "Statistical Analysis",
+        "Radio Astronomy",
+        "Research Documentation",
       ],
-      status: ["Complete", "Research"],
+      status: ["Complete", "Research", "arXiv Ready"],
     },
     {
       name: "🔍 ALPR System",
@@ -583,7 +611,7 @@ const ProjectSystem = () => {
     },
     {
       name: "🐾 PetMatch",
-      orbitRadius: 36,
+      orbitRadius: 40,
       speed: 0.0015,
       size: 0.8,
       initialAngle: Math.PI * 1.8,
@@ -1008,10 +1036,7 @@ const ProjectSystem = () => {
                       // Epic Quantum Text Overlay - IMPROVED VERSION
                       const quantumTexts = [
                         "🐱 SCHRÖDINGER'S CAT ACTIVATED",
-                        "⚛️ QUANTUM SUPERPOSITION ACHIEVED",
-                        "🌌 REALITY.EXE HAS STOPPED WORKING",
-                        "🎭 MULTIVERSE COLLISION DETECTED",
-                        "🔮 PROBABILITY WAVES COLLAPSED",
+
                         "🌟 EASTER EGG SINGULARITY BREACH",
                       ];
 
@@ -1173,153 +1198,249 @@ const ProjectSystem = () => {
         </div>
       )}
 
-      {/* Enhanced Project Modal */}
+      {/* Enhanced Project Modal with Fixed Sizing and Improved Design */}
       {selectedProject && (
         <div
           ref={modalRef}
-          className="absolute inset-0 flex items-center justify-center bg-black/90 z-30 backdrop-blur-md"
+          className="fixed inset-0 flex items-center justify-center bg-black/80 z-50 backdrop-blur-lg p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
-          <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/30 to-gray-900/95 border border-cyan-500/50 rounded-2xl p-6 md:p-8 max-w-4xl w-[90%] mx-4 relative backdrop-blur-xl shadow-2xl">
+          <div className="bg-gradient-to-br from-slate-900/95 via-purple-900/20 to-slate-900/95 border border-cyan-400/30 rounded-3xl shadow-2xl backdrop-blur-xl max-w-4xl w-full max-h-[85vh] overflow-hidden relative">
+            {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-white transition-all text-3xl hover:rotate-90 duration-300"
+              className="absolute top-6 right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/50 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-all duration-300 hover:rotate-90 backdrop-blur-sm border border-gray-700/50"
             >
-              ×
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
 
-            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-4 md:mb-6">
-              <div className="text-4xl md:text-6xl">
-                {selectedProject.name.split(" ")[0]}
-              </div>
-              <div>
-                <h3 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                  {selectedProject.name.slice(2)}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {(Array.isArray(selectedProject.status)
-                    ? selectedProject.status
-                    : [selectedProject.status]
-                  ).map((statusItem, index) => (
-                    <div
-                      key={index}
-                      className={`inline-block px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium ${
-                        statusItem === "Live"
-                          ? "bg-green-500/20 text-green-400 border border-green-500/50"
-                          : statusItem === "Beta" ||
-                            statusItem === "Beta Testing"
-                          ? "bg-blue-500/20 text-blue-400 border border-blue-500/50"
-                          : statusItem === "Development"
-                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50"
-                          : statusItem === "Alpha"
-                          ? "bg-orange-500/20 text-orange-400 border border-orange-500/50"
-                          : statusItem === "Featured" ||
-                            statusItem === "Award Winner"
-                          ? "bg-purple-500/20 text-purple-400 border border-purple-500/50"
-                          : statusItem === "Complete"
-                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
-                          : statusItem === "Research" ||
-                            statusItem === "Portfolio"
-                          ? "bg-indigo-500/20 text-indigo-400 border border-indigo-500/50"
-                          : statusItem === "Maintained" ||
-                            statusItem === "Stable"
-                          ? "bg-teal-500/20 text-teal-400 border border-teal-500/50"
-                          : statusItem === "Optimized"
-                          ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
-                          : "bg-gray-500/20 text-gray-400 border border-gray-500/50"
-                      }`}
-                    >
-                      {statusItem}
+            {/* Scrollable Content Container */}
+            <div className="overflow-y-auto max-h-[85vh] custom-scrollbar">
+              <div className="p-8">
+                {/* Header Section */}
+                <div className="flex items-start gap-6 mb-6">
+                  <div className="text-6xl shrink-0 filter drop-shadow-lg">
+                    {selectedProject.name.split(" ")[0]}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-3 leading-tight">
+                      {selectedProject.name.slice(2)}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {(Array.isArray(selectedProject.status)
+                        ? selectedProject.status
+                        : [selectedProject.status]
+                      ).map((statusItem, index) => (
+                        <div
+                          key={index}
+                          className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm border transition-all duration-300 hover:scale-105 ${
+                            statusItem === "Live"
+                              ? "bg-emerald-500/20 text-emerald-300 border-emerald-400/50 shadow-emerald-500/20"
+                              : statusItem === "Beta" ||
+                                statusItem === "Beta Testing"
+                              ? "bg-blue-500/20 text-blue-300 border-blue-400/50 shadow-blue-500/20"
+                              : statusItem === "Development"
+                              ? "bg-amber-500/20 text-amber-300 border-amber-400/50 shadow-amber-500/20"
+                              : statusItem === "Alpha"
+                              ? "bg-orange-500/20 text-orange-300 border-orange-400/50 shadow-orange-500/20"
+                              : statusItem === "Featured" ||
+                                statusItem === "Award Winner"
+                              ? "bg-purple-500/20 text-purple-300 border-purple-400/50 shadow-purple-500/20"
+                              : statusItem === "Complete"
+                              ? "bg-green-500/20 text-green-300 border-green-400/50 shadow-green-500/20"
+                              : statusItem === "Research" ||
+                                statusItem === "Portfolio"
+                              ? "bg-indigo-500/20 text-indigo-300 border-indigo-400/50 shadow-indigo-500/20"
+                              : statusItem === "Maintained" ||
+                                statusItem === "Stable"
+                              ? "bg-teal-500/20 text-teal-300 border-teal-400/50 shadow-teal-500/20"
+                              : statusItem === "Optimized"
+                              ? "bg-cyan-500/20 text-cyan-300 border-cyan-400/50 shadow-cyan-500/20"
+                              : "bg-gray-500/20 text-gray-300 border-gray-400/50 shadow-gray-500/20"
+                          } shadow-lg`}
+                        >
+                          <div
+                            className={`w-2 h-2 rounded-full mr-2 ${
+                              statusItem === "Live"
+                                ? "bg-emerald-400"
+                                : statusItem === "Beta" ||
+                                  statusItem === "Beta Testing"
+                                ? "bg-blue-400"
+                                : statusItem === "Development"
+                                ? "bg-amber-400"
+                                : statusItem === "Alpha"
+                                ? "bg-orange-400"
+                                : statusItem === "Featured" ||
+                                  statusItem === "Award Winner"
+                                ? "bg-purple-400"
+                                : statusItem === "Complete"
+                                ? "bg-green-400"
+                                : statusItem === "Research" ||
+                                  statusItem === "Portfolio"
+                                ? "bg-indigo-400"
+                                : statusItem === "Maintained" ||
+                                  statusItem === "Stable"
+                                ? "bg-teal-400"
+                                : statusItem === "Optimized"
+                                ? "bg-cyan-400"
+                                : "bg-gray-400"
+                            }`}
+                          ></div>
+                          {statusItem}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                </div>
+
+                {/* Description Section */}
+                <div className="mb-8">
+                  <div className="bg-gradient-to-r from-gray-800/30 to-gray-700/20 rounded-2xl p-6 border border-gray-600/30 backdrop-blur-sm">
+                    <p className="text-lg text-gray-200 leading-relaxed">
+                      {selectedProject.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Technologies Section */}
+                <div className="mb-8">
+                  <h4 className="text-xl font-semibold text-cyan-300 mb-4 flex items-center">
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    Tech Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-gradient-to-r from-slate-700/50 to-slate-600/50 border border-slate-500/50 rounded-xl text-sm text-gray-200 backdrop-blur-sm hover:from-slate-600/60 hover:to-slate-500/60 transition-all duration-300 hover:scale-105 shadow-lg"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-4">
+                  {selectedProject.link !== "#" && (
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 font-semibold group"
+                    >
+                      <svg
+                        className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                      Launch Project
+                    </a>
+                  )}
+                  {selectedProject.ghLink && (
+                    <a
+                      href={selectedProject.ghLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-6 py-3 border-2 border-cyan-400/50 text-cyan-400 rounded-xl hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 transform hover:scale-105 font-semibold group backdrop-blur-sm"
+                    >
+                      <svg
+                        className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      View Source
+                    </a>
+                  )}
+                  <button className="inline-flex items-center px-6 py-3 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 hover:border-purple-400/80 transition-all duration-300 transform hover:scale-105 font-semibold group backdrop-blur-sm">
+                    <svg
+                      className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Case Study
+                  </button>
                 </div>
               </div>
-            </div>
-
-            <p className="text-base md:text-xl text-gray-300 mb-4 md:mb-6 leading-relaxed">
-              {selectedProject.description}
-            </p>
-
-            <div className="mb-6 md:mb-8">
-              <h4 className="text-base md:text-lg font-semibold text-cyan-300 mb-2 md:mb-3">
-                Technologies Used:
-              </h4>
-              <div className="flex flex-wrap gap-1 md:gap-2">
-                {selectedProject.technologies.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="px-2 py-1 md:px-3 md:py-1 bg-gray-700/50 border border-gray-600/50 rounded-lg text-xs md:text-sm text-gray-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 md:gap-4">
-              {selectedProject.link !== "#" && (
-                <a
-                  href={selectedProject.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg md:rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm md:text-base"
-                >
-                  <span className="font-semibold">Launch Project</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                  </svg>
-                </a>
-              )}
-              {selectedProject.ghLink && (
-                <a
-                  href={selectedProject.ghLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border-2 border-cyan-400/50 text-cyan-400 rounded-lg md:rounded-xl hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 font-semibold text-sm md:text-base"
-                >
-                  <span>View Source Code</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </a>
-              )}
-              <button className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border-2 border-purple-400/50 text-purple-400 rounded-lg md:rounded-xl hover:bg-purple-400/10 transition-all duration-300 transform hover:scale-105 font-semibold text-sm md:text-base">
-                <span>Case Study</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 md:h-5 md:w-5 ml-1 md:ml-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                  <path
-                    fillRule="evenodd"
-                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(31, 41, 55, 0.3);
+          border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #06b6d4, #8b5cf6);
+          border-radius: 10px;
+          border: 2px solid rgba(31, 41, 55, 0.3);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, #0891b2, #7c3aed);
+        }
+      `}</style>
 
       {/* UI Overlay */}
       <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
@@ -1333,7 +1454,7 @@ const ProjectSystem = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20">
+      <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20">
         <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-2 md:p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
           <div>🖱️ Drag to rotate • 🔍 Scroll to zoom • F to reset</div>
           <div>🪐 Click planets to explore • ESC to close</div>
