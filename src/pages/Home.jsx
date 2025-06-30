@@ -26,14 +26,14 @@ export default function Home() {
           {/* Hero Section with layered video and stars */}
           <section id="home" className="relative min-h-screen">
             {/* Video layer - more transparent */}
-            <div className="absolute inset-0 z-10 w-[2750px] h-[650px]">
+            <div className="absolute inset-0 z-10 w-[2750px] h-[700px]">
               <Suspense fallback={<div className="w-full h-full bg-black/20" />}>
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover opacity-60 rounded-xl"
+                  className="w-full h-full object-cover opacity-70 rounded-xl"
                   style={{ 
                     filter: 'contrast(1.4) brightness(1.1) blur(1px)',
                     mixBlendMode: 'overlay'
