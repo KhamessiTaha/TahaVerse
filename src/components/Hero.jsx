@@ -66,12 +66,12 @@ export default function Hero() {
       <div className="max-w-5xl mx-auto relative z-20">
         {/* Main title with enhanced effects */}
         <div className="relative mb-6">
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 relative">
-            <span 
-              className="bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 bg-clip-text text-transparent relative z-20"
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-30 relative">
+            <span
+              className="bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 bg-clip-text text-transparent relative z-20 "
               style={{
-                textShadow: '0 0 10px rgba(99, 102, 241, 0.5)',
-                WebkitTextStroke: '1px rgba(79, 70, 229, 0.3)'
+                textShadow: "0 0 10px rgba(99, 102, 241, 0.5)",
+                WebkitTextStroke: "1px rgba(79, 70, 229, 0.3)",
               }}
             >
               Taha Khamessi
@@ -91,21 +91,18 @@ export default function Hero() {
               {displayText}
               {isTyping && <span className="animate-pulse">|</span>}
             </p>
-            <p className="text-cyan-300 font-medium">
-              Building the future through code and cosmological research
-            </p>
           </div>
         </div>
 
         {/* Action buttons */}
         <div className="flex gap-4 justify-center mt-12">
-          <button 
+          <button
             onClick={handleScrollToProjects}
             className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg font-medium hover:scale-105 transition-transform"
           >
             View My Work
           </button>
-          <button 
+          <button
             onClick={handleScrollToContact}
             className="px-6 py-3 border border-cyan-400 text-cyan-400 rounded-lg font-medium hover:bg-cyan-400/10 transition-colors"
           >
@@ -113,8 +110,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      
 
       <style jsx>{`
         @keyframes spin-slow {

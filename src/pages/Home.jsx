@@ -24,9 +24,9 @@ export default function Home() {
         {/* Main content sections */}
         <main className="flex-1">
           {/* Hero Section with layered video and stars */}
-          <section id="home" className="relative min-h-screen">
+          <section id="home" className="relative min-h-screen mb-40">
             {/* Video layer - more transparent */}
-            <div className="absolute inset-0 z-10 w-[2750px] h-[700px]">
+            <div className="absolute inset-0 z-10 w-[2750px] h-[1050px] -translate-y-50">
               <Suspense fallback={<div className="w-full h-full bg-black/20" />}>
                 <video
                   autoPlay
