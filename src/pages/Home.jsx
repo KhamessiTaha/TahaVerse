@@ -69,8 +69,8 @@ export default function Home() {
           <main className="flex-1">
             {/* Hero Section with layered video and stars */}
             <section id="home" className="relative min-h-screen mb-40">
-              {/* Video layer - more transparent */}
-              <div className="absolute inset-0 z-10 w-[2750px] h-[1050px] -translate-y-50">
+              {/* Video layer - responsive and properly positioned */}
+              <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
                 <Suspense fallback={
                   <div className="w-full h-full bg-gradient-to-br from-purple-900/20 to-blue-900/20 animate-pulse" />
                 }>
@@ -80,7 +80,7 @@ export default function Home() {
                     muted
                     playsInline
                     preload="auto"
-                    className={`w-full h-full object-cover rounded-xl transition-opacity duration-1000 ${
+                    className={`w-full h-full object-cover transition-opacity duration-1000 ${
                       videoLoaded ? 'opacity-70' : 'opacity-0'
                     }`}
                     style={{ 
@@ -105,7 +105,10 @@ export default function Home() {
                 </Suspense>
               </div>
               
-              <Hero />
+              {/* Hero content - positioned relative to video */}
+              <div className="relative z-20">
+                <Hero />
+              </div>
             </section>
 
             {/* About Section */}
@@ -143,6 +146,13 @@ export default function Home() {
             0% { opacity: 0.3; }
             50% { opacity: 1; }
             100% { opacity: 0.5; }
+          }
+          
+          /* Ensure video maintains aspect ratio on mobile */
+          @media (max-width: 768px) {
+            video {
+              object-position: center center;
+            }
           }
         `}</style>
       </div>
