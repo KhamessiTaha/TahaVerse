@@ -430,6 +430,7 @@ const ProjectSystem = () => {
 
   const projects = [
     {
+      id: 1,
       name: "🌌 CosmicVue",
       orbitRadius: 8,
       speed: 0.012,
@@ -453,6 +454,7 @@ const ProjectSystem = () => {
       status: ["Live", "Featured", "Award Winner"],
     },
     {
+      id: 2,
       name: "🪐 EternaVerseApp",
       orbitRadius: 12,
       speed: 0.008,
@@ -474,7 +476,8 @@ const ProjectSystem = () => {
       ],
       status: ["Development", "Beta Testing"],
     },
-    {
+    { 
+      id: 3,
       name: "🚗 CarVision",
       orbitRadius: 16,
       speed: 0.005,
@@ -498,6 +501,7 @@ const ProjectSystem = () => {
       status: ["Complete", "Alpha"],
     },
     {
+      id: 4,
       name: "🌠 DeepLearning Quantum Fluctuation",
       orbitRadius: 36,
       speed: 0.001,
@@ -520,7 +524,8 @@ const ProjectSystem = () => {
       ],
       status: ["Research", "Development", "Preprint"],
     },
-    {
+    { 
+      id: 5,
       name: "💻 CCEditor",
       orbitRadius: 20,
       speed: 0.006,
@@ -543,6 +548,7 @@ const ProjectSystem = () => {
       status: ["Live", "Stable"],
     },
     {
+      id: 6,
       name: "⚡ ParticleSimulator",
       orbitRadius: 24,
       speed: 0.004,
@@ -560,9 +566,10 @@ const ProjectSystem = () => {
         "Real-time Rendering",
         "WebGL",
       ],
-      status: ["Live", "Maintained"],
+      status: ["Development", "Interactive Sandbox"],
     },
     {
+      id: 7,
       name: "🔭 HTRU2 Pulsar Detection – ML Research",
       orbitRadius: 28,
       speed: 0.003,
@@ -589,6 +596,7 @@ const ProjectSystem = () => {
       status: ["Complete", "Research", "arXiv Ready"],
     },
     {
+      id: 8,
       name: "🔍 ALPR System",
       orbitRadius: 32,
       speed: 0.002,
@@ -610,6 +618,7 @@ const ProjectSystem = () => {
       status: ["Complete", "Optimized"],
     },
     {
+      id: 9,
       name: "🐾 PetMatch",
       orbitRadius: 40,
       speed: 0.0015,
@@ -628,7 +637,7 @@ const ProjectSystem = () => {
         "Matching Algorithms",
         "REST APIs",
       ],
-      status: ["Complete", "Portfolio"],
+      status: ["Complete"],
     },
   ];
 
@@ -1065,7 +1074,7 @@ const ProjectSystem = () => {
           border: 2px solid #00d4ff;
           border-radius: 10px;
           backdrop-filter: blur(10px);
-          z-index: 10000;
+          z-index: 100;
           pointer-events: none;
           white-space: nowrap;
           letter-spacing: 2px;
@@ -1144,7 +1153,7 @@ const ProjectSystem = () => {
             background: hsl(${Math.random() * 360}, 100%, 50%);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 10000;
+            z-index: 100;
             left: 50%;
             top: 50%;
           `;
@@ -1398,7 +1407,10 @@ const ProjectSystem = () => {
                       View Source
                     </a>
                   )}
-                  <button className="inline-flex items-center px-6 py-3 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 hover:border-purple-400/80 transition-all duration-300 transform hover:scale-105 font-semibold group backdrop-blur-sm">
+                  <a
+                    href={`/case-studies/${selectedProject.id}`}
+                    className="inline-flex items-center px-6 py-3 border-2 border-purple-400/50 text-purple-400 rounded-xl hover:bg-purple-400/10 hover:border-purple-400/80 transition-all duration-300 transform hover:scale-105 font-semibold group backdrop-blur-sm"
+                  >
                     <svg
                       className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300"
                       fill="none"
@@ -1413,7 +1425,7 @@ const ProjectSystem = () => {
                       />
                     </svg>
                     Case Study
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

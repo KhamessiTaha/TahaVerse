@@ -63,7 +63,7 @@ const StarBackground = (props) => {
         color="#a78bfa"
         size={0.002}
         speed={{ x: 15, y: 20, z: 25 }}
-        opacity={0.6}
+        opacity={1}
       />
       
       {/* Foreground stars - closest, largest, fastest */}
@@ -83,7 +83,7 @@ const StarBackground = (props) => {
         color="#fbbf24"
         size={0.004}
         speed={{ x: 8, y: 12, z: 15 }}
-        opacity={0.9}
+        opacity={1.5}
       />
     </group>
   );

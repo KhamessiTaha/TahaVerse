@@ -126,7 +126,7 @@ export default function Blogs() {
       {/* CTA */}
       <div className="text-center">
         <a
-          href="/blog"
+          href="/case-studies"
           className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold text-white hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30"
         >
           <span>View All Articles</span>
