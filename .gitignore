@@ -7,22 +7,38 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Runtime artifacts
+node_modules/
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
+# Environment variables
+.env
+.env.*
+!.env.example  # Keep example env files
+
+# Editor/IDE
 .vscode/*
-!.vscode/extensions.json
-.idea
+!.vscode/extensions.json  # Keep shared extensions config
+.idea/
 .DS_Store
+**/.DS_Store  # Cover all directories
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
+# Optional (common additions)
+.cache/
+.temp/
+coverage/
+.nyc_output/
+*.tmp
+*.bak
+*.patch
 
-.env
-.env.local
+# Project-specific ignores (if actually needed)
+/src/components/BlackHoleComponent.jsx
+/src/metadata/
