@@ -10,6 +10,7 @@ import {
   useTexture,
 } from "@react-three/drei";
 import { Suspense, useRef, useState, useEffect, memo } from "react";
+import { Link } from "react-router-dom";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { gsap } from "gsap";
@@ -222,11 +223,13 @@ const Planet = memo(
               ref={labelRef}
               distanceFactor={12}
               center
+              zIndexRange={[1, 1]}
               style={{
                 pointerEvents: "none",
                 transition: "all 0.3s ease",
                 opacity: hovered ? 1 : 0.8,
                 visibility: hovered ? "visible" : "visible",
+                zIndex: 0,
               }}
               occlude={false}
               transform={false}
@@ -424,6 +427,7 @@ const ProjectSystem = () => {
   const [cameraTarget, setCameraTarget] = useState([0, 0, 0]);
   const [showResetHint, setShowResetHint] = useState(true);
   const [catClickCooldown, setCatClickCooldown] = useState(false);
+  const [isUiVisible, setIsUiVisible] = useState(true);
   const controlsRef = useRef();
   const modalRef = useRef();
   const canvasRef = useRef();
@@ -476,7 +480,7 @@ const ProjectSystem = () => {
       ],
       status: ["Development", "Beta Testing"],
     },
-    { 
+    {
       id: 3,
       name: "🚗 CarVision",
       orbitRadius: 16,
@@ -524,7 +528,7 @@ const ProjectSystem = () => {
       ],
       status: ["Research", "Development", "Preprint"],
     },
-    { 
+    {
       id: 5,
       name: "💻 CCEditor",
       orbitRadius: 20,
@@ -718,6 +722,9 @@ const ProjectSystem = () => {
       if (e.key === "Escape" && selectedProject) {
         closeModal();
       }
+      if (e.key === 'i' || e.key === 'I') {
+        setIsUiVisible(prev => !prev);
+      }
       // Camera reset functionality
       if (e.key.toLowerCase() === "f") {
         if (controlsRef.current) {
@@ -757,7 +764,7 @@ const ProjectSystem = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedProject]);
+  }, [selectedProject, isUiVisible]);
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
@@ -898,7 +905,7 @@ const ProjectSystem = () => {
                   );
                   existingOverlays.forEach((overlay) => overlay.remove());
 
-                  // Epic Quantum Cat Easter Egg
+                  // Quantum Cat Easter Egg
                   const canvas = canvasRef.current;
                   const body = document.body;
 
@@ -1189,23 +1196,12 @@ const ProjectSystem = () => {
       </Canvas>
 
       {/* Add ProjectList component */}
-      <ProjectList
+      <ProjectList 
         projects={projects}
         onProjectSelect={handlePlanetClick}
         selectedProject={selectedProject}
       />
-      {showResetHint && (
-        <div className="absolute top-1/2 left-4 z-20 transform -translate-y-1/2">
-          <div className="bg-black/60 backdrop-blur-sm border border-yellow-400/50 rounded-lg p-3 text-yellow-400 animate-pulse">
-            <div className="flex items-center gap-2 text-sm">
-              <kbd className="px-2 py-1 bg-yellow-400/20 rounded border border-yellow-400/30 text-xs font-mono">
-                F
-              </kbd>
-              <span>Reset Camera</span>
-            </div>
-          </div>
-        </div>
-      )}
+      
 
       {/* Enhanced Project Modal with Fixed Sizing and Improved Design */}
       {selectedProject && (
@@ -1455,22 +1451,82 @@ const ProjectSystem = () => {
       `}</style>
 
       {/* UI Overlay */}
-      <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
-          <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            Space Portfolio
-          </h1>
-          <p className="text-xs md:text-sm text-gray-400 mt-1">
-            Click on planets to explore projects
-          </p>
-        </div>
-      </div>
+      {isUiVisible && (
+        <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 max-w-sm">
+          <div className="relative bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsUiVisible(false)}
+              className="absolute -top-2 -right-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-gray-900 hover:bg-red-500/30 text-gray-400 hover:text-red-400 transition-all duration-300 backdrop-blur-sm border border-gray-700/50"
+              aria-label="Close UI"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
 
-      <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-2 md:p-3 text-xs text-gray-400 transition-all hover:border-cyan-400/50 hover:bg-black/60">
-          <div>🖱️ Drag to rotate • 🔍 Scroll to zoom • F to reset</div>
-          <div>🪐 Click planets to explore • ESC to close</div>
+            {/* Title & Info */}
+            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Space Portfolio
+            </h1>
+            <p className="text-xs md:text-sm text-gray-400 mt-1">
+              Click planets to explore or browse from Mission Control.
+            </p>
+
+            {/* Divider */}
+            <div className="my-3 border-t border-white/20"></div>
+
+            {/* Controls Info */}
+            <div className="text-xs text-gray-400 space-y-1">
+              <div>
+                <kbd className="font-mono text-cyan-400">Drag</kbd> to rotate •{" "}
+                <kbd className="font-mono text-cyan-400">Scroll</kbd> to zoom
+              </div>
+              <div>
+                <kbd className="font-mono text-cyan-400">F</kbd> to reset •{" "}
+                <kbd className="font-mono text-cyan-400">ESC</kbd> to close
+                modal
+              </div>
+              <div>
+                <kbd className="font-mono text-cyan-400">i</kbd> to toggle help •{" "}
+                
+              </div>
+            </div>
+          </div>
         </div>
+      )}
+
+      {/* Enhanced Exit Simulation Button */}
+      <div className="absolute top-8 left-8 z-50">
+        <Link
+          to="/"
+          className="group flex items-center gap-3 px-6 py-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/60 rounded-full text-gray-300 hover:text-white hover:border-slate-600 hover:bg-slate-700/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+        >
+          <svg
+            className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span className="font-medium">Exit Simulation</span>
+        </Link>
       </div>
     </div>
   );

@@ -102,41 +102,53 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
   const projectsToShow = filteredProjects();
 
   return (
-    <div className="absolute top-4 right-4 z-30" ref={scrollContainerRef}>
+    <div className="absolute top-4 right-4 z-50" ref={scrollContainerRef} >
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="group bg-black/70 backdrop-blur-md border border-cyan-400/40 rounded-xl p-4 text-cyan-400 hover:bg-black/90 hover:border-cyan-400/70 transition-all duration-300 mb-4 shadow-lg hover:shadow-cyan-500/20"
+        className={`group bg-black/70 backdrop-blur-md border border-cyan-400/40 rounded-xl p-4 text-cyan-400 hover:bg-black/90 hover:border-cyan-400/70 transition-all duration-300 mb-4 shadow-lg hover:shadow-cyan-500/20 ${
+          isOpen ? "w-96" : "w-auto"
+        }`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 transition-all duration-300 ${
-                isOpen ? "rotate-180 text-cyan-300" : "text-cyan-400"
-              }`}
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <div className="absolute inset-0 rounded-full bg-cyan-400/20 scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+        <div className={`flex items-center gap-3 ${isOpen ? "justify-between" : "justify-start"}`}>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-6 w-6 transition-all duration-300 ${
+                  isOpen ? "rotate-180 text-cyan-300" : "text-cyan-400"
+                }`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <div className="absolute inset-0 rounded-full bg-cyan-400/20 scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="text-sm font-bold text-cyan-300">
+                Mission Control
+              </span>
+              <span className="text-xs text-cyan-500">
+                {projects.length} {projects.length === 1 ? "Project" : "Projects"}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col items-start">
-            <span className="text-sm font-bold text-cyan-300">
-              Mission Control
-            </span>
-            <span className="text-xs text-cyan-500">
-              {projects.length} {projects.length === 1 ? "Project" : "Projects"}
-            </span>
-          </div>
+          
+          {/* Status indicator when expanded */}
+          {isOpen && (
+            <div className="flex items-center gap-2 text-xs text-cyan-400/80 animate-in fade-in duration-200">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+              <span>Active</span>
+            </div>
+          )}
         </div>
       </button>
 
@@ -419,8 +431,21 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
           }
         }
 
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
         .animate-in {
           animation: slide-in-from-top-2 0.3s ease-out;
+        }
+
+        .fade-in {
+          animation: fade-in 0.2s ease-out;
         }
       `}</style>
     </div>

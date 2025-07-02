@@ -103,23 +103,8 @@ export default function FeaturedProjects() {
         </p>
       </div>
 
-      {/* Projects Grid */}
-      <div className="space-y-16">
-        {featuredProjects.map((project, index) => (
-          <ProjectCard 
-            key={project.id}
-            project={project}
-            index={index}
-            hoveredProject={hoveredProject}
-            setHoveredProject={setHoveredProject}
-            getStatusColor={getStatusColor}
-            getProjectIcon={getProjectIcon}
-          />
-        ))}
-      </div>
-
       {/* CTA */}
-      <div className="text-center mt-24">
+      <div className="text-center mt-24 mb-40">
         <div className="relative inline-block">
           <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/30 animate-spin" style={{ animationDuration: '20s' }}></div>
           <div className="absolute inset-2 rounded-full border border-dashed border-purple-400/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
@@ -150,6 +135,23 @@ export default function FeaturedProjects() {
           🪐 Journey through a 3D universe where each project orbits as a unique planet
         </p>
       </div>
+
+      {/* Projects Grid */}
+      <div className="space-y-16">
+        {featuredProjects.map((project, index) => (
+          <ProjectCard 
+            key={project.id}
+            project={project}
+            index={index}
+            hoveredProject={hoveredProject}
+            setHoveredProject={setHoveredProject}
+            getStatusColor={getStatusColor}
+            getProjectIcon={getProjectIcon}
+          />
+        ))}
+      </div>
+
+      
     </div>
   );
 }

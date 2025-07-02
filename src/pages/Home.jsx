@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Hero from '../components/Hero';
 import About from '../components/sections/About';
@@ -8,8 +8,55 @@ import Blogs from '../components/sections/Blogs';
 import Contact from '../components/sections/Contact';
 import Footer from '../components/layout/Footer';
 import StarsCanvas from '../components/StarsBackground';
+import CosmicLoadingScreen from '../components/CosmicLoadingScreen';
 
 export default function Home() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
+  const [videoElement, setVideoElement] = useState(null);
+
+  // Preload video and handle loading states
+  useEffect(() => {
+    const video = document.createElement('video');
+    video.src = '/assets/blackhole.webm';
+    video.preload = 'auto';
+    
+    const handleCanPlayThrough = () => {
+      setVideoLoaded(true);
+      setVideoElement(video);
+    };
+
+    const handleLoadedData = () => {
+      setVideoLoaded(true);
+      setVideoElement(video);
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    video.addEventListener('loadeddata', handleLoadedData);
+    
+    // Start loading immediately
+    video.load();
+    
+    return () => {
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      video.removeEventListener('loadeddata', handleLoadedData);
+    };
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+  };
+
+  // Show loading screen until video is loaded and minimum time has passed
+  if (showLoading) {
+    return (
+      <CosmicLoadingScreen 
+        onLoadingComplete={handleLoadingComplete}
+        minLoadingTime={2500} // Minimum 2.5 seconds of loading
+      />
+    );
+  }
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden text-white bg-black">
       {/* Background star layer (lowest layer) */}
@@ -27,26 +74,39 @@ export default function Home() {
           <section id="home" className="relative min-h-screen mb-40">
             {/* Video layer - more transparent */}
             <div className="absolute inset-0 z-10 w-[2750px] h-[1050px] -translate-y-50">
-              <Suspense fallback={<div className="w-full h-full bg-black/20" />}>
+              <Suspense fallback={
+                <div className="w-full h-full bg-gradient-to-br from-purple-900/20 to-blue-900/20 animate-pulse" />
+              }>
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover opacity-70 rounded-xl"
+                  preload="auto"
+                  className={`w-full h-full object-cover rounded-xl transition-opacity duration-1000 ${
+                    videoLoaded ? 'opacity-70' : 'opacity-0'
+                  }`}
                   style={{ 
                     filter: 'contrast(1.4) brightness(1.1) blur(1px)',
                     mixBlendMode: 'overlay'
                   }}
+                  onCanPlayThrough={() => setVideoLoaded(true)}
+                  onLoadedData={() => setVideoLoaded(true)}
                 >
                   <source src="/assets/blackhole.webm" type="video/webm" />
                 </video>
-                {/* Subtle gradient overlays */}
                 
+                {/* Fallback background while video loads */}
+                {!videoLoaded && (
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-black/40 animate-pulse"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)'
+                    }}
+                  />
+                )}
               </Suspense>
             </div>
-
-            
             
             <Hero />
           </section>

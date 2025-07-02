@@ -1,35 +1,41 @@
-import React from 'react';
+import { Link } from "react-router-dom"
 
 export default function Blogs() {
   const featuredBlogs = [
     {
       id: 1,
-      title: "The Future of Large Language Models",
-      excerpt: "Exploring the latest advancements in LLMs and their potential impact on various industries.",
-      date: "2024-03-15",
+      title: "Building Award-Winning Space Applications",
+      excerpt:
+        "Insights and lessons learned from developing CosmicVue, the Global Finalist project in NASA's International Space Apps Challenge 2024, covering technical decisions, team collaboration, and innovation strategies.",
+      date: "2024-09-08",
       readTime: "8 min read",
-      tags: ["AI", "LLM", "Research"],
-      image: "/api/placeholder/400/250"
+      tags: ["NASA", "Space Technology", "Competition", "Innovation"],
+      image: "/assets/blogs/nasa.png",
+      link: "/case-studies/10",
     },
     {
       id: 2,
-      title: "Computer Vision in Edge Computing",
-      excerpt: "How to optimize deep learning models for real-time inference on edge devices.",
-      date: "2024-02-28",
+      title: "Physics-Informed Neural Networks in Practice",
+      excerpt:
+        "Deep dive into implementing Physics-Informed Neural Networks for cosmological research, exploring the challenges and opportunities of combining domain knowledge with deep learning architectures.",
+      date: "2025-02-11",
       readTime: "12 min read",
-      tags: ["Computer Vision", "Edge AI", "Optimization"],
-      image: "/api/placeholder/400/250"
+      tags: ["PINNs", "Scientific Computing", "Deep Learning", "Cosmology"],
+      image: "/assets/blogs/pinn.png",
+      link: "/case-studies/11",
     },
     {
       id: 3,
-      title: "Building Robust ML Pipelines",
-      excerpt: "Best practices for creating scalable and maintainable machine learning workflows.",
-      date: "2024-02-10",
+      title: "Real-time Collaboration Architecture",
+      excerpt:
+        "Building Scalable Multi-user Applications with WebSockets and Server-Sent Events: A comprehensive guide to designing and implementing real-time collaboration features in web applications, focusing on scalability and performance.",
+      date: "2024-11-10",
       readTime: "10 min read",
-      tags: ["MLOps", "Pipeline", "Best Practices"],
-      image: "/api/placeholder/400/250"
-    }
-  ];
+      tags: ["WebSocket", "Real-time", "Architecture", "Collaboration"],
+      image: "/assets/projects/cceditor.png",
+      link: "/case-studies/12",
+    },
+  ]
 
   return (
     <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -53,15 +59,21 @@ export default function Blogs() {
           >
             {/* Blog Image */}
             <div className="relative overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
-                <div className="text-4xl opacity-50">📝</div>
+              <div className="aspect-video bg-black/30">
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              
-              {/* Date Badge */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute top-4 right-4">
-                <span className="px-3 py-1 text-sm font-medium text-white bg-black/50 backdrop-blur-sm rounded-full">
-                  {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                <span className="px-3 py-1 text-sm font-medium text-white bg-black/60 backdrop-blur-md rounded-full">
+                  {new Date(blog.date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}
                 </span>
               </div>
             </div>
@@ -72,16 +84,10 @@ export default function Blogs() {
                 <span>🔬</span>
                 <span>{blog.readTime}</span>
               </div>
-              
               <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
                 {blog.title}
               </h3>
-              
-              <p className="text-white/70 mb-4 line-clamp-3">
-                {blog.excerpt}
-              </p>
-              
-              {/* Tags */}
+              <p className="text-white/70 mb-4 line-clamp-3">{blog.excerpt}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {blog.tags.map((tag) => (
                   <span
@@ -92,12 +98,13 @@ export default function Blogs() {
                   </span>
                 ))}
               </div>
-              
-              {/* Read More Button */}
-              <button className="group/btn flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors duration-300">
+              <Link
+                to={blog.link}
+                className="group/btn flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors duration-300"
+              >
                 <span>Read More</span>
                 <span className="group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
-              </button>
+              </Link>
             </div>
           </article>
         ))}
@@ -134,5 +141,5 @@ export default function Blogs() {
         </a>
       </div>
     </div>
-  );
+  )
 }
