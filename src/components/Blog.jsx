@@ -222,15 +222,15 @@ const Blog = ({ item, index }) => {
                 className="flex items-center justify-center gap-8 pt-8 border-t border-slate-700/50"
               >
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">2.5k</div>
+                  <div className="text-2xl font-bold text-purple-400">?</div>
                   <div className="text-gray-400 text-sm">Views</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-400">142</div>
+                  <div className="text-2xl font-bold text-pink-400">?</div>
                   <div className="text-gray-400 text-sm">Likes</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-400">38</div>
+                  <div className="text-2xl font-bold text-blue-400">?</div>
                   <div className="text-gray-400 text-sm">Comments</div>
                 </div>
               </motion.div>

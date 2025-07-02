@@ -62,7 +62,7 @@ export default function FeaturedProjects() {
       links: {
         github: "https://github.com/KhamessiTaha/HRTU2-Pulsar-Detection"
       },
-      highlight: "🔬 State-of-the-art ML Performance",
+      highlight: "🔬 A comprehensive machine learning pipeline",
       gradient: "from-orange-500/20 via-red-500/20 to-pink-500/20",
       accentColor: "from-orange-400 to-pink-500"
     }

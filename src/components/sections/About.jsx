@@ -27,7 +27,7 @@ export default function About() {
               I'm Taha Khamessi, a Full Stack Web Developer from Tunisia with a
               deep passion for building modern, high-performance web
               applications. My journey combines practical software development
-              with cutting-edge research in machine learning and deep learning.
+              with expertise in machine learning and deep learning.
             </p>
             <p className="text-white/80 leading-relaxed">
               What sets me apart is my active independent research at the
@@ -45,7 +45,7 @@ export default function About() {
             </h3>
             <p className="text-white/80 leading-relaxed mb-4">
               Graduate of The Higher Institute of Information Technologies and
-              Communication (ISTIC) in Tunisia, holding a Bachelor's degree in
+              Communication (ISTIC Borj Cedria) in Tunisia, holding a Bachelor's degree in
               Computer Science. My academic foundation is strengthened by
               substantial hands-on experience through numerous personal
               projects.
@@ -85,12 +85,12 @@ export default function About() {
           <div className="grid grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-6 text-center group hover:scale-105 transition-transform duration-300">
               <div className="text-3xl font-bold text-cyan-400 mb-2">🎓</div>
-              <div className="text-white/70 text-sm">CS Graduate</div>
-              <div className="text-cyan-300 text-xs mt-1">ISTIC Tunisia</div>
+              <div className="text-white/70 text-sm">Computer Science Graduate</div>
+              <div className="text-cyan-300 text-xs mt-1">ISTIC Borj Cedria - Tunisia</div>
             </div>
             <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-400/30 rounded-xl p-6 text-center group hover:scale-105 transition-transform duration-300">
               <div className="text-3xl font-bold text-purple-400 mb-2">🔬</div>
-              <div className="text-white/70 text-sm">AI Research</div>
+              <div className="text-white/70 text-sm">AI Specialist</div>
               <div className="text-purple-300 text-xs mt-1">
                 Cosmology & Physics
               </div>
@@ -149,7 +149,7 @@ export default function About() {
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-pink-400 rounded-full mt-2"></div>
                 <div>
-                  <span className="text-pink-400 font-medium">Research:</span>
+                  <span className="text-pink-400 font-medium">AI Specialist:</span>
                   <span className="text-white/70 ml-2">
                     AI applications in theoretical physics
                   </span>
@@ -165,7 +165,7 @@ export default function About() {
             </h3>
             <p className="text-white/80 leading-relaxed text-center">
               To become one of the best in the field—both as a developer
-              crafting exceptional digital experiences and as a researcher
+              crafting exceptional digital experiences and as an AI Specialist
               pushing the boundaries of AI and theoretical physics.
             </p>
           </div>

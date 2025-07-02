@@ -82,7 +82,7 @@ export default function Hero() {
         {/* Professional title */}
         <div className="mb-8">
           <p className="text-xl md:text-2xl text-cyan-300 font-medium mb-6">
-            Full-Stack Developer | AI & Cosmology Researcher
+            Full-Stack Developer | AI & Cosmology Enthusiast
           </p>
 
           {/* Description with better formatting */}
