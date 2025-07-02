@@ -110,25 +110,7 @@ export default function Blogs() {
         ))}
       </div>
 
-      {/* Blog Stats */}
-      <div className="grid md:grid-cols-4 gap-6 mb-12">
-        <div className="text-center bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6">
-          <div className="text-3xl font-bold text-cyan-400 mb-2">25+</div>
-          <div className="text-white/70">Articles Published</div>
-        </div>
-        <div className="text-center bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-          <div className="text-3xl font-bold text-purple-400 mb-2">10k+</div>
-          <div className="text-white/70">Readers Reached</div>
-        </div>
-        <div className="text-center bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-sm border border-green-400/20 rounded-xl p-6">
-          <div className="text-3xl font-bold text-green-400 mb-2">5</div>
-          <div className="text-white/70">Research Papers</div>
-        </div>
-        <div className="text-center bg-gradient-to-br from-orange-500/10 to-red-500/10 backdrop-blur-sm border border-orange-400/20 rounded-xl p-6">
-          <div className="text-3xl font-bold text-orange-400 mb-2">15</div>
-          <div className="text-white/70">Tech Talks</div>
-        </div>
-      </div>
+      
 
       {/* CTA */}
       <div className="text-center">
