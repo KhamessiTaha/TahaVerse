@@ -439,15 +439,14 @@ export default function Contact() {
                 Current Availability
               </h4>
               <p className="text-white/80 mb-4 leading-relaxed">
-                Open to new opportunities and collaborations. Currently
-                accepting projects in:
+                Open to new opportunities and collaborations in:
               </p>
               <div className="space-y-3">
                 {[
                   { icon: "🤖", text: "AI/ML Consulting & Development" },
                   { icon: "🔬", text: "Research Collaborations" },
-                  { icon: "🎤", text: "Speaking Engagements" },
-                  { icon: "💡", text: "Technical Advisory Roles" },
+                  { icon: "💻", text: "Full-Stack Development" },
+                  
                 ].map((item, idx) => (
                   <div
                     key={idx}
