@@ -102,17 +102,24 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
   const projectsToShow = filteredProjects();
 
   return (
-    <div className="absolute top-4 right-4 z-50" ref={scrollContainerRef} >
+    <div
+      className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50"
+      ref={scrollContainerRef}
+    >
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`group bg-black/70 backdrop-blur-md border border-cyan-400/40 rounded-xl p-4 text-cyan-400 hover:bg-black/90 hover:border-cyan-400/70 transition-all duration-300 mb-4 shadow-lg hover:shadow-cyan-500/20 ${
-          isOpen ? "w-96" : "w-auto"
+        className={`group bg-black/70 backdrop-blur-md border border-cyan-400/40 rounded-xl p-2 sm:p-3 md:p-4 text-cyan-400 hover:bg-black/90 hover:border-cyan-400/70 transition-all duration-300 mb-2 sm:mb-4 shadow-lg hover:shadow-cyan-500/20 ${
+          isOpen ? "w-[calc(100vw-1rem)] sm:w-96" : "w-auto"
         }`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <div className={`flex items-center gap-3 ${isOpen ? "justify-between" : "justify-start"}`}>
+        <div
+          className={`flex items-center gap-3 ${
+            isOpen ? "justify-between" : "justify-start"
+          }`}
+        >
           <div className="flex items-center gap-3">
             <div className="relative">
               <svg
@@ -137,11 +144,12 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
                 Mission Control
               </span>
               <span className="text-xs text-cyan-500">
-                {projects.length} {projects.length === 1 ? "Project" : "Projects"}
+                {projects.length}{" "}
+                {projects.length === 1 ? "Project" : "Projects"}
               </span>
             </div>
           </div>
-          
+
           {/* Status indicator when expanded */}
           {isOpen && (
             <div className="flex items-center gap-2 text-xs text-cyan-400/80 animate-in fade-in duration-200">
@@ -155,7 +163,7 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
       {/* Enhanced Project List */}
       {isOpen && (
         <div
-          className="bg-black/85 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-5 w-96 max-h-[75vh] shadow-2xl shadow-cyan-500/10 animate-in slide-in-from-top-2 duration-300 overflow-hidden flex flex-col"
+          className="bg-black/85 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-3 sm:p-4 md:p-5 w-[calc(100vw-1rem)] sm:w-96 max-h-[70vh] sm:max-h-[75vh] shadow-2xl shadow-cyan-500/10 animate-in slide-in-from-top-2 duration-300 overflow-hidden flex flex-col"
           role="listbox"
           ref={dropdownRef}
         >
@@ -193,7 +201,7 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
                 setSearchTerm(e.target.value);
                 setHighlightedIndex(-1);
               }}
-              className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-200 text-sm"
+              className="w-full pl-8 pr-8 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-200 text-sm"
               autoFocus
               aria-autocomplete="list"
               aria-controls="project-list-options"
@@ -260,7 +268,7 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
                 <button
                   key={`${project.name}-${index}`}
                   onClick={() => handleProjectSelect(project)}
-                  className={`group w-full text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden ${
+                  className={`group w-full text-left p-3 sm:p-4 rounded-xl border transition-all duration-300 relative overflow-hidden ${
                     selectedProject?.name === project.name
                       ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-cyan-400/70 text-cyan-300 shadow-lg shadow-cyan-500/20"
                       : "bg-gray-800/40 border-gray-600/40 text-gray-300 hover:bg-gray-700/50 hover:border-gray-500/60 hover:shadow-lg"
@@ -395,59 +403,65 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
 
       {/* Custom Scrollbar Styles */}
       <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(55, 65, 81, 0.3);
-          border-radius: 10px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(180deg, #06b6d4, #8b5cf6);
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(180deg, #0891b2, #7c3aed);
-          box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
-        }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #06b6d4, #8b5cf6);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0891b2, #7c3aed);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+  }
 
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #06b6d4 rgba(55, 65, 81, 0.3);
-        }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #06b6d4 rgba(55, 65, 81, 0.3);
+  }
 
-        @keyframes slide-in-from-top-2 {
-          from {
-            transform: translateY(-8px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
+  @media (max-width: 640px) {
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+  }
 
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
+  @keyframes slide-in-from-top-2 {
+    from {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
-        .animate-in {
-          animation: slide-in-from-top-2 0.3s ease-out;
-        }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-        .fade-in {
-          animation: fade-in 0.2s ease-out;
-        }
-      `}</style>
+  .animate-in {
+    animation: slide-in-from-top-2 0.3s ease-out;
+  }
+
+  .fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+`}</style>
     </div>
   );
 };

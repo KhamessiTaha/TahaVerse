@@ -766,8 +766,10 @@ const ProjectSystem = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedProject, isUiVisible]);
 
+  
+  //§§§§§§§§§§§§§§§ RETURN JSX §§§§§§§§§§§§§§§§§§§
   return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
+    <div className="relative w-full h-screen bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black"></div>
 
@@ -1207,12 +1209,12 @@ const ProjectSystem = () => {
       {selectedProject && (
         <div
           ref={modalRef}
-          className="fixed inset-0 flex items-center justify-center bg-black/80 z-50 backdrop-blur-lg p-4"
+          className="fixed inset-0 flex items-center justify-center bg-black/80 z-50 backdrop-blur-lg p-2 sm:p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
-          <div className="bg-gradient-to-br from-slate-900/95 via-purple-900/20 to-slate-900/95 border border-cyan-400/30 rounded-3xl shadow-2xl backdrop-blur-xl max-w-4xl w-full max-h-[85vh] overflow-hidden relative">
+          <div className="bg-gradient-to-br from-slate-900/95 via-purple-900/20 to-slate-900/95 border border-cyan-400/30 rounded-2xl sm:rounded-3xl shadow-2xl backdrop-blur-xl max-w-4xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-hidden relative">
             {/* Close Button */}
             <button
               onClick={closeModal}
@@ -1235,14 +1237,15 @@ const ProjectSystem = () => {
 
             {/* Scrollable Content Container */}
             <div className="overflow-y-auto max-h-[85vh] custom-scrollbar">
-              <div className="p-8">
+              <div className="p-4 sm:p-6 md:p-8">
                 {/* Header Section */}
-                <div className="flex items-start gap-6 mb-6">
-                  <div className="text-6xl shrink-0 filter drop-shadow-lg">
+                <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-6">
+                  <div className="text-4xl sm:text-6xl shrink-0 filter drop-shadow-lg">
                     {selectedProject.name.split(" ")[0]}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-3 leading-tight">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-3 leading-tight">
+
                       {selectedProject.name.slice(2)}
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -1452,7 +1455,7 @@ const ProjectSystem = () => {
 
       {/* UI Overlay */}
       {isUiVisible && (
-        <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 max-w-sm">
+         <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 z-40 max-w-xs sm:max-w-sm">
           <div className="relative bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
             {/* Close Button */}
             <button
@@ -1507,13 +1510,14 @@ const ProjectSystem = () => {
       )}
 
       {/* Enhanced Exit Simulation Button */}
-      <div className="absolute top-8 left-8 z-50">
+      <div className="absolute top-2 left-2 sm:top-4 sm:left-4 md:top-6 md:left-6 z-40">
         <Link
           to="/"
-          className="group flex items-center gap-3 px-6 py-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/60 rounded-full text-gray-300 hover:text-white hover:border-slate-600 hover:bg-slate-700/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+          className="group flex items-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2 sm:py-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/60 rounded-full text-gray-300 hover:text-white hover:border-slate-600 hover:bg-slate-700/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+
         >
           <svg
-            className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+            className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -1525,7 +1529,7 @@ const ProjectSystem = () => {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="font-medium">Exit Simulation</span>
+          <span className="font-medium text-sm sm:text-base">Exit</span>
         </Link>
       </div>
     </div>
