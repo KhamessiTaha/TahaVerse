@@ -40,7 +40,7 @@ const SimpleLoadingScreen = ({ onLoadingComplete, minLoadingTime = 2000 }) => {
     }`}>
       <div className="text-center">
         {/* WebM Animation */}
-        <div className="relative w-46 h-46 mx-auto">
+        <div className="relative w-34 h-34 mx-auto">
           <video
             autoPlay
             loop

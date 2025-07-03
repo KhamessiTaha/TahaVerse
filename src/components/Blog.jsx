@@ -1,7 +1,55 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, BookOpen, ArrowRight, Share2, Heart } from "lucide-react";
+import { Calendar, Clock, BookOpen, ArrowRight, Share2, Heart, Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Blog = ({ item, index }) => {
+  const [readingProgress, setReadingProgress] = useState(0);
+  const [mathLoaded, setMathLoaded] = useState(false);
+
+  // Load KaTeX CSS and JS
+  useEffect(() => {
+    const loadKaTeX = async () => {
+      // Load KaTeX CSS
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css';
+      document.head.appendChild(link);
+
+      // Load KaTeX JS
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js';
+      script.onload = () => {
+        // Load auto-render extension
+        const autoRenderScript = document.createElement('script');
+        autoRenderScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js';
+        autoRenderScript.onload = () => {
+          setMathLoaded(true);
+        };
+        document.head.appendChild(autoRenderScript);
+      };
+      document.head.appendChild(script);
+    };
+
+    loadKaTeX();
+  }, []);
+
+  // Render math after component updates
+  useEffect(() => {
+    if (mathLoaded && window.renderMathInElement) {
+      setTimeout(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false
+        });
+      }, 100);
+    }
+  }, [mathLoaded, item]);
+
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -19,6 +67,105 @@ const Blog = ({ item, index }) => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+
+  // Function to parse markdown-style content with better math handling
+  const parseContent = (content) => {
+    const lines = content.split('\n');
+    const parsed = [];
+    let currentSection = null;
+    let inMathBlock = false;
+    let mathContent = '';
+
+    for (let line of lines) {
+      const originalLine = line;
+      line = line.trim();
+      if (!line && !inMathBlock) continue;
+
+      // Handle math blocks
+      if (line.startsWith('$$') || line.includes('$$')) {
+        if (inMathBlock) {
+          // End of math block
+          mathContent += line;
+          if (currentSection) {
+            currentSection.content.push({
+              type: 'math',
+              text: mathContent
+            });
+          }
+          mathContent = '';
+          inMathBlock = false;
+        } else {
+          // Start of math block
+          inMathBlock = true;
+          mathContent = line;
+        }
+        continue;
+      }
+
+      if (inMathBlock) {
+        mathContent += '\n' + originalLine;
+        continue;
+      }
+
+      if (line.startsWith('### ')) {
+        if (currentSection) {
+          parsed.push(currentSection);
+        }
+        currentSection = {
+          type: 'section',
+          title: line.replace('### ', ''),
+          content: []
+        };
+      } else if (line.startsWith('## ')) {
+        if (currentSection) {
+          parsed.push(currentSection);
+        }
+        currentSection = {
+          type: 'section',
+          title: line.replace('## ', ''),
+          content: []
+        };
+      } else if (line.startsWith('# ')) {
+        if (currentSection) {
+          parsed.push(currentSection);
+        }
+        currentSection = {
+          type: 'section',
+          title: line.replace('# ', ''),
+          content: []
+        };
+      } else if (line.startsWith('- ')) {
+        if (currentSection) {
+          currentSection.content.push({
+            type: 'bullet',
+            text: line.replace('- ', '')
+          });
+        }
+      } else if (line.startsWith('**') && line.endsWith('**')) {
+        if (currentSection) {
+          currentSection.content.push({
+            type: 'bold',
+            text: line.replace(/\*\*/g, '')
+          });
+        }
+      } else if (line.length > 0) {
+        if (currentSection) {
+          currentSection.content.push({
+            type: 'paragraph',
+            text: line
+          });
+        }
+      }
+    }
+
+    if (currentSection) {
+      parsed.push(currentSection);
+    }
+
+    return parsed;
+  };
+
+  const parsedContent = parseContent(item.content);
 
   return (
     <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative">
@@ -114,8 +261,8 @@ const Blog = ({ item, index }) => {
               <motion.div
                 className="h-full bg-gradient-to-r from-purple-500 to-pink-500"
                 initial={{ width: "0%" }}
-                animate={{ width: "15%" }}
-                transition={{ duration: 2, ease: "easeOut" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 3, ease: "easeOut" }}
               />
             </div>
 
@@ -185,7 +332,96 @@ const Blog = ({ item, index }) => {
                 </motion.div>
               )}
 
-              {/* Call to Action */}
+              {/* Full Article Content */}
+              <motion.div
+                variants={itemVariants}
+                className="relative"
+              >
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                    <Star className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-orange-400 uppercase tracking-wider">
+                      Full Article
+                    </h3>
+                    <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mt-1"></div>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/30 p-8 rounded-2xl border border-orange-500/20">
+                  <div className="prose prose-lg max-w-none">
+                    {parsedContent.map((section, sectionIndex) => (
+                      <motion.div
+                        key={sectionIndex}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: sectionIndex * 0.1 }}
+                        className="mb-8"
+                      >
+                        {/* Section Title */}
+                        <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                          {section.title.includes('🚀') && <span className="text-2xl">🚀</span>}
+                          {section.title.includes('💡') && <span className="text-2xl">💡</span>}
+                          {section.title.includes('🧰') && <span className="text-2xl">🧰</span>}
+                          {section.title.includes('🛠') && <span className="text-2xl">🛠️</span>}
+                          {section.title.includes('🤝') && <span className="text-2xl">🤝</span>}
+                          {section.title.includes('🏆') && <span className="text-2xl">🏆</span>}
+                          {section.title.includes('🧠') && <span className="text-2xl">🧠</span>}
+                          {section.title.includes('🔬') && <span className="text-2xl">🔬</span>}
+                          {section.title.includes('⚖️') && <span className="text-2xl">⚖️</span>}
+                          {section.title.includes('⚗️') && <span className="text-2xl">⚗️</span>}
+                          {section.title.includes('🔭') && <span className="text-2xl">🔭</span>}
+                          {section.title.includes('📡') && <span className="text-2xl">📡</span>}
+                          {section.title.includes('🔄') && <span className="text-2xl">🔄</span>}
+                          {section.title.includes('✍️') && <span className="text-2xl">✍️</span>}
+                          {section.title.includes('⚙️') && <span className="text-2xl">⚙️</span>}
+                          {section.title.includes('🌍') && <span className="text-2xl">🌍</span>}
+                          {section.title.replace(/[🚀💡🧰🛠🤝🏆🧠🔬⚖️⚗️🔭📡🔄✍️⚙️🌍]/g, '').trim()}
+                        </h4>
+
+                        {/* Section Content */}
+                        <div className="space-y-4">
+                          {section.content.map((content, contentIndex) => (
+                            <div key={contentIndex}>
+                              {content.type === 'paragraph' && (
+                                <p className="text-gray-300 leading-relaxed text-lg mb-4">
+                                  {content.text}
+                                </p>
+                              )}
+                              {content.type === 'bullet' && (
+                                <div className="flex items-start gap-3 mb-3">
+                                  <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
+                                  <span className="text-gray-300 leading-relaxed">
+                                    {content.text}
+                                  </span>
+                                </div>
+                              )}
+                              {content.type === 'bold' && (
+                                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/30 mb-4">
+                                  <span className="text-white font-semibold text-lg">
+                                    {content.text}
+                                  </span>
+                                </div>
+                              )}
+                              {content.type === 'math' && (
+                                <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-600/30 mb-4 overflow-x-auto">
+                                  <div 
+                                    className="text-white text-center"
+                                    dangerouslySetInnerHTML={{ __html: content.text }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Article Footer */}
               <motion.div
                 variants={itemVariants}
                 className="relative"
@@ -198,25 +434,34 @@ const Blog = ({ item, index }) => {
                   </div>
                   
                   <h4 className="text-2xl font-bold text-white mb-3">
-                    Want to read the full article?
+                    Thanks for Reading!
                   </h4>
                   <p className="text-gray-300 mb-6 text-lg">
-                    This is a preview of the blog post. Click below to dive deeper into the complete analysis, code examples, and detailed explanations.
+                    I hope you found this article insightful. Feel free to reach out if you have questions or want to discuss any of these topics further.
                   </p>
                   
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(168, 85, 247, 0.3)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
-                  >
-                    <BookOpen className="w-5 h-5" />
-                    Read Full Article
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.button>
+                  <div className="flex justify-center gap-4">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 text-purple-300 rounded-xl font-medium border border-purple-500/30 hover:bg-purple-600/30 transition-all duration-300"
+                    >
+                      <Heart className="w-4 h-4" />
+                      Like
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600/20 text-blue-300 rounded-xl font-medium border border-blue-500/30 hover:bg-blue-600/30 transition-all duration-300"
+                    >
+                      <Share2 className="w-4 h-4" />
+                      Share
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
 
-              {/* Engagement Stats (Mock) */}
+              {/* Engagement Stats */}
               <motion.div
                 variants={itemVariants}
                 className="flex items-center justify-center gap-8 pt-8 border-t border-slate-700/50"
@@ -232,6 +477,10 @@ const Blog = ({ item, index }) => {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-400">?</div>
                   <div className="text-gray-400 text-sm">Comments</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-400">?</div>
+                  <div className="text-gray-400 text-sm">Shares</div>
                 </div>
               </motion.div>
             </div>

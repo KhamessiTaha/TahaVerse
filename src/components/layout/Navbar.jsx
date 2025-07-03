@@ -12,7 +12,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: "Home", href: "#home", icon: "🏠" },
-    { name: "About", href: "#about", icon: "👨‍💻" },
+    { name: "About", href: "#about", icon: "💻" },
     { name: "Projects", href: "#projects", icon: "🚀" },
     { name: "Skills", href: "#skills", icon: "⚡" },
     { name: "Blogs", href: "#blogs", icon: "🔬" },
