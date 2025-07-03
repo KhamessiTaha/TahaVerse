@@ -223,7 +223,7 @@ export default function Resume() {
               If you need my resume in a different format or have any questions, feel free to reach out!
             </p>
             <Link 
-              to="/#/contact" 
+              to="/" 
               className="inline-flex items-center gap-2 text-purple-300 hover:text-purple-100 font-medium transition-colors"
             >
               Contact Me →

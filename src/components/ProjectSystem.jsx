@@ -1453,60 +1453,135 @@ const ProjectSystem = () => {
         }
       `}</style>
 
-      {/* UI Overlay */}
+        
+
+      {/* Mobile-Responsive UI Overlay */}
       {isUiVisible && (
-         <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 z-40 max-w-xs sm:max-w-sm">
-          <div className="relative bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
-            {/* Close Button */}
-            <button
-              onClick={() => setIsUiVisible(false)}
-              className="absolute -top-2 -right-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-gray-900 hover:bg-red-500/30 text-gray-400 hover:text-red-400 transition-all duration-300 backdrop-blur-sm border border-gray-700/50"
-              aria-label="Close UI"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        <>
+          {/* Mobile UI (screens smaller than 768px) */}
+          <div className="md:hidden absolute bottom-0 left-0 right-0 z-40">
+            <div className="bg-black/80 backdrop-blur-lg border-t border-white/20 p-4 transition-all">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsUiVisible(false)}
+                className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-900/80 hover:bg-red-500/30 text-gray-400 hover:text-red-400 transition-all duration-300"
+                aria-label="Close UI"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
 
-            {/* Title & Info */}
-            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Space Portfolio
-            </h1>
-            <p className="text-xs md:text-sm text-gray-400 mt-1">
-              Click planets to explore or browse from Mission Control.
-            </p>
+              {/* Mobile Title */}
+              <h1 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent pr-10">
+                Space Portfolio
+              </h1>
+              <p className="text-xs text-gray-400 mt-1 mb-3">
+                Tap planets to explore projects
+              </p>
 
-            {/* Divider */}
-            <div className="my-3 border-t border-white/20"></div>
-
-            {/* Controls Info */}
-            <div className="text-xs text-gray-400 space-y-1">
-              <div>
-                <kbd className="font-mono text-cyan-400">Drag</kbd> to rotate •{" "}
-                <kbd className="font-mono text-cyan-400">Scroll</kbd> to zoom
-              </div>
-              <div>
-                <kbd className="font-mono text-cyan-400">F</kbd> to reset •{" "}
-                <kbd className="font-mono text-cyan-400">ESC</kbd> to close
-                modal
-              </div>
-              <div>
-                <kbd className="font-mono text-cyan-400">i</kbd> to toggle help •{" "}
+              {/* Mobile Controls Grid */}
+              <div className="grid grid-cols-2 gap-2 text-xs text-gray-400">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-cyan-500/20 rounded border border-cyan-500/40 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V3a1 1 0 011 1v14a1 1 0 01-1 1H8a1 1 0 01-1-1V4h10z" />
+                    </svg>
+                  </div>
+                  <span>Drag to rotate</span>
+                </div>
                 
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-purple-500/20 rounded border border-purple-500/40 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </div>
+                  <span>Pinch to zoom</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-orange-500/20 rounded border border-orange-500/40 flex items-center justify-center text-orange-400 font-mono text-xs">
+                    i
+                  </div>
+                  <span>Toggle help</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-green-500/20 rounded border border-green-500/40 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <span>Tap planets</span>
+                </div>
+              </div>
+
+              {/* Mobile Quick Actions */}
+              <div className="flex gap-2 mt-4">
+                <button 
+                  onClick={() => {
+                    // Reset camera position
+                    if (controlsRef.current) {
+                      controlsRef.current.reset();
+                    }
+                  }}
+                  className="flex-1 px-3 py-2 bg-cyan-500/20 border border-cyan-500/40 rounded-lg text-cyan-400 text-xs font-medium hover:bg-cyan-500/30 transition-all"
+                >
+                  Reset View
+                </button>
+                <button 
+                  onClick={() => setIsUiVisible(false)}
+                  className="flex-1 px-3 py-2 bg-gray-500/20 border border-gray-500/40 rounded-lg text-gray-400 text-xs font-medium hover:bg-gray-500/30 transition-all"
+                >
+                  Hide UI
+                </button>
               </div>
             </div>
           </div>
-        </div>
+
+          {/* Desktop UI (screens 768px and larger) */}
+          <div className="hidden md:block absolute bottom-2 left-2 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 z-40 max-w-xs sm:max-w-sm">
+            <div className="relative bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg md:rounded-xl p-3 md:p-4 transition-all hover:border-cyan-400/50 hover:bg-black/60">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsUiVisible(false)}
+                className="absolute -top-2 -right-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-gray-900 hover:bg-red-500/30 text-gray-400 hover:text-red-400 transition-all duration-300 backdrop-blur-sm border border-gray-700/50"
+                aria-label="Close UI"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Title & Info */}
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                Space Portfolio
+              </h1>
+              <p className="text-xs md:text-sm text-gray-400 mt-1">
+                Click planets to explore or browse from Mission Control.
+              </p>
+
+              {/* Divider */}
+              <div className="my-3 border-t border-white/20"></div>
+
+              {/* Controls Info */}
+              <div className="text-xs text-gray-400 space-y-1">
+                <div>
+                  <kbd className="font-mono text-cyan-400">Drag</kbd> to rotate •{" "}
+                  <kbd className="font-mono text-cyan-400">Scroll</kbd> to zoom
+                </div>
+                <div>
+                  <kbd className="font-mono text-cyan-400">F</kbd> to reset •{" "}
+                  <kbd className="font-mono text-cyan-400">ESC</kbd> to close modal
+                </div>
+                <div>
+                  <kbd className="font-mono text-cyan-400">i</kbd> to toggle help
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
       {/* Enhanced Exit Simulation Button */}
