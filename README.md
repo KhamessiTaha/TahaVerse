@@ -1,12 +1,42 @@
-# React + Vite
+# 🌌 TahaVerse — Cosmic React Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **TahaVerse**, my personal space-themed developer portfolio built with **React**, **Vite**, and **TailwindCSS**. This project is not just a website — it's an interactive cosmic experience that reflects my skills, creativity, and obsession with the universe.
 
-Currently, two official plugins are available:
+> “Code is my rocket. The browser is my launchpad.” 🚀
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Live Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔗 [Visit Portfolio](https://yourdomain.com)  
+📸 [Screenshots & Previews](#screenshots)
+
+---
+
+## 🧠 Features
+
+- 🪐 **Cosmic Design** — Animated stars, nebulae, blackholes and planetary UIs  
+- 👨‍🚀 **Hero Section** — Typewriter intro, floating astronaut, call-to-action  
+- 🌌 **Project Showcase** — Projects as planets in an interactive solar system  
+- 🔭 **Skills as Constellations** — Animated skill visualization  
+- 🚀 **Experience Timeline** — Space-mission style career journey  
+- 📚 **Full Blog System** — With content-rich case studies  
+- 📄 **Resume Page** — Download CV in English & French  
+- 🌠 **Responsive Design** — Optimized for mobile, tablet, and desktop  
+- ⚡ **Fast & Modern Stack** — Vite, React, Tailwind, Framer Motion, Three.js  
+
+---
+
+## 📁 Folder Structure
+
+```bash
+├── public/
+│   └── assets/               # Images, icons, PDFs (resume, blog covers)
+├── src/
+│   ├── components/           # Reusable UI components
+│   ├── pages/                # Page components (Home, About, Projects, Resume)
+│   ├── metadata/             # Blog + project case studies
+│   ├── App.jsx
+│   └── main.jsx              # Vite + React entry
+├── vite.config.js
+└── README.md
