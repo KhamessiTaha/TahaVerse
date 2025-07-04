@@ -289,6 +289,97 @@ export default function Skills() {
         </div>
       </div>
 
+      {/* Featured Certificates Section */}
+      <div className="mt-20">
+        <div className="text-center mb-16">
+          <h3 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6">
+            Featured Certificates
+          </h3>
+          <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 to-red-500 mx-auto mb-6"></div>
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            Professional certifications that showcase expertise and continuous
+            learning
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {/* Certificate 1 */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105 hover:border-yellow-400/30">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                🏆
+              </div>
+              <h4 className="text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors">
+                Machine Learning Specialization
+              </h4>
+              <p className="text-white/60 text-sm">
+                Stanford University & DeepLearning.AI
+              </p>
+              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                2024
+              </div>
+            </div>
+          </div>
+
+          {/* Certificate 2 */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 transform hover:scale-105 hover:border-blue-400/30">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                ⚛️
+              </div>
+              <h4 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors">
+                React Developer Certification
+              </h4>
+              <p className="text-white/60 text-sm">Meta & Facebook</p>
+              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                2024
+              </div>
+            </div>
+          </div>
+
+          {/* Certificate 3 */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 transform hover:scale-105 hover:border-purple-400/30">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                ☁️
+              </div>
+              <h4 className="text-lg font-semibold text-white group-hover:text-purple-300 transition-colors">
+                AWS Cloud Practitioner
+              </h4>
+              <p className="text-white/60 text-sm">Amazon Web Services</p>
+              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                2024
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* View All Certificates Button */}
+        <div className="text-center">
+          <a
+            href="/certificates"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105"
+          >
+            <span>View All Certificates</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="group-hover:translate-x-1 transition-transform duration-300"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
       {/* GitHub Contribution Graph - Compact Dark Edition */}
       <div className="my-20 text-center px-4">
         <h3 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-6">
