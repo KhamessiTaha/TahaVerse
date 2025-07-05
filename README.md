@@ -1,6 +1,6 @@
 # 🌌 TahaVerse — Cosmic React Portfolio
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://app.netlify.com/sites/tahaverse/deploys)
+[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-181717?logo=github&logoColor=white)](https://yourusername.github.io/tahaverse)
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react&logoColor=white)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-4.4.5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3.0-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -14,34 +14,74 @@ Welcome to **TahaVerse**, an immersive space-themed developer portfolio that tra
 
 ## 🚀 Live Demo & Preview
 
-🔗 **[Live Portfolio](https://tahaverse.netlify.app)**  
-📱 **[Mobile Preview](https://tahaverse.netlify.app/?mobile=true)**  
-🖥️ **[Desktop Showcase](https://tahaverse.netlify.app/?desktop=true)**
+🔗 **[Live Portfolio](https://yourusername.github.io/tahaverse)**  
+📱 **[Mobile Experience](https://yourusername.github.io/tahaverse?mobile=true)**  
+🌌 **[Solar System Projects](https://yourusername.github.io/tahaverse/projects)**
 
 ---
 
 ## ✨ Features & Highlights
 
-### 🌟 **Immersive Cosmic Experience**
-- **Animated Star Field** — Dynamic particle systems with Three.js
-- **Interactive Nebulae** — Procedural background generation
-- **Gravitational Effects** — Mouse-responsive celestial bodies
-- **Parallax Scrolling** — Multi-layer depth simulation
+### 🌟 **Portfolio Sections**
+- **🏠 Home** — Hero landing with cosmic animations and introduction
+- **👨‍🚀 About** — Education & Background, Vision & Passion, Core Expertise
+- **🌌 Projects** — 3 featured projects + "Enter the Solar System" interactive experience
+- **🛠️ Skills** — Comprehensive tech stack across 6 categories + AI/ML expertise
+- **📚 Blogs** — 3 featured insights + 4 detailed case studies per project
+- **📞 Contact** — Direct messaging form + collaboration availability
+- **📄 Resume** — Bilingual CV showcase (English & French) with download options
 
-### 🎯 **Core Sections**
-- **🧑‍🚀 Hero Landing** — Typewriter animation with floating astronaut
-- **🌌 Project Galaxy** — Interactive solar system showcasing projects
-- **🔭 Skills Constellation** — Animated skill visualization with constellation mapping
-- **🚀 Mission Timeline** — Space-mission styled career journey
-- **📚 Knowledge Base** — Full blog system with MDX support
-- **📄 Digital Resume** — Multi-language CV with PDF download
+### 🚀 **Interactive Features**
+- **Solar System Explorer** — Navigate projects as planets with 60fps performance
+- **Certificate Showcase** — AI, space technology, and data science achievements
+- **GitHub Activity** — Real-time contributions and coding statistics
+- **Responsive Design** — Optimized across all devices with clean aesthetics
+- **Blog System** — In-depth articles with project case studies
 
-### ⚡ **Technical Excellence**
-- **Performance Optimized** — Lighthouse score 95+
-- **Responsive Design** — Mobile-first approach with breakpoint optimization
-- **SEO Enhanced** — Meta tags, structured data, and sitemap
-- **Accessibility** — WCAG 2.1 AA compliant
-- **Progressive Web App** — Service worker and offline capabilities
+## 🌌 Portfolio Sections Deep Dive
+
+### 🏠 **Home**
+The main landing page featuring cosmic animations and an engaging hero section that introduces visitors to the TahaVerse experience.
+
+### 👨‍🚀 **About**
+- **Education & Background** — Academic journey and professional foundation
+- **Vision & Passion** — Core values and what drives innovation
+- **Core Expertise** — Technical specializations and domain knowledge
+
+### 🌌 **Projects**
+- **3 Featured Projects** — Highlighted showcase of best work
+- **"Enter the Solar System"** — Interactive 3D experience where each planet represents a project
+- **60fps Performance** — Optimized across all devices for smooth exploration
+
+### 🛠️ **Skills**
+Comprehensive technology showcase organized in 6 categories:
+- **Frontend Development** — React, Vue, Angular ecosystem
+- **Backend Development** — Node.js, Python, cloud services
+- **Programming Languages** — JavaScript, Python, TypeScript, etc.
+- **AI & Machine Learning** — Deep learning frameworks and tools
+- **Databases** — SQL, NoSQL, and data management
+- **DevOps** — CI/CD, containerization, and deployment
+
+**Special Features:**
+- **Certificate Showcase** — 3 featured certifications in AI, space technology, and data science
+- **"View All Certificates"** — Complete credential collection
+- **GitHub Activity** — Live contributions and coding statistics
+
+### 📚 **Blogs (Latest Insights)**
+- **3 Featured Articles** — Recent insights with "Read More" functionality
+- **4 Main Articles** — In-depth technical discussions
+- **Project Case Studies** — Detailed breakdowns for each project
+- **"View All Articles"** — Complete blog collection
+
+### 📞 **Contact**
+- **Direct Messaging Form** — Send emails directly through the portfolio
+- **Availability Information** — Current status and project interests
+- **Collaboration Opportunities** — Areas of interest for partnerships
+
+### 📄 **Resume**
+- **Bilingual CV Showcase** — Professional resume in English and French
+- **Download Options** — PDF downloads for both language versions
+- **Clean Presentation** — Professional formatting and design
 
 ---
 
@@ -96,19 +136,22 @@ tahaverse/
 │   ├── 🧩 components/
 │   │   ├── common/          # Reusable UI components
 │   │   ├── sections/        # Page-specific sections
-│   │   ├── 3d/              # Three.js components
-│   │   └── animations/      # Framer Motion components
+│   │   ├── solar-system/    # Interactive project explorer
+│   │   └── animations/      # Smooth 60fps animations
 │   ├── 📑 pages/
-│   │   ├── Home/            # Landing page
-│   │   ├── About/           # About & skills
-│   │   ├── Projects/        # Project showcase
-│   │   ├── Blog/            # Blog system
-│   │   └── Resume/          # Resume & contact
+│   │   ├── Home/            # Main landing page
+│   │   ├── About/           # Education, Vision, Expertise
+│   │   ├── Projects/        # Featured + Solar System
+│   │   ├── Skills/          # 6 tech categories + certificates
+│   │   ├── Blogs/           # Insights + case studies
+│   │   ├── Contact/         # Direct messaging form
+│   │   └── Resume/          # Bilingual CV showcase
 │   ├── 📊 data/
-│   │   ├── projects.json    # Project metadata
-│   │   ├── skills.json      # Skills & technologies
-│   │   ├── experience.json  # Career timeline
-│   │   └── blog/            # Blog posts (MDX)
+│   │   ├── projects.json    # 3 featured + all projects
+│   │   ├── skills.json      # Frontend, Backend, AI/ML, etc.
+│   │   ├── certificates.json # AI, space tech, data science
+│   │   ├── blogs.json       # 4 articles + case studies
+│   │   └── github-stats.js  # Activity and contributions
 │   ├── 🔧 utils/
 │   │   ├── animations.js    # Framer Motion variants
 │   │   ├── three-helpers.js # Three.js utilities
@@ -168,9 +211,10 @@ npm run deploy       # Deploy to production
 Create a `.env` file in the root directory:
 ```env
 VITE_APP_TITLE=TahaVerse
-VITE_API_URL=https://api.tahaverse.dev
-VITE_ANALYTICS_ID=your-analytics-id
+VITE_GITHUB_USERNAME=yourusername
 VITE_EMAILJS_SERVICE_ID=your-emailjs-service-id
+VITE_EMAILJS_TEMPLATE_ID=your-template-id
+VITE_EMAILJS_PUBLIC_KEY=your-public-key
 ```
 
 ---
@@ -180,22 +224,22 @@ VITE_EMAILJS_SERVICE_ID=your-emailjs-service-id
 <table>
   <tr>
     <td align="center">
-      <strong>🌌 Hero Section</strong><br>
-      <img src="public/assets/screenshots/hero-section.png" width="300" alt="Hero Section"/>
+      <strong>🌌 Home Section</strong><br>
+      <img src="public/assets/screenshots/home-hero.png" width="300" alt="Home Section"/>
     </td>
     <td align="center">
-      <strong>🪐 Project Galaxy</strong><br>
-      <img src="public/assets/screenshots/project-gallery.png" width="300" alt="Project Gallery"/>
+      <strong>🌍 Solar System Projects</strong><br>
+      <img src="public/assets/screenshots/solar-system.png" width="300" alt="Solar System Projects"/>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <strong>🔭 Skills Constellation</strong><br>
+      <strong>🛠️ Skills & Certificates</strong><br>
       <img src="public/assets/screenshots/skills-section.png" width="300" alt="Skills Section"/>
     </td>
     <td align="center">
-      <strong>📱 Mobile Experience</strong><br>
-      <img src="public/assets/screenshots/mobile-view.png" width="300" alt="Mobile View"/>
+      <strong>📄 Resume Showcase</strong><br>
+      <img src="public/assets/screenshots/resume-page.png" width="300" alt="Resume Page"/>
     </td>
   </tr>
 </table>
@@ -206,27 +250,31 @@ VITE_EMAILJS_SERVICE_ID=your-emailjs-service-id
 
 | Metric | Score | Details |
 |--------|-------|---------|
-| **Performance** | 95/100 | Optimized assets, lazy loading, code splitting |
+| **Performance** | 95/100 | 60fps animations, optimized assets, lazy loading |
 | **Accessibility** | 98/100 | ARIA labels, keyboard navigation, color contrast |
-| **Best Practices** | 100/100 | HTTPS, CSP headers, modern JavaScript |
-| **SEO** | 92/100 | Meta tags, structured data, sitemap |
+| **Best Practices** | 100/100 | Clean code, modern JavaScript, responsive design |
+| **SEO** | 92/100 | Meta tags, structured data, semantic HTML |
+| **Cross-Device** | 100% | Optimized for mobile, tablet, and desktop |
 
 ---
 
 ## 🚀 Deployment
 
-### **Netlify (Recommended)**
+### **GitHub Pages**
 ```bash
-# Build command
+# Build and deploy to GitHub Pages
 npm run build
+npm run deploy
 
-# Publish directory
-dist
-
-# Environment variables
-VITE_APP_TITLE=TahaVerse
-VITE_API_URL=https://api.tahaverse.dev
+# Or using GitHub Actions (automatic deployment)
+git push origin main
 ```
+
+**GitHub Pages Configuration:**
+- **Source**: Deploy from `gh-pages` branch
+- **Build Command**: `npm run build`
+- **Publish Directory**: `dist/`
+- **Custom Domain**: Optional (configure in repository settings)
 
 ### **Vercel**
 ```bash
@@ -280,7 +328,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/taha-khamessi)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/yourusername)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=firefox&logoColor=white)](https://tahaverse.netlify.app)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=firefox&logoColor=white)](https://yourusername.github.io/tahaverse)
 
 ---
 
@@ -299,13 +347,13 @@ Your support fuels the cosmic drive! 🚀
 
 ## 🔮 Roadmap
 
-- [ ] **Dark/Light Theme Toggle** — User preference system
-- [ ] **Blog Comments System** — Interactive discussion platform
-- [ ] **Real-time Chat** — WebSocket-based communication
-- [ ] **3D Model Viewer** — Interactive project demonstrations
-- [ ] **Multi-language Support** — i18n implementation
-- [ ] **Analytics Dashboard** — Visitor insights and metrics
-- [ ] **PWA Features** — Offline functionality and push notifications
+- [ ] **Advanced Solar System** — Add asteroid belt with smaller projects
+- [ ] **Interactive Certificates** — 3D certificate viewer and verification
+- [ ] **Blog Comments System** — Reader engagement and discussions
+- [ ] **Real-time GitHub Stats** — Live coding activity dashboard
+- [ ] **Multi-language Support** — Portfolio in French and English
+- [ ] **Project Deep Dives** — Enhanced case study presentations
+- [ ] **Contact Form Analytics** — Message tracking and response system
 
 ---
 
