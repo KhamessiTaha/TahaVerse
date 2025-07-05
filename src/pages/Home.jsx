@@ -1,14 +1,14 @@
-import { Suspense, useState, useEffect, useCallback, useMemo } from 'react';
-import Navbar from '../components/layout/Navbar';
-import Hero from '../components/Hero';
-import About from '../components/sections/About';
-import Skills from '../components/sections/Skills';
-import FeaturedProjects from '../components/sections/FeaturedProjects';
-import Blogs from '../components/sections/Blogs';
-import Contact from '../components/sections/Contact';
-import Footer from '../components/layout/Footer';
-import StarsCanvas from '../components/StarsBackground';
-import CosmicLoadingScreen from '../components/CosmicLoadingScreen';
+import { Suspense, useState, useEffect, useCallback, useMemo } from "react";
+import Navbar from "../components/layout/Navbar";
+import Hero from "../components/Hero";
+import About from "../components/sections/About";
+import Skills from "../components/sections/Skills";
+import FeaturedProjects from "../components/sections/FeaturedProjects";
+import Blogs from "../components/sections/Blogs";
+import Contact from "../components/sections/Contact";
+import Footer from "../components/layout/Footer";
+import StarsCanvas from "../components/StarsBackground";
+import CosmicLoadingScreen from "../components/CosmicLoadingScreen";
 
 // Custom hook for video preloading
 const useVideoPreloader = (src) => {
@@ -18,11 +18,11 @@ const useVideoPreloader = (src) => {
   useEffect(() => {
     if (!src) return;
 
-    const video = document.createElement('video');
+    const video = document.createElement("video");
     video.src = src;
-    video.preload = 'metadata';
+    video.preload = "metadata";
     video.muted = true; // Ensure autoplay works
-    
+
     const handleCanPlayThrough = () => {
       setVideoLoaded(true);
       setVideoError(false);
@@ -36,20 +36,20 @@ const useVideoPreloader = (src) => {
     const handleError = () => {
       setVideoError(true);
       setVideoLoaded(false);
-      console.warn('Video failed to load:', src);
+      console.warn("Video failed to load:", src);
     };
 
-    video.addEventListener('canplaythrough', handleCanPlayThrough);
-    video.addEventListener('loadeddata', handleLoadedData);
-    video.addEventListener('error', handleError);
-    
+    video.addEventListener("canplaythrough", handleCanPlayThrough);
+    video.addEventListener("loadeddata", handleLoadedData);
+    video.addEventListener("error", handleError);
+
     // Start loading
     video.load();
-    
+
     return () => {
-      video.removeEventListener('canplaythrough', handleCanPlayThrough);
-      video.removeEventListener('loadeddata', handleLoadedData);
-      video.removeEventListener('error', handleError);
+      video.removeEventListener("canplaythrough", handleCanPlayThrough);
+      video.removeEventListener("loadeddata", handleLoadedData);
+      video.removeEventListener("error", handleError);
     };
   }, [src]);
 
@@ -57,7 +57,7 @@ const useVideoPreloader = (src) => {
 };
 
 // Enhanced video component with better error handling
-const BackgroundVideo = ({ src, onLoad, className = '' }) => {
+const BackgroundVideo = ({ src, onLoad, className = "" }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -68,15 +68,16 @@ const BackgroundVideo = ({ src, onLoad, className = '' }) => {
 
   const handleError = useCallback(() => {
     setHasError(true);
-    console.warn('Background video failed to load');
+    console.warn("Background video failed to load");
   }, []);
 
   if (hasError) {
     return (
-      <div 
+      <div
         className={`absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-black/40 ${className}`}
         style={{
-          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)'
+          backgroundImage:
+            "radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)",
         }}
         role="img"
         aria-label="Cosmic background"
@@ -85,32 +86,47 @@ const BackgroundVideo = ({ src, onLoad, className = '' }) => {
   }
 
   return (
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="metadata"
-      className={`w-full h-full object-cover transition-opacity duration-1000 ${
-        isPlaying ? 'opacity-70' : 'opacity-0'
-      } ${className}`}
-      style={{ 
-        filter: 'contrast(1.4) brightness(1.1) blur(1px)',
-        mixBlendMode: 'overlay'
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
       }}
-      onCanPlayThrough={handleCanPlay}
-      onLoadedData={handleCanPlay}
-      onError={handleError}
-      aria-hidden="true"
     >
-      <source src={src} type="video/webm" />
-    </video>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className={`object-cover transition-opacity duration-1000 ${
+          isPlaying ? "opacity-70" : "opacity-0"
+        } ${className}`}
+        style={{
+          position: "absolute",
+          top: "60vh", // Viewport-relative
+          left: "90vw", // Viewport-relative
+          transform: "translate(-50%, -50%) rotate(-40deg) scale(0.9)",
+          filter: "contrast(1.2) brightness(1) grayscale(0.3)",
+          mixBlendMode: "overlay",
+          maxWidth: "100%", // Prevent horizontal overflow
+          maxHeight: "100%", // Prevent vertical overflow
+        }}
+        onCanPlayThrough={handleCanPlay}
+        onLoadedData={handleCanPlay}
+        onError={handleError}
+        aria-hidden="true"
+      >
+        <source src={src} type="video/webm" />
+      </video>
+    </div>
   );
 };
 
 // Loading fallback component
 const VideoFallback = () => (
-  <div 
+  <div
     className="w-full h-full bg-gradient-to-br from-purple-900/20 to-blue-900/20 animate-pulse"
     role="img"
     aria-label="Loading cosmic background"
@@ -122,18 +138,18 @@ export default function Home() {
   const [contentReady, setContentReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  const videoSrc = '/assets/blackhole.webm';
+  const videoSrc = "/assets/blackhole.webm";
   const { videoLoaded, videoError } = useVideoPreloader(videoSrc);
 
   // Check for reduced motion preference
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mediaQuery.matches);
-    
+
     const handleChange = (e) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   // Handle content initialization
@@ -141,7 +157,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       setContentReady(true);
     }, 100);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -154,23 +170,46 @@ export default function Home() {
   }, []);
 
   // Memoize section configuration
-  const sections = useMemo(() => [
-    { id: 'home', component: Hero, className: 'relative min-h-screen mb-40' },
-    { id: 'about', component: About, className: 'relative min-h-screen py-20' },
-    { id: 'projects', component: FeaturedProjects, className: 'relative min-h-screen py-20' },
-    { id: 'skills', component: Skills, className: 'relative min-h-screen py-20' },
-    { id: 'blogs', component: Blogs, className: 'relative min-h-screen py-20' },
-    { id: 'contact', component: Contact, className: 'relative min-h-screen py-20' }
-  ], []);
+  const sections = useMemo(
+    () => [
+      { id: "home", component: Hero, className: "relative min-h-screen mb-40" },
+      {
+        id: "about",
+        component: About,
+        className: "relative min-h-screen py-20",
+      },
+      {
+        id: "projects",
+        component: FeaturedProjects,
+        className: "relative min-h-screen py-20",
+      },
+      {
+        id: "skills",
+        component: Skills,
+        className: "relative min-h-screen py-20",
+      },
+      {
+        id: "blogs",
+        component: Blogs,
+        className: "relative min-h-screen py-20",
+      },
+      {
+        id: "contact",
+        component: Contact,
+        className: "relative min-h-screen py-20",
+      },
+    ],
+    []
+  );
 
-  // Render background with your friend's transparency technique
   const renderBackground = () => {
     if (reducedMotion || videoError) {
       return (
-        <div 
-          className="absolute inset-0 z-10 w-full h-full bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-black/40"
+        <div
+          className="absolute inset-0 z-10 w-full h-full "
           style={{
-            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)'
+            backgroundImage:
+              "radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)",
           }}
           role="img"
           aria-label="Cosmic background"
@@ -181,17 +220,15 @@ export default function Home() {
     return (
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Suspense fallback={<VideoFallback />}>
-          <BackgroundVideo 
-            src={videoSrc}
-            onLoad={handleVideoLoad}
-          />
-          
+          <BackgroundVideo src={videoSrc} onLoad={handleVideoLoad} />
+
           {/* Fallback background while video loads */}
           {!videoLoaded && (
-            <div 
+            <div
               className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-black/40 animate-pulse"
               style={{
-                backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)'
+                backgroundImage:
+                  "radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)",
               }}
               role="img"
               aria-label="Loading cosmic background"
@@ -205,17 +242,17 @@ export default function Home() {
   return (
     <>
       {/* Skip to content link for accessibility */}
-      <a 
-        href="#main-content" 
+      <a
+        href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded"
       >
         Skip to main content
       </a>
 
       {/* Home page content */}
-      <div 
+      <div
         className={`relative w-full min-h-screen overflow-hidden text-white bg-black transition-opacity duration-1000 ${
-          contentReady ? 'opacity-100' : 'opacity-0'
+          contentReady ? "opacity-100" : "opacity-0"
         }`}
         role="main"
       >
@@ -223,25 +260,25 @@ export default function Home() {
         <div className="fixed inset-0 z-0" aria-hidden="true">
           <StarsCanvas />
         </div>
-        
+
         {/* Content (middle layer) */}
         <div className="relative z-20 flex flex-col min-h-screen">
           <Navbar />
-          
+
           {/* Main content sections */}
           <main id="main-content" className="flex-1">
             {sections.map(({ id, component: Component, className }, index) => (
-              <section 
-                key={id} 
-                id={id} 
+              <section
+                key={id}
+                id={id}
                 className={className}
                 aria-labelledby={`${id}-heading`}
               >
                 {/* Special handling for hero section with video background */}
-                {id === 'home' && renderBackground()}
-                
+                {id === "home" && renderBackground()}
+
                 {/* Section content */}
-                <div className={id === 'home' ? 'relative z-20' : ''}>
+                <div className={id === "home" ? "relative z-20" : ""}>
                   <Component />
                 </div>
               </section>
@@ -254,17 +291,22 @@ export default function Home() {
         {/* Enhanced styles with better mobile support */}
         <style jsx>{`
           @keyframes twinkle {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            0% {
+              opacity: 0.3;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0.5;
+            }
           }
-          
-          /* Video positioning like your friend's approach */
+
           video {
             /* The rotate-180 and top offset create the transparency effect */
             /* No additional transforms needed as it's handled in className */
           }
-          
+
           @media (max-width: 768px) {
             video {
               object-position: center center;
@@ -272,7 +314,7 @@ export default function Home() {
               top: -200px;
             }
           }
-          
+
           /* Reduce motion for accessibility */
           @media (prefers-reduced-motion: reduce) {
             * {
@@ -281,7 +323,7 @@ export default function Home() {
               transition-duration: 0.01ms !important;
             }
           }
-          
+
           /* Screen reader only utility */
           .sr-only {
             position: absolute;
@@ -294,7 +336,7 @@ export default function Home() {
             white-space: nowrap;
             border: 0;
           }
-          
+
           .focus\\:not-sr-only:focus {
             position: static;
             width: auto;
@@ -310,7 +352,7 @@ export default function Home() {
 
       {/* Loading screen overlay */}
       {showLoading && (
-        <CosmicLoadingScreen 
+        <CosmicLoadingScreen
           onLoadingComplete={handleLoadingComplete}
           minLoadingTime={2500}
         />

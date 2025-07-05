@@ -309,7 +309,7 @@ export default function Navbar() {
               {/* Mobile menu footer */}
               <div className="text-center text-sm text-white/40 pt-4 pb-2">
                 <p className="font-medium">Taha Khamessi</p>
-                <p>Full-Stack Dev & AI Engineer</p>
+                <p>Full-Stack Dev & AI Specialist</p>
               </div>
             </div>
           </div>
