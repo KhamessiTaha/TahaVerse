@@ -298,57 +298,96 @@ export default function Skills() {
           <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 to-red-500 mx-auto mb-6"></div>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
             Professional certifications that showcase expertise and continuous
-            learning
+            learning in AI, space technology, and data science
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {/* Certificate 1 */}
-          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105 hover:border-yellow-400/30">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                🏆
+          {/* Certificate 1 - Machine Learning Specialization */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 transform hover:scale-105 hover:border-purple-400/30">
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src="/assets/certificates/previews/machinelearningspecialization.png"
+                alt="Machine Learning Specialization Certificate Preview"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                🤖
               </div>
-              <h4 className="text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors">
-                Machine Learning Specialization
-              </h4>
-              <p className="text-white/60 text-sm">
-                Stanford University & DeepLearning.AI
-              </p>
-              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
-                2024
+            </div>
+            <div className="p-6">
+              <div className="flex flex-col items-center text-center space-y-3">
+                <h4 className="text-lg font-semibold text-white group-hover:text-purple-300 transition-colors">
+                  Machine Learning Specialization
+                </h4>
+                <p className="text-white/60 text-sm">DeepLearning.AI</p>
+                <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                  Jun 2024
+                </div>
+                <div className="text-xs text-purple-300 bg-purple-500/20 border border-purple-500/30 px-3 py-1 rounded-full">
+                  AI & ML
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Certificate 2 */}
-          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 transform hover:scale-105 hover:border-blue-400/30">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                ⚛️
+          {/* Certificate 2 - NASA Space Apps Challenge */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 transform hover:scale-105 hover:border-red-400/30">
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src="/assets/certificates/previews/galacticproblemsolver.png"
+                alt="NASA Space Apps Challenge Certificate Preview"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-red-500 to-orange-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                🚀
               </div>
-              <h4 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors">
-                React Developer Certification
-              </h4>
-              <p className="text-white/60 text-sm">Meta & Facebook</p>
-              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
-                2024
+            </div>
+            <div className="p-6">
+              <div className="flex flex-col items-center text-center space-y-3">
+                <h4 className="text-lg font-semibold text-white group-hover:text-red-300 transition-colors">
+                  Galactic Problem Solver
+                </h4>
+                <p className="text-white/60 text-sm">
+                  NASA Space Apps Challenge
+                </p>
+                <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                  Oct 2024
+                </div>
+                <div className="text-xs text-red-300 bg-red-500/20 border border-red-500/30 px-3 py-1 rounded-full">
+                  Space Tech
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Certificate 3 */}
-          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 transform hover:scale-105 hover:border-purple-400/30">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                ☁️
+          {/* Certificate 3 - Data-driven Astronomy */}
+          <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-teal-500/20 transition-all duration-300 transform hover:scale-105 hover:border-teal-400/30">
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src="/assets/certificates/previews/datadrivenastronomy.png"
+                alt="Data-driven Astronomy Certificate Preview"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                🔭
               </div>
-              <h4 className="text-lg font-semibold text-white group-hover:text-purple-300 transition-colors">
-                AWS Cloud Practitioner
-              </h4>
-              <p className="text-white/60 text-sm">Amazon Web Services</p>
-              <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
-                2024
+            </div>
+            <div className="p-6">
+              <div className="flex flex-col items-center text-center space-y-3">
+                <h4 className="text-lg font-semibold text-white group-hover:text-teal-300 transition-colors">
+                  Data-driven Astronomy
+                </h4>
+                <p className="text-white/60 text-sm">University of Sydney</p>
+                <div className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full">
+                  May 2020
+                </div>
+                <div className="text-xs text-teal-300 bg-teal-500/20 border border-teal-500/30 px-3 py-1 rounded-full">
+                  Data Science
+                </div>
               </div>
             </div>
           </div>

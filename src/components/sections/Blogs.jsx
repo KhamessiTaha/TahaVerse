@@ -2,40 +2,40 @@ import { Link } from "react-router-dom"
 
 export default function Blogs() {
   const featuredBlogs = [
-    {
-      id: 1,
-      title: "Building Award-Winning Space Applications",
-      excerpt:
-        "Insights and lessons learned from developing CosmicVue, the Global Finalist project in NASA's International Space Apps Challenge 2024, covering technical decisions, team collaboration, and innovation strategies.",
-      date: "2024-09-08",
-      readTime: "8 min read",
-      tags: ["NASA", "Space Technology", "Competition", "Innovation"],
-      image: "/assets/blogs/nasa.png",
-      link: "/case-studies/10",
-    },
-    {
-      id: 2,
-      title: "Physics-Informed Neural Networks in Practice",
-      excerpt:
-        "Deep dive into implementing Physics-Informed Neural Networks for cosmological research, exploring the challenges and opportunities of combining domain knowledge with deep learning architectures.",
-      date: "2025-02-11",
-      readTime: "12 min read",
-      tags: ["PINNs", "Scientific Computing", "Deep Learning", "Cosmology"],
-      image: "/assets/blogs/pinn.png",
-      link: "/case-studies/11",
-    },
-    {
-      id: 3,
-      title: "Real-time Collaboration Architecture",
-      excerpt:
-        "Building Scalable Multi-user Applications with WebSockets and Server-Sent Events: A comprehensive guide to designing and implementing real-time collaboration features in web applications, focusing on scalability and performance.",
-      date: "2024-11-10",
-      readTime: "10 min read",
-      tags: ["WebSocket", "Real-time", "Architecture", "Collaboration"],
-      image: "/assets/projects/cceditor.png",
-      link: "/case-studies/12",
-    },
-  ]
+  {
+    id: 1,
+    title: "Building CosmicVue: From 10,000 to Top 40 at NASA Space Apps Challenge 2024",
+    excerpt:
+      "The journey of creating CosmicVue, an interactive 3D solar system visualization that earned Global Finalist status (top 40 out of 10,000+ submissions) at NASA's International Space Apps Challenge 2024. Learn how I built an award-winning space application as a solo developer.",
+    date: "2024-11-15",
+    readTime: "16 min read",
+    tags: ["NASA", "Space Apps Challenge", "Three.js", "Vue.js", "3D Visualization", "Global Finalist"],
+    image: "/assets/blogs/nasa.png",
+    link: "/case-studies/10",
+  },
+  {
+    id: 2,
+    title: "Physics-Informed Neural Networks for Primordial Quantum Fluctuation Reconstruction",
+    excerpt:
+      "Novel application of Physics-Informed Neural Networks to reconstruct primordial quantum fluctuations from CMB data, incorporating the Mukhanov-Sasaki equation as a physics constraint to bridge traditional cosmological simulations with modern deep learning techniques.",
+    date: "2025-02-20",
+    readTime: "15 min read",
+    tags: ["PINNs", "Cosmology", "Quantum Fluctuations", "Deep Learning", "CMB", "Mukhanov-Sasaki"],
+    image: "/assets/blogs/pinn.png",
+    link: "/case-studies/11",
+  },
+  {
+    id: 3,
+    title: "CarVision: AI-Powered Car Recognition System",
+    excerpt:
+      "A comprehensive deep dive into building CarVision, a graduation project that achieves 70% accuracy across 899 car models using ResNet50 transfer learning, complete dataset preprocessing pipeline, and mobile deployment strategies. From 1.45M images to real-time mobile intelligence.",
+    date: "2024-08-10",
+    readTime: "12 min read",
+    tags: ["Computer Vision", "Transfer Learning", "Mobile AI", "Deep Learning", "TensorFlow"],
+    image: "/assets/blogs/carvision.png",
+    link: "/case-studies/12",
+  },
+];
 
   return (
     <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
