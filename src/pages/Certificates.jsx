@@ -60,9 +60,9 @@ export default function Certificates() {
         "/assets/certificates/CertificateOfCompletion_Career Essentials in Software Development by Microsoft and LinkedIn.pdf",
       credentialId:
         "5df1fcb4a73d2d8915f4460526a8dcb0c5d9d01f88d27325aa95e70f633ac293",
-      credentialUrl: "https://www.linkedin.com/learning/certificates/5df1fcb4a73d2d8915f4460526a8dcb0c5d9d01f88d27325aa95e70f633ac293",
-      previewImage:
-        "/assets/certificates/previews/careeressentials.png",
+      credentialUrl:
+        "https://www.linkedin.com/learning/certificates/5df1fcb4a73d2d8915f4460526a8dcb0c5d9d01f88d27325aa95e70f633ac293",
+      previewImage: "/assets/certificates/previews/careeressentials.png",
       icon: "🏢",
       color: "from-blue-500 to-indigo-600",
       badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
@@ -78,9 +78,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/NASA Space Apps Challenge.pdf",
       downloadUrl: "/assets/certificates/NASA Space Apps Challenge.pdf",
       credentialId: null,
-      credentialUrl: "https://www.spaceappschallenge.org/nasa-space-apps-2024/find-a-team/cosmoarchitects/",
-      previewImage:
-        "/assets/certificates/previews/galacticproblemsolver.png",
+      credentialUrl:
+        "https://www.spaceappschallenge.org/nasa-space-apps-2024/find-a-team/cosmoarchitects/",
+      previewImage: "/assets/certificates/previews/galacticproblemsolver.png",
       icon: "🚀",
       color: "from-red-500 to-orange-600",
       badgeColor: "bg-red-500/20 text-red-300 border-red-500/30",
@@ -96,7 +96,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/ml-specialization.pdf",
       downloadUrl: "/assets/certificates/ml-specialization.pdf",
       credentialId: "W2C26DYFWZKV",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/W2C26DYFWZKV",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/specialization/W2C26DYFWZKV",
       previewImage:
         "/assets/certificates/previews/machinelearningspecialization.png",
       icon: "🤖",
@@ -116,9 +117,9 @@ export default function Certificates() {
       downloadUrl:
         "/assets/certificates/Supervised Machine Learning Regression and Classification.pdf",
       credentialId: "JPR9GVUYB4VM",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/JPR9GVUYB4VM",
-      previewImage:
-        "/assets/certificates/previews/supervisedlearning.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/JPR9GVUYB4VM",
+      previewImage: "/assets/certificates/previews/supervisedlearning.png",
       icon: "📊",
       color: "from-green-500 to-teal-600",
       badgeColor: "bg-green-500/20 text-green-300 border-green-500/30",
@@ -134,9 +135,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Reinforcement Learning.pdf",
       downloadUrl: "/assets/certificates/Reinforcement Learning.pdf",
       credentialId: "2PH4R7C9Q2QN",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/2PH4R7C9Q2QN",
-      previewImage:
-        "/assets/certificates/previews/unsupervisedlearning.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/2PH4R7C9Q2QN",
+      previewImage: "/assets/certificates/previews/unsupervisedlearning.png",
       icon: "🔮",
       color: "from-cyan-500 to-blue-600",
       badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
@@ -152,7 +153,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Advanced Learning Algorithms.pdf",
       downloadUrl: "/assets/certificates/Advanced Learning Algorithms.pdf",
       credentialId: "73AZR3QYY432",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/73AZR3QYY432",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/73AZR3QYY432",
       previewImage:
         "/assets/certificates/previews/advancedlearningalgorithms.png",
       icon: "⚡",
@@ -170,7 +172,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/pythonprojects.pdf",
       downloadUrl: "/assets/certificates/pythonprojects.pdf",
       credentialId: "4b320f86-f917-4bb0-9de5-929c145901d1",
-      credentialUrl: "https://www.credly.com/badges/4b320f86-f917-4bb0-9de5-929c145901d1/linked_in_profile",
+      credentialUrl:
+        "https://www.credly.com/badges/4b320f86-f917-4bb0-9de5-929c145901d1/linked_in_profile",
       previewImage:
         "/assets/certificates/previews/python-project-for-data-science.png",
       icon: "🐍",
@@ -188,7 +191,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/pythonfordatascienceandai.pdf",
       downloadUrl: "/assets/certificates/pythonfordatascienceandai.pdf",
       credentialId: "7517e8e3-7a1f-48aa-8858-956fad1bc302",
-      credentialUrl: "https://www.credly.com/badges/7517e8e3-7a1f-48aa-8858-956fad1bc302/public_url",
+      credentialUrl:
+        "https://www.credly.com/badges/7517e8e3-7a1f-48aa-8858-956fad1bc302/public_url",
       previewImage:
         "/assets/certificates/previews/python-for-data-science-and-ai.png",
       icon: "🐍",
@@ -206,7 +210,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/datasciencemethodology.pdf",
       downloadUrl: "/assets/certificates/datasciencemethodology.pdf",
       credentialId: "a9841da6-ef29-4bd7-9782-edf29edc9c15",
-      credentialUrl: "https://www.credly.com/badges/a9841da6-ef29-4bd7-9782-edf29edc9c15/public_url",
+      credentialUrl:
+        "https://www.credly.com/badges/a9841da6-ef29-4bd7-9782-edf29edc9c15/public_url",
       previewImage:
         "/assets/certificates/previews/data-science-methodology.png",
       icon: "🐍",
@@ -224,9 +229,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Analyzing The Universe.pdf",
       downloadUrl: "/assets/certificates/Analyzing The Universe.pdf",
       credentialId: "YZ95ZHGL5R5Y",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/YZ95ZHGL5R5Y",
-      previewImage:
-        "/assets/certificates/previews/analyzingtheuniverse.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/YZ95ZHGL5R5Y",
+      previewImage: "/assets/certificates/previews/analyzingtheuniverse.png",
       icon: "🌌",
       color: "from-violet-500 to-purple-600",
       badgeColor: "bg-violet-500/20 text-violet-300 border-violet-500/30",
@@ -242,9 +247,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Data-driven Astronomy.pdf",
       downloadUrl: "/assets/certificates/Data-driven Astronomy.pdf",
       credentialId: "DTULVRDRHKDJ",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/DTULVRDRHKDJ",
-      previewImage:
-        "/assets/certificates/previews/datadrivenastronomy.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/DTULVRDRHKDJ",
+      previewImage: "/assets/certificates/previews/datadrivenastronomy.png",
       icon: "🔭",
       color: "from-teal-500 to-cyan-600",
       badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/30",
@@ -260,9 +265,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Astro 101 Black Holes.pdf",
       downloadUrl: "/assets/certificates/Astro 101 Black Holes.pdf",
       credentialId: "6SEXDSGBDQHR",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/6SEXDSGBDQHR",
-      previewImage:
-        "/assets/certificates/previews/astro101blackholes.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/6SEXDSGBDQHR",
+      previewImage: "/assets/certificates/previews/astro101blackholes.png",
       icon: "🕳️",
       color: "from-gray-700 to-gray-900",
       badgeColor: "bg-gray-500/20 text-gray-300 border-gray-500/30",
@@ -278,7 +283,8 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Neural Networks and Deep Learning.pdf",
       downloadUrl: "/assets/certificates/Neural Networks and Deep Learning.pdf",
       credentialId: "FA8KQMDSMWKU",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/FA8KQMDSMWKU",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/FA8KQMDSMWKU",
       previewImage:
         "/assets/certificates/previews/neuralnetworksanddeeplearning.png",
       icon: "🧠",
@@ -298,9 +304,9 @@ export default function Certificates() {
       downloadUrl:
         "/assets/certificates/Python for Data Science, AI & Development.pdf",
       credentialId: "H3FJKM2L8VLC",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/H3FJKM2L8VLC",
-      previewImage:
-        "/assets/certificates/previews/pythonfordatascience.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/H3FJKM2L8VLC",
+      previewImage: "/assets/certificates/previews/pythonfordatascience.png",
       icon: "🎯",
       color: "from-emerald-500 to-green-600",
       badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
@@ -316,9 +322,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Tools for Data Science.pdf",
       downloadUrl: "/assets/certificates/Tools for Data Science.pdf",
       credentialId: "SWAH7N7STE4K",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/H3FJKM2L8VLC",
-      previewImage:
-        "/assets/certificates/previews/toolsfordatascience.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/H3FJKM2L8VLC",
+      previewImage: "/assets/certificates/previews/toolsfordatascience.png",
       icon: "🛠️",
       color: "from-orange-500 to-red-600",
       badgeColor: "bg-orange-500/20 text-orange-300 border-orange-500/30",
@@ -334,9 +340,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Python Data Structures.pdf",
       downloadUrl: "/assets/certificates/Python Data Structures.pdf",
       credentialId: "H7A3V9XAJQBZ",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/H7A3V9XAJQBZ",
-      previewImage:
-        "/assets/certificates/previews/pythondatastructures.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/H7A3V9XAJQBZ",
+      previewImage: "/assets/certificates/previews/pythondatastructures.png",
       icon: "🏗️",
       color: "from-blue-600 to-indigo-700",
       badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
@@ -352,9 +358,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Data Science.pdf",
       downloadUrl: "/assets/certificates/Data Science.pdf",
       credentialId: "PMJRHWQ6GDT2",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/PMJRHWQ6GDT2",
-      previewImage:
-        "/assets/certificates/previews/whatisdatascience.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/PMJRHWQ6GDT2",
+      previewImage: "/assets/certificates/previews/whatisdatascience.png",
       icon: "📈",
       color: "from-purple-600 to-pink-700",
       badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/30",
@@ -370,9 +376,9 @@ export default function Certificates() {
       pdfSrc: "/assets/certificates/Programming for Everybody.pdf",
       downloadUrl: "/assets/certificates/Programming for Everybody.pdf",
       credentialId: "ABBD5FHQBUB5",
-      credentialUrl: "https://www.coursera.org/account/accomplishments/verify/ABBD5FHQBUB5",
-      previewImage:
-        "/assets/certificates/previews/programmingforeverybody.png",
+      credentialUrl:
+        "https://www.coursera.org/account/accomplishments/verify/ABBD5FHQBUB5",
+      previewImage: "/assets/certificates/previews/programmingforeverybody.png",
       icon: "📚",
       color: "from-green-600 to-teal-700",
       badgeColor: "bg-green-500/20 text-green-300 border-green-500/30",
@@ -389,8 +395,7 @@ export default function Certificates() {
       downloadUrl: "/certificates/Python Core.pdf",
       credentialId: "1073-14739594",
       credentialUrl: "https://www.sololearn.com/Certificate/1073-14739594/pdf/",
-      previewImage:
-        "/assets/certificates/previews/pythoncore.png",
+      previewImage: "/assets/certificates/previews/pythoncore.png",
       icon: "🐍",
       color: "from-yellow-600 to-orange-700",
       badgeColor: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
@@ -454,17 +459,17 @@ export default function Certificates() {
   const yearsActive = new Date().getFullYear() - 2019 + 1;
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden py-20 px-6 sm:px-10 lg:px-20">
+    <div className="min-h-screen text-white relative overflow-hidden py-16 sm:py-20 px-4 sm:px-6 md:px-10 lg:px-20">
       {/* Stars Background */}
       <div className="fixed inset-0 -z-10">
         <StarsCanvas />
       </div>
 
       {/* Enhanced Back Button */}
-      <div className="absolute top-8 left-8 z-50">
+      <div className="absolute top-4 sm:top-8 left-4 sm:left-8 z-50">
         <Link
           to="/"
-          className="group flex items-center gap-3 px-6 py-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/60 rounded-full text-gray-300 hover:text-white hover:border-slate-600 hover:bg-slate-700/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+          className="group flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/60 rounded-full text-gray-300 hover:text-white hover:border-slate-600 hover:bg-slate-700/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
         >
           <svg
             className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
@@ -479,7 +484,7 @@ export default function Certificates() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="font-medium">Back to Home</span>
+          <span className="font-medium text-sm sm:text-base">Back to Home</span>
         </Link>
       </div>
 
@@ -487,13 +492,13 @@ export default function Certificates() {
       <div className="max-w-7xl mx-auto mt-16">
         <div className="text-center mb-16">
           <div className="mb-6">
-            <h1 className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 animate-pulse">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 animate-pulse">
               My Professional Certificates
             </h1>
             <div className="w-32 h-1 bg-gradient-to-r from-yellow-400 to-red-500 mx-auto rounded-full"></div>
           </div>
 
-          <p className="text-white/80 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-white/80 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed px-4">
             A comprehensive collection of professional certifications spanning
             AI, data science, programming, and astronomy. Representing{" "}
             {yearsActive} years of continuous learning and professional
@@ -513,12 +518,12 @@ export default function Certificates() {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12 px-4">
           {categories.map((category) => (
             <button
               key={category.key}
               onClick={() => setSelectedCategory(category.key)}
-              className={`group relative px-6 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+              className={`group relative px-3 sm:px-6 py-2 sm:py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                 selectedCategory === category.key
                   ? "bg-gradient-to-r from-yellow-400 to-red-500 text-white shadow-lg shadow-yellow-500/25"
                   : "bg-white/10 text-white/70 hover:bg-white/20 backdrop-blur-sm border border-white/10 hover:border-white/20"
@@ -526,7 +531,7 @@ export default function Certificates() {
             >
               <span className="flex items-center gap-2">
                 <span className="text-lg">{category.icon}</span>
-                <span className="text-sm">{category.label}</span>
+                <span className="text-xs sm:text-sm">{category.label}</span>
               </span>
               {selectedCategory === category.key && (
                 <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-lg animate-pulse"></div>
@@ -544,7 +549,7 @@ export default function Certificates() {
         </div>
 
         {/* Certificates Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16">
           {filteredCertificates.map((cert, index) => (
             <div
               key={cert.id}
@@ -581,7 +586,7 @@ export default function Certificates() {
 
               {/* Certificate Content */}
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2">
                   {cert.title}
                 </h3>
                 <p className="text-gray-400 text-sm mb-3 font-medium">
@@ -601,10 +606,10 @@ export default function Certificates() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <button
                   onClick={() => handleFullscreen(cert.pdfSrc)}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-cyan-900/30 hover:bg-cyan-800/40 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 hover:text-cyan-100 rounded-lg transition-all duration-300 text-sm font-medium"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2 bg-cyan-900/30 hover:bg-cyan-800/40 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 hover:text-cyan-100 rounded-lg transition-all duration-300 text-xs sm:text-sm font-medium"
                 >
                   <EyeIcon className="w-4 h-4" />
                   View
@@ -648,7 +653,7 @@ export default function Certificates() {
         </div>
 
         {/* Enhanced Stats Section */}
-        <div className="grid md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16">
           <div className="text-center bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6">
             <div className="text-3xl font-bold text-cyan-400 mb-2">
               {totalCertificates}
@@ -681,25 +686,25 @@ export default function Certificates() {
             Learning Journey
           </h3>
           <div className="text-center space-y-4">
-            <div className="flex justify-center items-center gap-4 text-sm text-gray-300">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-300 text-center">
               <span className="bg-yellow-500/20 px-3 py-1 rounded-full">
                 2019
               </span>
               <span>Started with Python fundamentals</span>
             </div>
-            <div className="flex justify-center items-center gap-4 text-sm text-gray-300">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-300 text-center">
               <span className="bg-blue-500/20 px-3 py-1 rounded-full">
                 2020
               </span>
               <span>Expanded into AI, Data Science & Astronomy</span>
             </div>
-            <div className="flex justify-center items-center gap-4 text-sm text-gray-300">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-300 text-center">
               <span className="bg-purple-500/20 px-3 py-1 rounded-full">
                 2022
               </span>
               <span>Advanced data science and universe analysis</span>
             </div>
-            <div className="flex justify-center items-center gap-4 text-sm text-gray-300">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-300 text-center">
               <span className="bg-green-500/20 px-3 py-1 rounded-full">
                 2024
               </span>
