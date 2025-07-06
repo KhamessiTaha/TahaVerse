@@ -17,7 +17,7 @@
   <h3>🚀 Explore the cosmos of code and creativity</h3>
   <p>An immersive developer portfolio that transforms your projects into an interactive solar system journey</p>
   
-  **[🌐 Live Demo](https://khamessitaha.github.io/) | [📱 Mobile View](https://khamessitaha.github.io/) | [🎥 Video Demo](#)**
+  **[🌐 Live Demo](https://khamessitaha.github.io/) **
 </div>
 
 ---
