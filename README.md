@@ -34,21 +34,31 @@ src/
 │   │   ├── Navbar.jsx
 │   │   └── Footer.jsx
 │   ├── sections/
-│   │   ├── Hero.jsx
 │   │   ├── About.jsx
 │   │   ├── Skills.jsx
 │   │   ├── FeaturedProjects.jsx
 │   │   ├── Blogs.jsx
 │   │   └── Contact.jsx
+│   ├── Blog.jsx
+│   ├── CaseStudy.jsx
+│   ├── Cat.jsx
+│   ├── CosmicScroll.jsx
+│   ├── ProjectList.jsx
+│   ├── ProjectSystem.jsx
+│   ├── Hero.jsx
 │   ├── StarsBackground.jsx
 │   └── CosmicLoadingScreen.jsx
 ├── pages/
-│   └── Home.jsx
-├── assets/
-│   └── videos/
-│       └── blackhole.webm
-└── styles/
-    └── index.css
+│   ├── Home.jsx
+│   ├── Certificates.jsx
+│   ├── Resume.jsx
+│   ├── Projects.jsx
+│   └── CaseStudies.jsx
+├── metadata/
+│   ├── metadata.js
+├── index.css
+├── App.jsx
+└── main.jsx
 ```
 
 ## 🚀 Getting Started
