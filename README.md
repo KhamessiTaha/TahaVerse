@@ -72,8 +72,8 @@ src/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/khamessitaha/khamessitaha.github.io.git
-cd khamessitaha.github.io
+git clone https://github.com/khamessitaha/TahaVerse.git
+cd TahaVerse
 ```
 
 2. Install dependencies
