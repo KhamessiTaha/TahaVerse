@@ -96,15 +96,20 @@ const Blog = ({ item, index }) => {
     let i = 0;
 
     // 🔒 Extract multi-line code blocks first (```...```)
-    processed = processed.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-      const key = `__CODE_BLOCK_${i}__`;
-      codeBlockPlaceholders.push({
-        key,
-        content: `<pre><code class="language-${lang || 'text'}">${code.trim()}</code></pre>`,
-      });
-      i++;
-      return key;
-    });
+    processed = processed.replace(
+      /```(\w+)?\n([\s\S]*?)```/g,
+      (match, lang, code) => {
+        const key = `__CODE_BLOCK_${i}__`;
+        codeBlockPlaceholders.push({
+          key,
+          content: `<pre><code class="language-${
+            lang || "text"
+          }">${code.trim()}</code></pre>`,
+        });
+        i++;
+        return key;
+      }
+    );
 
     // 🔒 Extract display math blocks ($$...$$)
     processed = processed.replace(/\$\$([^$]+)\$\$/g, (match, math) => {
@@ -133,7 +138,7 @@ const Blog = ({ item, index }) => {
 
     processed = processed.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     processed = processed.replace(/\*(.+?)\*/g, "<em>$1</em>");
-    
+
     // ✅ Handle inline code blocks (preserving structure)
     processed = processed.replace(/`([^`\n]+)`/g, "<code>$1</code>");
 
@@ -163,12 +168,16 @@ const Blog = ({ item, index }) => {
     });
 
     processed = processed.replace(/(<tr>.*<\/tr>)/s, "<table>$1</table>");
-    
+
     // ✅ Better paragraph handling - preserve code structure
     processed = processed.replace(/\n\n/g, "</p><p>");
     processed = processed.replace(/\n/g, "<br />");
 
-    if (!processed.startsWith("<h") && !processed.startsWith("<table") && !processed.startsWith("<pre")) {
+    if (
+      !processed.startsWith("<h") &&
+      !processed.startsWith("<table") &&
+      !processed.startsWith("<pre")
+    ) {
       processed = "<p>" + processed + "</p>";
     }
 
@@ -250,12 +259,12 @@ const Blog = ({ item, index }) => {
   }, [contentSections]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div className="min-h-screen text-white">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
+        className="max-w-4xl xl:max-w-6xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-12 sm:py-16 lg:py-20"
       >
         {/* Header Section */}
         <motion.div variants={itemVariants} className="mb-16">
@@ -264,7 +273,7 @@ const Blog = ({ item, index }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8"
           >
             <span className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 rounded-full text-sm font-semibold border border-purple-500/30 shadow-lg shadow-purple-500/10">
               📝 Blog Post
@@ -308,7 +317,7 @@ const Blog = ({ item, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 leading-tight px-2 sm:px-0"
           >
             {item.title}
           </motion.h1>
@@ -318,7 +327,7 @@ const Blog = ({ item, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2 sm:px-0"
           >
             {item.subtitle}
           </motion.p>
@@ -328,13 +337,13 @@ const Blog = ({ item, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-wrap gap-3 mb-8"
+            className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8 px-2 sm:px-0"
           >
             {item.tags.map((tag, i) => (
               <motion.span
                 key={i}
                 whileHover={{ scale: 1.05 }}
-                className="px-4 py-2 bg-gradient-to-r from-slate-700/60 to-slate-600/60 backdrop-blur-sm text-gray-300 rounded-full text-sm font-medium border border-slate-600/30 hover:border-purple-500/50 transition-all duration-300"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-slate-700/60 to-slate-600/60 backdrop-blur-sm text-gray-300 rounded-full text-xs sm:text-sm font-medium border border-slate-600/30 hover:border-purple-500/50 transition-all duration-300"
               >
                 #{tag}
               </motion.span>
@@ -417,7 +426,7 @@ const Blog = ({ item, index }) => {
           className="prose prose-invert prose-lg max-w-none"
         >
           {/* Content rendering */}
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-slate-700/50 mx-2 sm:mx-0">
             <div className="blog-content-container">
               {contentSections.map((section, idx) => (
                 <motion.div
@@ -698,37 +707,79 @@ const Blog = ({ item, index }) => {
         }
 
         /* Responsive design */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
+          .blog-content-container {
+            font-size: 0.9rem;
+            line-height: 1.6;
+          }
+
           .blog-content h1 {
-            font-size: 2rem;
+            font-size: 1.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
           }
 
           .blog-content h2 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
           }
 
           .blog-content h3 {
             font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .blog-content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
           }
 
           .blog-content table {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            border-radius: 0.5rem;
           }
 
           .blog-content th,
           .blog-content td {
-            padding: 0.75rem;
+            padding: 0.5rem;
           }
+
+          .blog-content pre {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+          }
+
+          .blog-content code {
+            font-size: 0.8em;
+            padding: 0.2rem 0.4rem;
+          }
+
+          .blog-content ul,
+          .blog-content ol {
+            padding-left: 1.5rem;
+          }
+
           .math-block {
-            text-align: center;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 0.75rem;
-            max-width: 100%;
+            margin: 1rem auto;
+            padding: 1rem;
+            font-size: 0.9rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .blog-content table {
+            display: block;
             overflow-x: auto;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+          }
+
+          .blog-content pre {
+            font-size: 0.8rem;
           }
         }
       `}</style>
