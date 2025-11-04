@@ -408,85 +408,107 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Current Availability - Full Width */}
-        <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
-          <div className="relative bg-slate-800/30 backdrop-blur-xl border border-slate-600/40 rounded-2xl p-8">
-            <div className="text-center mb-8">
-              <h4 className="text-3xl font-bold text-slate-300 mb-4 flex items-center justify-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-700/40 flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-slate-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                Current Availability
-              </h4>
-              <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
-                Open to new opportunities and collaborations. Here's what I'm currently focusing on:
-              </p>
-            </div>
+        {/* Current Focus - With Teamwill Logo */}
+<div className="relative group">
+  <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+  <div className="relative bg-slate-800/30 backdrop-blur-xl border border-slate-600/40 rounded-2xl p-8">
+    <div className="text-center mb-8">
+      <h4 className="text-3xl font-bold text-slate-300 mb-4 flex items-center justify-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-slate-700/40 flex items-center justify-center">
+          <svg
+            className="w-5 h-5 text-slate-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        </div>
+        Current Focus
+      </h4>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { 
-                  icon: "🤖", 
-                  title: "AI/ML Development", 
-                  description: "Machine learning models, AI consulting, and intelligent system design",
-                  color: "from-slate-600/30 to-slate-700/30"
-                },
-                { 
-                  icon: "🔬", 
-                  title: "Research Collaborations", 
-                  description: "Academic partnerships, research projects, and scientific publications",
-                  color: "from-gray-600/30 to-gray-700/30"
-                },
-                { 
-                  icon: "💻", 
-                  title: "Full-Stack Development", 
-                  description: "Web applications, mobile apps, and scalable software solutions",
-                  color: "from-stone-600/30 to-stone-700/30"
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="group/item relative p-6 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-xl hover:border-slate-500/60 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-lg overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-700/20 to-transparent translate-x-[-100%] group-hover/item:translate-x-[100%] transition-transform duration-1000"></div>
-                  <div className="relative z-10">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${item.color} flex items-center justify-center text-2xl mb-4 group-hover/item:scale-110 transition-transform duration-300 mx-auto`}>
-                      {item.icon}
-                    </div>
-                    <h5 className="text-xl font-bold text-white mb-3 text-center">
-                      {item.title}
-                    </h5>
-                    <p className="text-gray-300 text-center leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* --- TEAMWILL LOGO --- */}
+      <div className="flex justify-center mb-4">
+        <div className="p-2 bg-gradient-to-r from-slate-700/30 to-slate-800/30 rounded-xl inline-flex">
+          <img
+            src="/logos/teamwill-logo1.png"
+            alt="Teamwill Group Logo"
+  className="h-19 md:h-16 object-contain opacity-90 hover:opacity-100 hover:drop-shadow-[0_0_6px_rgba(59,130,246,0.4)] transition-all duration-300"
+          />
+        </div>
+      </div>
 
-            <div className="mt-8 text-center">
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-slate-800/40 rounded-full border border-slate-600/50">
-                <div className="w-3 h-3 bg-green-500/80 rounded-full animate-pulse"></div>
-                <span className="text-green-400/80 font-medium">
-                  Available for new projects starting Q3 2025
-                </span>
-              </div>
+      <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
+        Currently working as a{" "}
+        <span className="font-semibold text-slate-100">
+          Consultant Technico-Fonctionnel at Teamwill Group
+        </span>
+        , focusing on digital transformation, system integration, and innovative business solutions.
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-3 gap-6">
+      {[
+        {
+          icon: "⚙️",
+          title: "Consulting & Implementation",
+          description:
+            "Designing and delivering end-to-end functional and technical solutions for enterprise systems.",
+          color: "from-slate-600/30 to-slate-700/30",
+        },
+        {
+          icon: "💡",
+          title: "Digital Transformation",
+          description:
+            "Supporting business innovation through technology-driven process optimization and automation.",
+          color: "from-gray-600/30 to-gray-700/30",
+        },
+        {
+          icon: "🤝",
+          title: "Collaborations & Knowledge Sharing",
+          description:
+            "Open to research partnerships, mentoring, and speaking engagements on tech-business alignment.",
+          color: "from-stone-600/30 to-stone-700/30",
+        },
+      ].map((item, idx) => (
+        <div
+          key={idx}
+          className="group/item relative p-6 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-xl hover:border-slate-500/60 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-lg overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-700/20 to-transparent translate-x-[-100%] group-hover/item:translate-x-[100%] transition-transform duration-1000"></div>
+          <div className="relative z-10">
+            <div
+              className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${item.color} flex items-center justify-center text-2xl mb-4 group-hover/item:scale-110 transition-transform duration-300 mx-auto`}
+            >
+              {item.icon}
             </div>
+            <h5 className="text-xl font-bold text-white mb-3 text-center">
+              {item.title}
+            </h5>
+            <p className="text-gray-300 text-center leading-relaxed">
+              {item.description}
+            </p>
           </div>
         </div>
+      ))}
+    </div>
+
+    <div className="mt-8 text-center">
+      <div className="inline-flex items-center gap-3 px-6 py-3 bg-slate-800/40 rounded-full border border-slate-600/50">
+        <div className="w-3 h-3 bg-blue-500/80 rounded-full animate-pulse"></div>
+        <span className="text-blue-400/80 font-medium">
+          Fully engaged at Teamwill Group | Open for collaborations & knowledge exchange
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   );
